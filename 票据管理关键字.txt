@@ -1,0 +1,9 @@
+*** Keywords ***
+票据管理
+    sleep    2
+    Run Keyword And Continue On Failure    click Element    xpath=//a[contains(.,'票据管理')]
+    sleep    5
+    票据管理窗口
+
+票据管理窗口
+    Run Keyword And Continue On Failure    select frame    id=Finance_Invoice

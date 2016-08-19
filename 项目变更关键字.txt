@@ -1,0 +1,71 @@
+*** Keywords ***
+项目变更
+    Run Keyword And Continue On Failure    click Element    xpath=//a[contains(.,'项目变更')]
+
+项目变更窗口
+    Run Keyword And Continue On Failure    select frame    id=ProjectAllot_ChangeApply
+    Wait Until Page Contains    流水号
+
+项目变更流水号
+    [Arguments]    ${流水号}
+    Input Text    xpath=//*[@id="pno"]    ${流水号}
+    sleep    2
+
+清空项目变更流水号
+    Run Keyword And Continue On Failure    Clear Element Text    xpath=//*[@id="pno"]
+
+项目变更报告编号
+    [Arguments]    ${报告编号}
+    Run Keyword And Continue On Failure    Input Text    xpath=//*[@id="rpno"]    ${报告编号}
+    sleep    2
+
+清空项目变更报告编号
+    Run Keyword And Continue On Failure    Clear Element Text    xpath=//*[@id="rpno"]
+
+项目变更项目地址
+    [Arguments]    ${项目地址}
+    Run Keyword And Continue On Failure    Input Text    xpath=//*[@id="address"]    ${项目地址}
+
+清空项目变更项目地址
+    Run Keyword And Continue On Failure    Clear Element Text    xpath=//*[@id="address"]
+
+清空项目变更小区名称
+    Run Keyword And Continue On Failure    Clear Element Text    xpath=//*[@id="areaname"]
+
+项目变更小区名称
+    [Arguments]    ${小区名称}
+    Run Keyword And Continue On Failure    Input Text    xpath=//*[@id="areaname"]    ${小区名称}
+
+修改加出份数
+    [Arguments]    ${加出份数}
+    Input Text    xpath=//*[@id="AdditionCopies"]    ${加出份数}
+
+提取加出份数
+    ${加出份数修}    get value    xpath=//*[@id="AdditionCopies"]
+
+清空项目收费金额
+    Clear Element Text    xpath=//*[@id="tbcustomer"]/tbody/tr[3]/td[2]/span/input[1]
+
+项目变更审批
+    sleep    2
+    click Element    xpath=//a[contains(.,'变更审批')]
+
+项目变更审批窗口
+    sleep    2
+    select frame    id=ProjectAllot_ChangeApprove
+    sleep    2
+    Wait Until Page Contains    流水号
+
+项目变更审批流水号
+    [Arguments]    ${流水号}
+    Input Text    xpath=//*[@id="pno"]    ${流水号}
+    sleep    2
+
+清空项目变更审批流水号
+    Clear Element Text    xpath=//*[@id="pno"]
+
+项目变更审批报告编号
+    [Arguments]    ${报告编号}
+    Input Text    xpath=//*[@id="rpno"]    ${报告编号}
+
+清空项目变更审批报告编号

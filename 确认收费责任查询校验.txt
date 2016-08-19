@@ -1,0 +1,72 @@
+*** Keywords ***
+收费责任按流水号查询校验
+    [Arguments]    ${勘流水号}    ${流水号}
+    run keyword if    ${勘流水号}==${流水号}    Capture Page Screenshot    收费责任按流水号查询获取数据成功.png
+    ...    ELSE    Capture Page Screenshot    收费责任按流水号查询获取数据失败.png
+    run keyword if    ${勘流水号}==${流水号}    log    pass
+    ...    ELSE    Fail
+
+收费责任按报告编号查询获取数据校验
+    [Arguments]    ${报告编号}    ${勘报告编号}
+    run keyword if    ${报告编号}==${勘报告编号}    Capture Page Screenshot    收费责任按报告编号查询获取数据成功.png
+    ...    ELSE    Capture Page Screenshot    收费责任按报告编号查询获取数据失败.png
+    run keyword if    ${报告编号}==${勘报告编号}    log    pass
+    ...    ELSE    Fail
+
+收费责任按小区名称查询获取数据校验
+    [Arguments]    ${小区名称}    ${勘小区名称}
+    run keyword if    '${小区名称}'=='${勘小区名称}'    Capture Page Screenshot    收费责任按小区名称查询获取数据成功.png
+    ...    ELSE    Capture Page Screenshot    收费责任按小区名称查询获取数据失败.png
+    run keyword if    '${小区名称}'=='${勘小区名称}'    log    pass
+    ...    ELSE    Fail
+
+收费责任按项目地址查询获取数据校验
+    [Arguments]    ${项目地址}    ${勘项目地址}
+    run keyword if    '${项目地址}'=='${勘项目地址}'    Capture Page Screenshot    收费责任按项目地址查询获取数据成功.png
+    ...    ELSE    Capture Page Screenshot    收费责任按项目地址查询获取数据失败.png
+    run keyword if    '${项目地址}'=='${勘项目地址}'    log    pass
+    ...    ELSE    Fail
+
+收费责任按是否确认查询获取数据校验
+    [Arguments]    ${收是否确认}    ${状态}
+    run keyword if    '${收是否确认}'=='是' and '${状态}'=='yes'    Capture Page Screenshot    收费责任按已确认查询获取数据成功.png
+    ...    ELSE IF    '${收是否确认}'=='否' and '${状态}'=='not'    Capture Page Screenshot    收费责任按未确认查询获取数据成功.png
+    ...    ELSE    Fail
+    Comment    run keyword if    '${项目地址}'=='${勘项目地址}'    log    pass
+    ...    ELSE    Fail
+
+应收金额申请按流水号查询校验
+    [Arguments]    ${勘流水号}    ${流水号}
+    run keyword if    ${勘流水号}==${流水号}    Capture Page Screenshot    应收金额申请按流水号查询获取数据成功.png
+    ...    ELSE    Capture Page Screenshot    应收金额申请按流水号查询获取数据失败.png
+    run keyword if    ${勘流水号}==${流水号}    log    pass
+    ...    ELSE    Fail
+
+应收金额申请按报告编号查询获取数据校验
+    [Arguments]    ${报告编号}    ${勘报告编号}
+    run keyword if    ${报告编号}==${勘报告编号}    Capture Page Screenshot    应收金额申请按报告编号查询获取数据成功.png
+    ...    ELSE    Capture Page Screenshot    应收金额申请按报告编号查询获取数据失败.png
+    run keyword if    ${报告编号}==${勘报告编号}    log    pass
+    ...    ELSE    Fail
+
+应收金额申请按项目地址查询获取数据校验
+    [Arguments]    ${项目地址}    ${勘项目地址}
+    run keyword if    '${项目地址}'=='${勘项目地址}'    Capture Page Screenshot    应收金额申请按项目地址查询获取数据成功.png
+    ...    ELSE    Capture Page Screenshot    应收金额申请按项目地址查询获取数据失败.png
+    run keyword if    '${项目地址}'=='${勘项目地址}'    log    pass
+    ...    ELSE    Fail
+
+应收金额申请按小区名称查询获取数据校验
+    [Arguments]    ${小区名称}    ${勘小区名称}
+    run keyword if    '${小区名称}'=='${勘小区名称}'    Capture Page Screenshot    应收金额申请按小区名称查询获取数据成功.png
+    ...    ELSE    Capture Page Screenshot    应收金额申请按小区名称查询获取数据失败.png
+    run keyword if    '${小区名称}'=='${勘小区名称}'    log    pass
+    ...    ELSE    Fail
+
+应收金额申请按状态查询获取数据校验
+    [Arguments]    ${收状态}    ${状态 }
+    run keyword if    '${状态 }'=='true' and '${收状态}'=='通过'    Capture Page Screenshot    应收金额申请按审核通过查询获取数据成功.png
+    ...    ELSE IF    '${状态 }'=='false' and '${收状态}'=='不通过'    Capture Page Screenshot    应收金额申请按不通过查询获取数据成功.png
+    ...    ELSE    fail
+    Comment    run keyword if    '${状态}'=='${收状态}'    log    pass
+    ...    ELSE    Fail

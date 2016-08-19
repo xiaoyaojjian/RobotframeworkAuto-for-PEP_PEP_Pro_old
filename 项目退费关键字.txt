@@ -1,0 +1,26 @@
+*** Keywords ***
+项目退费
+    sleep    2
+    Run Keyword And Continue On Failure    click Element    xpath=//a[contains(.,'项目退费')]
+    sleep    5
+    项目退费窗口
+
+项目退费窗口
+    Run Keyword And Continue On Failure    select frame    id=Finance_Refund
+    Wait Until Page Contains    报告编号
+
+清空项目退费流水号
+    Run Keyword And Continue On Failure    Clear Element Text    xpath=//*[@id="toolbar"]/table/tbody/tr[1]/td[1]/span/input[1]
+
+清空项目退费报告编号
+    Clear Element Text    xpath=//*[@id="toolbar"]/table/tbody/tr[1]/td[2]/span/input[1]
+
+清空项目退费项目地址
+    Clear Element Text    xpath=//*[@id="toolbar"]/table/tbody/tr[1]/td[3]/span/input[1]
+
+清空项目退费小区名称
+    Clear Element Text    xpath=//*[@id="toolbar"]/table/tbody/tr[1]/td[4]/span/input[1]
+
+清空项目退费实收金额
+    Clear Element Text    xpath=//*[@id="toolbar"]/table/tbody/tr[2]/td[2]/span[1]/input[1]
+    Clear Element Text    xpath=//*[@id="toolbar"]/table/tbody/tr[2]/td[2]/span[2]/input[1]

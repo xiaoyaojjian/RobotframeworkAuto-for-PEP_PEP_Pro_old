@@ -1,0 +1,37 @@
+*** Keywords ***
+项目审核
+    Comment    sleep    8
+    Comment    click Element    //*[@id="expmenu-freebie"]/li/ul/li[3]/div
+    Run Keyword And Continue On Failure    click Element    xpath=//a[contains(.,'项目审核')]
+    Comment    sleep    5
+    项目审核窗口
+
+项目审核窗口
+    select frame    id=ProjectAllot_Audit
+    Wait Until Page Contains    未审核
+
+项目审核查询
+    Run Keyword And Continue On Failure    click Element    xpath=//*[@id="toolbarNo"]/div/table/tbody/tr/td[11]/a
+
+项目审核项目地址
+    [Arguments]    ${项目地址}
+    Run Keyword And Continue On Failure    Input text    xpath=//*[@id="ProAddress"]    ${项目地址}
+
+清空项目审核项目地址
+    clear Element Text    xpath=//*[@id="ProAddress"]
+
+项目审核小区名称
+    [Arguments]    ${项目审核小区名称}
+    Run Keyword And Continue On Failure    Input text    xpath=//*[@id="xqName"]    ${项目审核小区名称}
+
+清空项目审核小区名称
+    clear Element Text    xpath=//*[@id="xqName"]
+
+项目审核中
+    click Element    xpath=//*[@id="tabs"]/div[1]/div[3]/ul/li[2]/a
+
+项目审核完
+    click Element    xpath=//*[@id="tabs"]/div[1]/div[3]/ul/li[3]/a
+
+审核接收
+    click Element    xpath=//*[@id="datagrid-row-r6-1-0"]/td/div/a[1]

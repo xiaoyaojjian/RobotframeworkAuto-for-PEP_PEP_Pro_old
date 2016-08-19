@@ -1,0 +1,57 @@
+*** Keywords ***
+项目收费查询
+    Run Keyword And Continue On Failure    click Element    xpath=//*[@id="BtnSearch"]
+
+项目收费窗口
+    Run Keyword And Continue On Failure    select frame    id=Finance_AdvanceCharge
+    Wait Until Page Contains    未完成收费项目
+
+金额修改
+    Run Keyword And Continue On Failure    click Element    xpath=//*[@id="BtnEdit"]
+
+清空最低收费
+    Run Keyword And Continue On Failure    Clear Element Text    xpath=/html/body/div/center/span[1]/input[1]
+
+清空应收金额
+    Run Keyword And Continue On Failure    Clear Element Text    xpath=/html/body/div/center/span[2]/input[1]
+
+新最低收费
+    [Arguments]    ${最低收费新}
+    Run Keyword And Continue On Failure    Input Text    xpath=/html/body/div/center/span[1]/input[1]    ${最低收费新}
+
+新应收金额
+    [Arguments]    ${应收金额新}
+    Run Keyword And Continue On Failure    Input Text    xpath=/html/body/div/center/span[2]/input[1]    ${应收金额新}
+
+确定
+    click Element    xpath=//*[@id="BtnOK"]
+
+添加
+    Run Keyword And Continue On Failure    click Element    xpath=//a[text()='添加']
+
+项目收费地址
+    [Arguments]    ${项目地址}
+    Run Keyword And Continue On Failure    Input text    xpath=//*[@id="ProjectAddress"]    ${项目地址}
+
+清空项目收费地址
+    Clear Element Text    xpath=//*[@id="ProjectAddress"]
+
+清空项目收费票据号
+    Run Keyword And Continue On Failure    Clear Element Text    xpath=//*[@id="OrderNo"]
+
+项目收费票据号
+    [Arguments]    ${票据号}
+    Run Keyword And Continue On Failure    Input Text    xpath=//*[@id="OrderNo"]    ${票据号}
+
+项目收费收费责任人
+    [Arguments]    ${收费责任人}
+    Run Keyword And Continue On Failure    Input Text    xpath=//*[@id="FinanceEmployeeName"]    ${收费责任人}
+
+清空项目收费收费责任人
+    Run Keyword And Continue On Failure    Clear Element Text    xpath=//*[@id="FinanceEmployeeName"]
+
+项目收费实收金额(元)
+    [Arguments]    ${实收金额(元)1}    ${实收金额(元)2}
+    Input Text    xpath=//*[@id="toolbarNo"]/div/table/tbody/tr[2]/td[6]/span[1]/input[1]    ${实收金额(元)1}
+    sleep    2
+    Input Text    xpath=//*[@id="toolbarNo"]/div/table/tbody/tr[2]/td[6]/span[2]/input[1]    ${实收金额(元)2}

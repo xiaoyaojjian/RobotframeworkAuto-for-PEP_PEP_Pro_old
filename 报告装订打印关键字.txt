@@ -1,0 +1,32 @@
+*** Keywords ***
+报告打印装订
+    click Element    xpath=//a[contains(.,'报告打印装订')]
+
+报告打印装订窗口
+    Run Keyword And Continue On Failure    select frame    id=ProjectAllot_PrintSewing
+    Wait Until Page Contains    流水号
+
+报告装订查询
+    Run Keyword And Continue On Failure    click Element    xpath=//*[@id="BtnSearch"]
+
+清空报告装订打印项目地址
+    Run Keyword And Continue On Failure    Clear Element Text    xpath=//*[@id="ResidentialAreaAddress"]
+
+报告打印装订地址
+    [Arguments]    ${项目地址}
+    Run Keyword And Continue On Failure    Input Text    xpath=//*[@id="ResidentialAreaAddress"]    ${项目地址}
+
+报告打印装订小区名
+    [Arguments]    ${小区名}
+    Run Keyword And Continue On Failure    Input Text    xpath=//*[@id="ResidentialAreaName"]    ${小区名}
+
+清空报告装订打印项目小区名
+    Run Keyword And Continue On Failure    Clear Element Text    xpath=//*[@id="ResidentialAreaName"]
+
+装订状态完成
+    ${a}    set variable    装订已完成
+    Capture Page Screenshot    装订已完成.png
+
+装订状态未完成
+    ${b}    set variable    装订未完成
+    Capture Page Screenshot    装订未完成.png

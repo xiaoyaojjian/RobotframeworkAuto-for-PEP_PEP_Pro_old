@@ -1,0 +1,104 @@
+*** Keywords ***
+收费确认（未）按流水号查询校验
+    [Arguments]    ${收费确认流水号}    ${流水号}
+    run keyword if    ${收费确认流水号}==${流水号}    Capture Page Screenshot    收费确认未确认按流水号查询获取数据成功.png
+    ...    ELSE    Capture Page Screenshot    收费确认未确认按流水号查询获取数据失败.png
+    run keyword if    ${收费确认流水号}==${流水号}    log    pass
+    ...    ELSE    Fail
+
+收费确认（未）按报告编号查询校验
+    [Arguments]    ${报告编号}    ${收费确认报告编号}
+    run keyword if    ${报告编号}==${收费确认报告编号}    Capture Page Screenshot    收费确认未确认按报告编号查询获取数据成功.png
+    ...    ELSE    Capture Page Screenshot    收费确认未确认按报告编号查询获取数据失败.png
+    run keyword if    ${报告编号}==${收费确认报告编号}    log    pass
+    ...    ELSE    Fail
+
+收费确认（未）按项目地址查询校验
+    [Arguments]    ${项目地址}    ${收费确认项目地址}
+    run keyword if    '${项目地址}'=='${收费确认项目地址}'    Capture Page Screenshot    收费确认未确认按项目地址查询获取数据成功.png
+    ...    ELSE    Capture Page Screenshot    收费确认未确认按项目地址查询获取数据失败.png
+    run keyword if    '${项目地址}'=='${收费确认项目地址}'    log    pass
+    ...    ELSE    Fail
+
+收费确认（未）按小区名称查询校验
+    [Arguments]    ${小区名称}    ${收费确认小区名称}
+    run keyword if    '${小区名称}'=='${收费确认小区名称}'    Capture Page Screenshot    收费确认未确认按小区名称查询获取数据成功.png
+    ...    ELSE    Capture Page Screenshot    收费确认未确认按小区名称查询获取数据失败.png
+    run keyword if    '${小区名称}'=='${收费确认小区名称}'    log    pass
+    ...    ELSE    Fail
+
+收费确认（未）按票据号查询校验
+    [Arguments]    ${收费确认票据号}    ${票据号}
+    run keyword if    ${收费确认票据号}==${票据号}    Capture Page Screenshot    收费确认未确认按票据号查询获取数据成功.png
+    ...    ELSE    Capture Page Screenshot    收费确认未确认按票据号查询获取数据失败.png
+    run keyword if    ${收费确认票据号}==${票据号}    log    pass
+    ...    ELSE    Fail
+
+收费确认（未）按费用添加人查询校验
+    [Arguments]    ${收费添加人}    ${收费确认收费添加人}
+    run keyword if    '${收费添加人}'=='${收费确认收费添加人}'    Capture Page Screenshot    收费确认未确认按收费添加人查询获取数据成功.png
+    ...    ELSE    Capture Page Screenshot    收费确认未确认按收费添加人查询获取数据失败.png
+    run keyword if    '${收费添加人}'=='${收费确认收费添加人}'    log    pass
+    ...    ELSE    Fail
+
+收费确认（未）按发生金额(元)查询校验
+    [Arguments]    ${发生金额(元)1}    ${发生金额(元)2}    ${收费确认发生金额(元)}
+    Comment    ${a}    set variable    Convert To Integer    ${实收金额(元)1}
+    Comment    ${b}    set variable    Convert To Integer    ${实收金额(元)2}
+    Comment    ${c}    set variable    Convert To Integer    ${项目收费实收金额(元)}
+    run keyword if    ${收费确认发生金额(元)}>=${发生金额(元)1} and ${发生金额(元)2} >= ${收费确认发生金额(元)}    Capture Page Screenshot    收费确认未确认按发生金额查询获取数据成功.png
+    ...    ELSE    Capture Page Screenshot    收费确认未确认按发生金额查询获取数据失败.png
+    run keyword if    ${收费确认发生金额(元)}>=${发生金额(元)1} and ${发生金额(元)2} >= ${收费确认发生金额(元)}    log    pass
+    ...    ELSE    Fail
+
+收费确认（已）按流水号查询校验
+    [Arguments]    ${收费确认流水号}    ${流水号}
+    run keyword if    ${收费确认流水号}==${流水号}    Capture Page Screenshot    收费确认已确认按流水号查询获取数据成功.png
+    ...    ELSE    Capture Page Screenshot    收费确认已确认按流水号查询获取数据失败.png
+    run keyword if    ${收费确认流水号}==${流水号}    log    pass
+    ...    ELSE    Fail
+
+收费确认（已）按报告编号查询校验
+    [Arguments]    ${报告编号}    ${收费确认报告编号}
+    run keyword if    ${报告编号}==${收费确认报告编号}    Capture Page Screenshot    收费确认已确认按报告编号查询获取数据成功.png
+    ...    ELSE    Capture Page Screenshot    收费确认已确认按报告编号查询获取数据失败.png
+    run keyword if    ${报告编号}==${收费确认报告编号}    log    pass
+    ...    ELSE    Fail
+
+收费确认（已）按项目地址查询校验
+    [Arguments]    ${项目地址}    ${收费确认项目地址}
+    run keyword if    '${项目地址}'=='${收费确认项目地址}'    Capture Page Screenshot    收费确认已确认按项目地址查询获取数据成功.png
+    ...    ELSE    Capture Page Screenshot    收费确认已确认按项目地址查询获取数据失败.png
+    run keyword if    '${项目地址}'=='${收费确认项目地址}'    log    pass
+    ...    ELSE    Fail
+
+收费确认（已）按小区名称查询校验
+    [Arguments]    ${小区名称}    ${收费确认小区名称}
+    run keyword if    '${小区名称}'=='${收费确认小区名称}'    Capture Page Screenshot    收费确认已确认按小区名称查询获取数据成功.png
+    ...    ELSE    Capture Page Screenshot    收费确认已确认按小区名称查询获取数据失败.png
+    run keyword if    '${小区名称}'=='${收费确认小区名称}'    log    pass
+    ...    ELSE    Fail
+
+收费确认（已）按票据号查询校验
+    [Arguments]    ${收费确认票据号}    ${票据号}
+    run keyword if    '${收费确认票据号}'=='${票据号}'    Capture Page Screenshot    收费确认已确认按票据号查询获取数据成功.png
+    ...    ELSE    Capture Page Screenshot    收费确认已确认按票据号查询获取数据失败.png
+    run keyword if    '${收费确认票据号}'=='${票据号}'    log    pass
+    ...    ELSE    Fail
+
+收费确认（已）按费用添加人查询校验
+    [Arguments]    ${收费添加人}    ${收费确认收费添加人}
+    run keyword if    '${收费添加人}'=='${收费确认收费添加人}'    Capture Page Screenshot    收费确认已确认按收费添加人查询获取数据成功.png
+    ...    ELSE    Capture Page Screenshot    收费确认已确认按收费添加人查询获取数据失败.png
+    run keyword if    '${收费添加人}'=='${收费确认收费添加人}'    log    pass
+    ...    ELSE    Fail
+
+收费确认（已）按发生金额(元)查询校验
+    [Arguments]    ${发生金额(元)1}    ${发生金额(元)2}    ${收费确认发生金额(元)}
+    Comment    ${a}    set variable    Convert To Integer    ${实收金额(元)1}
+    Comment    ${b}    set variable    Convert To Integer    ${实收金额(元)2}
+    Comment    ${c}    set variable    Convert To Integer    ${项目收费实收金额(元)}
+    run keyword if    ${收费确认发生金额(元)}>=${发生金额(元)1} and ${发生金额(元)2} >= ${收费确认发生金额(元)}    Capture Page Screenshot    收费确认已确认按发生金额查询获取数据成功.png
+    ...    ELSE    Capture Page Screenshot    收费确认已确认按发生金额查询获取数据失败.png
+    run keyword if    ${收费确认发生金额(元)}>=${发生金额(元)1} and ${发生金额(元)2} >= ${收费确认发生金额(元)}    log    pass
+    ...    ELSE    Fail

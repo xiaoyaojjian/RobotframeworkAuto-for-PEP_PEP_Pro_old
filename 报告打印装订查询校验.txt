@@ -1,0 +1,28 @@
+*** Keywords ***
+报告打印装订按流水号查询校验
+    [Arguments]    ${项目打印装订流水号}    ${流水号}
+    run keyword if    ${项目打印装订流水号}==${流水号}    Capture Page Screenshot    项目打印装订流水号查询获取数据成功.png
+    ...    ELSE    Capture Page Screenshot    项目打印装订流水号查询获取数据失败.png
+    run keyword if    ${项目打印装订流水号}==${流水号}    log    pass
+    ...    ELSE    Fail
+
+报告打印装订按报告编号查询校验
+    [Arguments]    ${项目打印装订报告编号}    ${报告编号}
+    run keyword if    ${项目打印装订报告编号}==${报告编号}    Capture Page Screenshot    项目打印装订报告编号查询获取数据成功.png
+    ...    ELSE    Capture Page Screenshot    项目打印装订报告编号查询获取数据失败.png
+    run keyword if    ${项目打印装订报告编号}==${报告编号}    log    pass
+    ...    ELSE    Fail
+
+报告打印装订按项目地址查询校验
+    [Arguments]    ${项目打印装订项目地址}    ${项目地址}
+    run keyword if    '${项目打印装订项目地址}'=='${项目地址}'    Capture Page Screenshot    项目打印装订项目地址询获取数据成功.png
+    ...    ELSE    Capture Page Screenshot    项目打印装订项目地址询获取数据失败.png
+    run keyword if    '${项目打印装订项目地址}'=='${项目地址}'    log    pass
+    ...    ELSE    Fail
+
+报告打印装订按项目小区名查询校验
+    [Arguments]    ${项目打印装订项目小区名}    ${小区名}
+    run keyword if    '${项目打印装订项目小区名}'=='${小区名}'    Capture Page Screenshot    项目打印装订项目小区名询获取数据成功.png
+    ...    ELSE    Capture Page Screenshot    项目打印装订项目小区名询获取数据失败.png
+    run keyword if    '${项目打印装订项目小区名}'=='${小区名}'    log    pass
+    ...    ELSE    Fail

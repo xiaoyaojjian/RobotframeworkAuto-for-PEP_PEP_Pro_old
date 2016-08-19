@@ -1,0 +1,12 @@
+*** Keywords ***
+应收账款
+    sleep    5
+    Comment    click Element    //*[@id="expmenu-freebie"]/li/ul/li[3]/div
+    sleep    1
+    Run Keyword And Continue On Failure    click Element    xpath=//*[@id="expmenu-freebie"]/li/ul/li[7]/ul/li[1]/a
+    sleep    5
+    应收账款窗口
+
+应收账款窗口
+    Run Keyword And Continue On Failure    select frame    id=Market_MoneyCollected
+    Wait Until Page Contains    流水号

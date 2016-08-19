@@ -1,0 +1,27 @@
+*** Keywords ***
+项目销毁按流水号查询校验
+    [Arguments]    ${项目销毁流水号}    ${流水号}
+    run keyword if    ${项目销毁流水号}==${流水号}    Capture Page Screenshot    项目销毁按流水号查询获取数据成功.png
+    ...    ELSE    Capture Page Screenshot    项目销毁按流水号查询获取数据失败.png
+    run keyword if    ${项目销毁流水号}==${流水号}    log    pass
+    ...    ELSE    Fail
+
+项目销毁按报告编号查询校验
+    [Arguments]    ${项目销毁报告编号}    ${报告编号}
+    run keyword if    ${项目销毁报告编号}==${报告编号}    Capture Page Screenshot    项目销毁按报告编号查询获取数据成功.png
+    ...    ELSE    Capture Page Screenshot    项目销毁按报告编号查询获取数据失败.png
+    run keyword if    ${项目销毁报告编号}==${报告编号}    log    pass
+    ...    ELSE    Fail
+
+项目销毁按项目地址查询校验
+    [Arguments]    ${项目销毁项目地址}    ${项目地址}
+    run keyword if    '${项目销毁项目地址}'=='${项目地址}'    Capture Page Screenshot    项目销毁按项目地址查询获取数据成功.png
+    ...    ELSE    Capture Page Screenshot    项目销毁按项目地址查询获取数据失败.png
+    run keyword if    '${项目销毁项目地址}'=='${项目地址}'    log    pass
+    ...    ELSE    Fail
+
+项目销毁按状态查询校验
+    [Arguments]    ${项目销毁状态}    ${状态}
+    run keyword if    '${状态}'=='false' and '${项目销毁状态}'=='销毁报告'    Capture Page Screenshot    项目销毁按状态未销毁查询获取数据成功.png
+    ...    ELSE IF    '${状态}'=='true' and '${项目销毁状态}'=='添加销毁记录'    Capture Page Screenshot    项目销毁按状态已销毁查询获取数据成功.png
+    ...    ELSE    Capture Page Screenshot    项目销毁按状态全部查询获取数据成功.png

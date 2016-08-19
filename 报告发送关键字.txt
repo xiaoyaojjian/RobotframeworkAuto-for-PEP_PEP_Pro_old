@@ -1,0 +1,9 @@
+*** Keywords ***
+报告发送
+    sleep    2
+    Run Keyword And Continue On Failure    click Element    xpath=//a[contains(.,'报告发送')]
+
+报告发送窗口
+    sleep    2
+    Run Keyword And Continue On Failure    select frame    id=ProjectAllot_Send
+    Wait Until Page Contains    发送状态

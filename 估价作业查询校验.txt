@@ -1,0 +1,154 @@
+*** Keywords ***
+估价作业（未）按流水号查询校验
+    [Arguments]    ${估流水号}    ${流水号}
+    run keyword if    ${估流水号}==${流水号}    Capture Page Screenshot    估价作业未领取按流水号查询获取数据成功.png
+    ...    ELSE    Capture Page Screenshot    估价作业未领取按流水号查询获取数据失败.png
+    run keyword if    ${估流水号}==${流水号}    log    pass
+    ...    ELSE    Fail
+
+估价作业（未）按报告编号查询校验
+    [Arguments]    ${报告编号}    ${估报告编号}
+    run keyword if    ${报告编号}==${估报告编号}    Capture Page Screenshot    估价作业未领取按报告编号查询获取数据成功.png
+    ...    ELSE    Capture Page Screenshot    估价作业未领取按报告编号查询获取数据失败.png
+    run keyword if    ${报告编号}==${估报告编号}    log    pass
+    ...    ELSE    Fail
+
+估价作业（未）按旧流水号查询校验
+    [Arguments]    ${旧流水号}    ${估旧流水号}
+    run keyword if    ${旧流水号}==${估旧流水号}    Capture Page Screenshot    估价作业未领取按旧流水号查询获取数据成功.png
+    ...    ELSE    Capture Page Screenshot    估价作业未领取按旧流水号查询获取数据失败.png
+    run keyword if    ${旧流水号}==${估旧流水号}    log    pass
+    ...    ELSE    Fail
+
+估价作业（未）按旧报告编号查询校验
+    [Arguments]    ${旧报告编号}    ${估旧报告编号}
+    run keyword if    ${旧报告编号}==${估旧报告编号}    Capture Page Screenshot    估价作业未领取按旧报告编号查询获取数据成功.png
+    ...    ELSE    Capture Page Screenshot    估价作业未领取按旧报告编号查询获取数据失败.png
+    run keyword if    ${旧报告编号}==${估旧报告编号}    log    pass
+    ...    ELSE    Fail
+
+估价作业（未）按项目地址查询获取数据校验
+    [Arguments]    ${项目地址}    ${估项目地址}
+    run keyword if    '${项目地址}'=='${估项目地址}'    Capture Page Screenshot    估价作业未领取按项目地址查询获取数据成功.png
+    ...    ELSE    Capture Page Screenshot    估价作业未领取按项目地址查询获取数据失败.png
+    run keyword if    '${项目地址}'=='${估项目地址}'    log    pass
+    ...    ELSE    Fail
+
+估价作业（未）按小区名称查询获取数据校验
+    [Arguments]    ${小区名称}    ${估小区名称}
+    run keyword if    '${小区名称}'=='${估小区名称}'    Capture Page Screenshot    估价作业未领取按小区名称查询获取数据成功.png
+    ...    ELSE    Capture Page Screenshot    估价作业未领取按小区名称查询获取数据失败.png
+    run keyword if    '${小区名称}'=='${估小区名称}'    log    pass
+    ...    ELSE    Fail
+
+估价作业（未）按紧急程度查询获取数据校验
+    [Arguments]    ${紧急程度}    ${估紧急程度}
+    run keyword if    '${紧急程度}'=='${估紧急程度}'    Capture Page Screenshot    估价作业未领取按紧急程度查询获取数据成功.png
+    ...    ELSE    Capture Page Screenshot    估价作业未领取按紧急程度查询获取数据失败.png
+    run keyword if    '${紧急程度}'=='${估紧急程度}'    log    pass
+    ...    ELSE    Fail
+
+估价作业（进）按流水号查询校验
+    [Arguments]    ${估流水号}    ${流水号}
+    run keyword if    ${估流水号}==${流水号}    Capture Page Screenshot    估价作业进行中按流水号查询获取数据成功.png
+    ...    ELSE    Capture Page Screenshot    估价作业进行中按流水号查询获取数据失败.png
+    run keyword if    ${估流水号}==${流水号}    log    pass
+    ...    ELSE    Fail
+
+估价作业（进）按报告编号查询校验
+    [Arguments]    ${报告编号}    ${估报告编号}
+    run keyword if    ${报告编号}==${估报告编号}    Capture Page Screenshot    估价作业进行中按报告编号查询获取数据成功.png
+    ...    ELSE    Capture Page Screenshot    估价作业进行中按报告编号查询获取数据失败.png
+    run keyword if    ${报告编号}==${估报告编号}    log    pass
+    ...    ELSE    Fail
+
+估价作业（进）按旧流水号查询校验
+    [Arguments]    ${旧流水号}    ${估旧流水号}
+    run keyword if    ${旧流水号}==${估旧流水号}    Capture Page Screenshot    估价作业进行中按旧流水号查询获取数据成功.png
+    ...    ELSE    Capture Page Screenshot    估价作业进行中按旧流水号查询获取数据失败.png
+    run keyword if    ${旧流水号}==${估旧流水号}    log    pass
+    ...    ELSE    Fail
+
+估价作业（进）按旧报告编号查询校验
+    [Arguments]    ${旧报告编号}    ${估旧报告编号}
+    run keyword if    ${旧报告编号}==${估旧报告编号}    Capture Page Screenshot    估价作业进行中按旧报告编号查询获取数据成功.png
+    ...    ELSE    Capture Page Screenshot    估价作业进行中按旧报告编号查询获取数据失败.png
+    run keyword if    ${旧报告编号}==${估旧报告编号}    log    pass
+    ...    ELSE    Fail
+
+估价作业（进）按项目地址查询获取数据校验
+    [Arguments]    ${项目地址}    ${估项目地址}
+    run keyword if    '${项目地址}'=='${估项目地址}'    Capture Page Screenshot    估价作业进行中按项目地址查询获取数据成功.png
+    ...    ELSE    Capture Page Screenshot    估价作业进行中按项目地址查询获取数据失败.png
+    run keyword if    '${项目地址}'=='${估项目地址}'    log    pass
+    ...    ELSE    Fail
+
+估价作业（进）按小区名称查询获取数据校验
+    [Arguments]    ${小区名称}    ${估小区名称}
+    run keyword if    '${小区名称}'=='${估小区名称}'    Capture Page Screenshot    估价作业进行中按小区名称查询获取数据成功.png
+    ...    ELSE    Capture Page Screenshot    估价作业进行中按小区名称查询获取数据失败.png
+    run keyword if    '${小区名称}'=='${估小区名称}'    log    pass
+    ...    ELSE    Fail
+
+估价作业（进）按紧急程度查询获取数据校验
+    [Arguments]    ${紧急程度}    ${估紧急程度}
+    run keyword if    '${紧急程度}'=='${估紧急程度}'    Capture Page Screenshot    估价作业进行中按紧急程度查询获取数据成功.png
+    ...    ELSE    Capture Page Screenshot    估价作业进行中按紧急程度查询获取数据失败.png
+    run keyword if    '${紧急程度}'=='${估紧急程度}'    log    pass
+    ...    ELSE    Fail
+
+估价作业（完）按流水号查询校验
+    [Arguments]    ${估流水号}    ${流水号}
+    run keyword if    ${估流水号}==${流水号}    Capture Page Screenshot    估价作业完成按流水号查询获取数据成功.png
+    ...    ELSE    Capture Page Screenshot    估价作业完成按流水号查询获取数据失败.png
+    run keyword if    ${估流水号}==${流水号}    log    pass
+    ...    ELSE    Fail
+
+估价作业（完）按报告编号查询校验
+    [Arguments]    ${报告编号}    ${估报告编号}
+    run keyword if    ${报告编号}==${估报告编号}    Capture Page Screenshot    估价作业完成按报告编号查询获取数据成功.png
+    ...    ELSE    Capture Page Screenshot    估价作业完成按报告编号查询获取数据失败.png
+    run keyword if    ${报告编号}==${估报告编号}    log    pass
+    ...    ELSE    Fail
+
+估价作业（完）按旧流水号查询校验
+    [Arguments]    ${旧流水号}    ${估旧流水号}
+    run keyword if    ${旧流水号}==${估旧流水号}    Capture Page Screenshot    估价作业完成按旧流水号查询获取数据成功.png
+    ...    ELSE    Capture Page Screenshot    估价作业完成按旧流水号查询获取数据失败.png
+    run keyword if    ${旧流水号}==${估旧流水号}    log    pass
+    ...    ELSE    Fail
+
+估价作业（完）按旧报告编号查询校验
+    [Arguments]    ${旧报告编号}    ${估旧报告编号}
+    run keyword if    ${旧报告编号}==${估旧报告编号}    Capture Page Screenshot    估价作业完成按旧报告编号查询获取数据成功.png
+    ...    ELSE    Capture Page Screenshot    估价作业完成按旧报告编号查询获取数据失败.png
+    run keyword if    ${旧报告编号}==${估旧报告编号}    log    pass
+    ...    ELSE    Fail
+
+估价作业（完）按项目地址查询获取数据校验
+    [Arguments]    ${项目地址}    ${估项目地址}
+    run keyword if    '${项目地址}'=='${估项目地址}'    Capture Page Screenshot    估价作业完成按项目地址查询获取数据成功.png
+    ...    ELSE    Capture Page Screenshot    估价作业完成按项目地址查询获取数据失败.png
+    run keyword if    '${项目地址}'=='${估项目地址}'    log    pass
+    ...    ELSE    Fail
+
+估价作业（完）按小区名称查询获取数据校验
+    [Arguments]    ${小区名称}    ${估小区名称}
+    run keyword if    '${小区名称}'=='${估小区名称}'    Capture Page Screenshot    估价作业完成按小区名称查询获取数据成功.png
+    ...    ELSE    Capture Page Screenshot    估价作业完成按小区名称查询获取数据失败.png
+    run keyword if    '${小区名称}'=='${估小区名称}'    log    pass
+    ...    ELSE    Fail
+
+估价作业（完）按紧急程度查询获取数据校验
+    [Arguments]    ${紧急程度}    ${估紧急程度}
+    run keyword if    '${紧急程度}'=='${估紧急程度}'    Capture Page Screenshot    估价作业完成按紧急程度查询获取数据成功.png
+    ...    ELSE    Capture Page Screenshot    估价作业完成按紧急程度查询获取数据失败.png
+    run keyword if    '${紧急程度}'=='${估紧急程度}'    log    pass
+    ...    ELSE    Fail
+
+估价作业领取校验
+    [Arguments]    ${估流水号}    ${流水号}
+    run keyword if    ${估流水号}==${流水号}    Capture Page Screenshot    估价作业未领取按流水号查询获取数据成功.png
+    ...    ELSE    Capture Page Screenshot    估价作业未领取按流水号查询获取数据失败.png
+    run keyword if    ${估流水号}==${流水号}    log    pass
+    ...    ELSE    Fail

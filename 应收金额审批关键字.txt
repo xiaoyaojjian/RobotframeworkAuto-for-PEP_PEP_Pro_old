@@ -1,0 +1,12 @@
+*** Keywords ***
+应收金额审批
+    sleep    5
+    Comment    click Element    //*[@id="expmenu-freebie"]/li/ul/li[3]/div
+    sleep    1
+    Run Keyword And Continue On Failure    click Element    //a[contains(.,'应收金额审批')]
+    sleep    5
+    应收金额审批窗口
+
+应收金额审批窗口
+    Run Keyword And Continue On Failure    select frame    id=ProjectFinanceApply_StampCheck
+    Wait Until Page Contains    报告号

@@ -1,0 +1,35 @@
+*** Keywords ***
+汇款信息按汇款人查询校验
+    [Arguments]    ${汇款汇款人}    ${汇款人}
+    run keyword if    '${汇款汇款人}'=='${汇款人}'    Capture Page Screenshot    汇款信息按汇款人查询获取数据成功.png
+    ...    ELSE    Capture Page Screenshot    汇款信息按汇款人查询获取数据失败.png
+    run keyword if    '${汇款汇款人}'=='${汇款人}'    log    pass
+    ...    ELSE    Fail
+
+汇款信息按汇款金额查询校验
+    [Arguments]    ${汇款金额(元)1}    ${汇款金额(元)2}    ${汇款金额}
+    run keyword if    ${汇款金额}>=${汇款金额(元)1} and ${汇款金额(元)2} >= ${汇款金额}    Capture Page Screenshot    汇款信息按汇款金额查询获取数据成功.png
+    ...    ELSE    Capture Page Screenshot    汇款信息按汇款金额查询获取数据失败.png
+    run keyword if    ${汇款金额}>=${汇款金额(元)1} and ${汇款金额(元)2} >= ${汇款金额}    log    pass
+    ...    ELSE    Fail
+
+汇款确认按流水号查询校验
+    [Arguments]    ${汇款确认流水号}    ${流水号}
+    run keyword if    ${汇款确认流水号}==${流水号}    Capture Page Screenshot    汇款确认按流水号查询获取数据成功.png
+    ...    ELSE    Capture Page Screenshot    汇款确认按流水号查询获取数据失败.png
+    run keyword if    ${汇款确认流水号}==${流水号}    log    pass
+    ...    ELSE    Fail
+
+汇款确认按报告编号查询校验
+    [Arguments]    ${汇款确认报告编号}    ${报告编号}
+    run keyword if    ${汇款确认报告编号}==${报告编号}    Capture Page Screenshot    汇款确认按报告编号查询获取数据成功.png
+    ...    ELSE    Capture Page Screenshot    汇款确认按报告编号查询获取数据失败.png
+    run keyword if    ${汇款确认报告编号}==${报告编号}    log    pass
+    ...    ELSE    Fail
+
+汇款确认按汇款金额查询校验
+    [Arguments]    ${汇款金额(元)1}    ${汇款金额(元)2}    ${汇款金额}
+    run keyword if    ${汇款金额}>=${汇款金额(元)1} and ${汇款金额(元)2} >= ${汇款金额}    Capture Page Screenshot    汇款确认按汇款金额查询获取数据成功.png
+    ...    ELSE    Capture Page Screenshot    汇款确认按汇款金额查询获取数据失败.png
+    run keyword if    ${汇款金额}>=${汇款金额(元)1} and ${汇款金额(元)2} >= ${汇款金额}    log    pass
+    ...    ELSE    Fail

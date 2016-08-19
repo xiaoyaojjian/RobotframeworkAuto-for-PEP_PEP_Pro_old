@@ -1,0 +1,82 @@
+*** Keywords ***
+项目撤销按流水号查询校验
+    [Arguments]    ${项目撤销流水号}    ${流水号}
+    run keyword if    ${项目撤销流水号}==${流水号}    Capture Page Screenshot    项目撤销按流水号查询获取数据成功.png
+    ...    ELSE    Capture Page Screenshot    项目撤销按流水号查询获取数据失败.png
+    run keyword if    ${项目撤销流水号}==${流水号}    log    pass
+    ...    ELSE    Fail
+
+项目撤销按报告编号查询校验
+    [Arguments]    ${项目撤销报告编号}    ${报告编号}
+    run keyword if    ${项目撤销报告编号}==${报告编号}    Capture Page Screenshot    项目撤销按报告编号查询获取数据成功.png
+    ...    ELSE    Capture Page Screenshot    项目撤销按报告编号查询获取数据失败.png
+    run keyword if    ${项目撤销报告编号}==${报告编号}    log    pass
+    ...    ELSE    Fail
+
+项目撤销按项目地址查询校验
+    [Arguments]    ${项目撤销项目地址}    ${项目地址}
+    run keyword if    '${项目撤销项目地址}'=='${项目地址}'    Capture Page Screenshot    项目撤销按项目地址查询获取数据成功.png
+    ...    ELSE    Capture Page Screenshot    项目撤销按项目地址查询获取数据失败.png
+    run keyword if    '${项目撤销项目地址}'=='${项目地址}'    log    pass
+    ...    ELSE    Fail
+
+项目撤销按小区名称查询校验
+    [Arguments]    ${项目撤销小区名称}    ${小区名称}
+    run keyword if    '${项目撤销小区名称}'=='${小区名称}'    Capture Page Screenshot    项目撤销按小区名称查询获取数据成功.png
+    ...    ELSE    Capture Page Screenshot    项目撤销按小区名称查询获取数据失败.png
+    run keyword if    '${项目撤销小区名称}'=='${小区名称}'    log    pass
+    ...    ELSE    Fail
+
+项目撤销按状态查询获取数据校验
+    [Arguments]    ${项目撤销状态}    ${状态}
+    run keyword if    '${项目撤销状态}'=='${状态}'    Capture Page Screenshot    项目撤销按状态查询获取数据成功.png
+    ...    ELSE    Capture Page Screenshot    项目撤销按状态查询获取数据失败.png
+    run keyword if    '${项目撤销状态}'=='${状态}'    log    pass
+    ...    ELSE    Fail
+
+项目撤销查询校验
+    [Arguments]    ${项目撤销流水号}    ${流水号}
+    run keyword if    ${项目撤销流水号}==${流水号}    Capture Page Screenshot    项目撤销按流水号查询获取数据成功.png
+    ...    ELSE    Capture Page Screenshot    项目撤销按流水号查询获取数据失败.png
+    run keyword if    ${项目撤销流水号}==${流水号}    log    pass
+    ...    ELSE    Fail
+
+项目撤销审批按流水号查询校验
+    [Arguments]    ${项目撤销流水号}    ${流水号}
+    run keyword if    ${项目撤销流水号}==${流水号}    Capture Page Screenshot    项目撤销审批按流水号查询获取数据成功.png
+    ...    ELSE    Capture Page Screenshot    项目撤销审批按流水号查询获取数据失败.png
+    run keyword if    ${项目撤销流水号}==${流水号}    log    pass
+    ...    ELSE    Fail
+
+项目撤销审批按报告编号查询校验
+    [Arguments]    ${项目撤销报告编号}    ${报告编号}
+    run keyword if    ${项目撤销报告编号}==${报告编号}    Capture Page Screenshot    项目撤销审批按报告编号查询获取数据成功.png
+    ...    ELSE    Capture Page Screenshot    项目撤销审批按报告编号查询获取数据失败.png
+    run keyword if    ${项目撤销报告编号}==${报告编号}    log    pass
+    ...    ELSE    Fail
+
+项目撤销审批按项目地址查询校验
+    [Arguments]    ${项目撤销项目地址}    ${项目地址}
+    run keyword if    '${项目撤销项目地址}'=='${项目地址}'    Capture Page Screenshot    项目撤销审批按项目地址查询获取数据成功.png
+    ...    ELSE    Capture Page Screenshot    项目撤销审批按项目地址查询获取数据失败.png
+    run keyword if    '${项目撤销项目地址}'=='${项目地址}'    log    pass
+    ...    ELSE    Fail
+
+项目撤销审批按小区名称查询校验
+    [Arguments]    ${项目撤销小区名称}    ${小区名称}
+    run keyword if    '${项目撤销小区名称}'=='${小区名称}'    Capture Page Screenshot    项目撤销审批按小区名称查询获取数据成功.png
+    ...    ELSE    Capture Page Screenshot    项目撤销审批按小区名称查询获取数据失败.png
+    run keyword if    '${项目撤销小区名称}'=='${小区名称}'    log    pass
+    ...    ELSE    Fail
+
+项目撤销审批按状态查询获取数据校验
+    [Arguments]    ${项目撤销状态}    ${状态}
+    run keyword if    '${项目撤销状态}'=='${状态}'    Capture Page Screenshot    项目撤销按审批状态查询获取数据成功.png
+    ...    ELSE    Capture Page Screenshot    项目撤销审批按状态查询获取数据失败.png
+    run keyword if    '${项目撤销状态}'=='${状态}'    log    pass
+    ...    ELSE    Fail
+
+项目撤销审批校验
+    [Arguments]    ${撤销审批状态}
+    run keyword if    '${撤销审批状态}'=='已通过'    Capture Page Screenshot    项目撤销按审批成功.png
+    ...    ELSE    Capture Page Screenshot    项目撤销按审批失败.png

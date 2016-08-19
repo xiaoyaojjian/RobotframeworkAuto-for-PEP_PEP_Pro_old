@@ -1,0 +1,84 @@
+*** Keywords ***
+票据管理按票据号查询校验
+    [Arguments]    ${票据管理票据号}    ${票据号}
+    run keyword if    '${票据管理票据号}'=='${票据号}'    Capture Page Screenshot    票据管理按票据号查询获取数据成功.png
+    ...    ELSE    Capture Page Screenshot    票据管理按票据号查询获取数据失败.png
+    run keyword if    '${票据管理票据号}'=='${票据号}'    log    pass
+    ...    ELSE    Fail
+
+票据管理按票据金额查询校验
+    [Arguments]    ${票据管理金额}    ${票据金额}
+    run keyword if    '${票据管理金额}'=='${票据金额}'    Capture Page Screenshot    票据管理按票据金额查询获取数据成功.png
+    ...    ELSE    Capture Page Screenshot    票据管理按票据金额查询获取数据失败.png
+    run keyword if    '${票据管理金额}'=='${票据金额}'    log    pass
+    ...    ELSE    Fail
+
+票据管理按票流水号查询校验
+    [Arguments]    ${票据管理流水号}    ${流水号}
+    run keyword if    ${票据管理流水号}==${流水号}    Capture Page Screenshot    票据管理按流水号查询获取数据成功.png
+    ...    ELSE    Capture Page Screenshot    票据管理按流水号查询获取数据失败.png
+    run keyword if    ${票据管理流水号}==${流水号}    log    pass
+    ...    ELSE    Fail
+
+票据管理按票报告编号查询校验
+    [Arguments]    ${票据管理报告编号}    ${报告编号}
+    run keyword if    ${票据管理报告编号}==${报告编号}    Capture Page Screenshot    票据管理按报告编号查询获取数据成功.png
+    ...    ELSE    Capture Page Screenshot    票据管理按报告编号查询获取数据失败.png
+    run keyword if    ${票据管理报告编号}==${报告编号}    log    pass
+    ...    ELSE    Fail
+
+票据管理按票项目地址查询校验
+    [Arguments]    ${票据管理项目地址}    ${项目地址}
+    run keyword if    '${票据管理项目地址}'=='${项目地址}'    Capture Page Screenshot    票据管理按项目地址查询获取数据成功.png
+    ...    ELSE    Capture Page Screenshot    票据管理按项目地址查询获取数据失败.png
+    run keyword if    '${票据管理项目地址}'=='${项目地址}'    log    pass
+    ...    ELSE    Fail
+
+票据管理按添加人查询校验
+    [Arguments]    ${票据管理添加人}    ${添加人}
+    run keyword if    '${票据管理添加人}'=='${添加人}'    Capture Page Screenshot    票据管理按添加人查询获取数据成功.png
+    ...    ELSE    Capture Page Screenshot    票据管理按添加人查询获取数据失败.png
+    run keyword if    '${票据管理添加人}'=='${添加人}'    log    pass
+    ...    ELSE    Fail
+
+票据管理按领取人查询校验
+    [Arguments]    ${票据管理领取人}    ${领取人}
+    run keyword if    '${票据管理领取人}'=='${领取人}'    Capture Page Screenshot    票据管理按领取人查询获取数据成功.png
+    ...    ELSE    Capture Page Screenshot    票据管理按领取人查询获取数据失败.png
+    run keyword if    '${票据管理领取人}'=='${领取人}'    log    pass
+    ...    ELSE    Fail
+
+票据管理按实收金额查询校验
+    [Arguments]    ${票据管理实收金额}    ${实收金额}
+    run keyword if    ${票据管理实收金额}==${实收金额}    Capture Page Screenshot    票据管理按实收金额查询获取数据成功.png
+    ...    ELSE    Capture Page Screenshot    票据管理按实收金额查询获取数据失败.png
+    run keyword if    ${票据管理实收金额}==${实收金额}    log    pass
+    ...    ELSE    Fail
+
+票据管理按票据抬头查询校验
+    [Arguments]    ${票据管理票据抬头}    ${票据抬头}
+    run keyword if    '${票据管理票据抬头}'=='${票据抬头}'    Capture Page Screenshot    票据管理按票据抬头查询获取数据成功.png
+    ...    ELSE    Capture Page Screenshot    票据管理按票据抬头查询获取数据失败.png
+    run keyword if    '${票据管理票据抬头}'=='${票据抬头}'    log    pass
+    ...    ELSE    Fail
+
+票据管理按收费状况查询校验
+    [Arguments]    ${票据管理收费状况}    ${收费状况}
+    run keyword if    '${票据管理收费状况}'=='${收费状况}'    Capture Page Screenshot    票据管理按收费状况查询获取数据成功.png
+    ...    ELSE    Capture Page Screenshot    票据管理按收费状况查询获取数据失败.png
+    run keyword if    '${票据管理收费状况}'=='${收费状况}'    log    pass
+    ...    ELSE    Fail
+
+票据管理按票据类型查询校验
+    [Arguments]    ${票据管理票据类型}    ${票据类型}
+    run keyword if    '${票据管理票据类型}'=='${票据类型}'    Capture Page Screenshot    票据管理按票据类型查询获取数据成功.png
+    ...    ELSE    Capture Page Screenshot    票据管理按票据类型查询获取数据失败.png
+    run keyword if    '${票据管理票据类型}'=='${票据类型}'    log    pass
+    ...    ELSE    Fail
+
+票据管理按票据状态查询校验
+    [Arguments]    ${票据管理票据状态}    ${票据状态}
+    run keyword if    '${票据管理票据状态}'=='${票据状态}'    Capture Page Screenshot    票据管理按票据状态查询获取数据成功.png
+    ...    ELSE    Capture Page Screenshot    票据管理按票据状态查询获取数据失败.png
+    run keyword if    '${票据管理票据状态}'=='${票据状态}'    log    pass
+    ...    ELSE    Fail

@@ -1,0 +1,10 @@
+*** Keywords ***
+出纳复核
+    sleep    2
+    Run Keyword And Continue On Failure    click Element    xpath=//a[contains(.,'出纳复核')]
+    sleep    5
+    出纳复核窗口
+
+出纳复核窗口
+    Run Keyword And Continue On Failure    select frame    id=Finance_FeeCashierCheck
+    Wait Until Page Contains    确认状态

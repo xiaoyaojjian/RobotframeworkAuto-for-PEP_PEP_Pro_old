@@ -1,0 +1,19 @@
+*** Keywords ***
+打开浏览器
+    [Arguments]    ${url}
+    Open Browser    ${url}    chrome
+    Maximize Browser Window
+
+登录用户名
+    [Arguments]    ${login_name}
+    Input Text    xpath=//*[@id="username"]    ${login_name}
+
+登录密码
+    [Arguments]    ${login_pass}
+    Input Text    xpath=//*[@id="password"]    ${login_pass}
+
+登录按钮
+    click Button    xpath=//button[contains(.,'登录')]
+
+关闭浏览器
+    Close Browser

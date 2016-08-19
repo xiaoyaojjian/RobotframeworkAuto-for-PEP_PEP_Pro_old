@@ -1,0 +1,407 @@
+*** Settings ***
+Test Teardown     关闭浏览器
+Library           Selenium2Library
+Library           re
+Resource          登录关键字.txt
+Resource          业务流程.txt
+Resource          询价关键字.txt
+Resource          公共关键字.txt
+Resource          检测判断.txt
+Resource          立项关键字.txt
+Resource          外业分配关键字.txt
+Resource          内业分配关键字.txt
+Resource          查勘任务查询校验.txt
+Resource          估价作业查询校验.txt
+Resource          模块主流程.txt
+Resource          项目审核关键字.txt
+Resource          项目审核查询校验.txt
+Resource          项目盖章关键字.txt
+Resource          项目盖章查询校验.txt
+Resource          项目盖章关键字.txt
+Resource          项目盖章查询校验.txt
+Resource          项目收费查询校验.txt
+Resource          报告装订打印关键字.txt
+Resource          报告打印装订查询校验.txt
+Resource          报告发送关键字.txt
+Resource          报告发送查询校验.txt
+Resource          项目变更查询校验.txt
+Resource          项目变更关键字.txt
+Resource          项目撤销关键字.txt
+Resource          项目撤销查询校验.txt
+Resource          免收申请关键字.txt
+Resource          项目免收查询校验.txt
+Resource          应收金额审批关键字.txt
+Resource          应收金额审批查询校验.txt
+Resource          收费确认关键字.txt
+Resource          收费确认查询校验.txt
+Resource          出纳复核关键字.txt
+Resource          出纳复核查询校验.txt
+Resource          项目退费查询校验.txt
+Resource          汇款信息关键字.txt
+Resource          汇款信息查询校验.txt
+Resource          汇款领取关键字.txt
+Resource          汇款领取查询校验.txt
+Resource          票据管理关键字.txt
+Resource          票据管理查询校验.txt
+Resource          项目归档关键字.txt
+Resource          项目归档查询校验.txt
+Resource          应收账款关键字.txt
+Resource          应收账款查询校验.txt
+Resource          确认收费责任关键字.txt
+Resource          确认收费责任查询校验.txt
+
+*** Test Cases ***
+暂存编辑链家
+    Comment    click Element    xpath=//*[@id="expmenu-freebie"]/li/ul/li[1]/ul/li[2]/a
+    Comment    select frame    id=InquiryAndProject_ProjectAccept
+    Comment    sleep    5
+    Comment    select From List By Value    id=ProjectSource    链家
+    Comment    click Element    //*[@id="project_temp_search"]
+    Comment    sleep    5
+    Comment    ${链家流水号1}    get Text    xpath=//*[@id="datagrid-row-r5-2-0"]/td[2]
+    Comment    log    ${链家流水号1}
+    Comment    sleep    3
+    Comment    ${编辑参数}    Get Element Attribute    xpath=//*[@id="datagrid-row-r5-2-0"]/td[13]/div/a[1]@onclick
+    Comment    log    ${编辑参数}
+    Comment    ${bj}    findall    "(.*)"    ${编辑参数}
+    Comment    log    ${bj[0]}
+    Comment    click Element    xpath=//*[@id="datagrid-row-r5-2-0"]/td[13]/div/a[1]
+    Comment    sleep    8
+    Comment    Capture Page Screenshot    链家编辑.png
+    Comment    sleep    3
+    Comment    ${k}    set variable    create_project_
+    Comment    ${e}    set variable    ${k}${bj[0]}
+    Comment    sleep    3
+    Comment    unselect frame
+    Comment    select frame    id=${e}
+    Comment    sleep    3
+    Comment    ${收费责任人}    get value    xpath=//*[@id="tbkancha"]/tbody/tr[1]/td[4]/span/input[1]
+    Comment    log    ${收费责任人}
+    Comment    click Element    xpath=//*[@id="btnDocument"]
+    Comment    select frame    id=xubox_iframe1
+    Comment    sleep    6
+    Comment    Capture Page Screenshot    链家编辑资料下载.png
+    Comment    Comment    链家下载
+    Comment    Comment    click Element    xpath=/html/body/div/div[2]/a
+    Comment    Comment    sleep    1
+    Comment    Comment    Capture Page Screenshot    链家编辑资料下载1.png
+    Comment    Comment    sleep    10
+    Comment    unselect frame
+    Comment    select frame    id=${e}
+    Comment    sleep    3
+    Comment    click Element    xpath=//*[@id="xubox_layer1"]/div[1]/a
+    Comment    sleep    6
+    Comment    clear Element Text    xpath=/html/body/div[1]/form/div[3]/div[2]/table/tbody/tr[1]/td[4]/span/input[1]
+    Comment    Input Text    xpath=/html/body/div[1]/form/div[3]/div[2]/table/tbody/tr[1]/td[4]/span/input[1]    ${login_name}
+    Comment    sleep    5
+    Comment    click Element    xpath=//*[@id="_easyui_combobox_i34_30"]
+    Comment    sleep    2
+    Comment    ${收费责任人修}    get value    xpath=/html/body/div[1]/form/div[3]/div[2]/table/tbody/tr[1]/td[4]/span/input[1]
+    Comment    click Element    xpath=//*[@id="create_project_create"]
+    Comment    sleep    3
+    Comment    ${lmes}    confirm action
+    Comment    log    ${lmes}
+    Comment    Unselect Frame
+    Comment    click Element    xpath=//*[@id="framecenter"]/div[1]/ul/li/div[3]
+
+数据库
+    Comment    Connect To Database Using Custom Params    pymysql    host='172.20.20.112',port=3306,user='root',passwd='linyuandong',db='basedb_bj',charset="utf8"
+    Connect To Database Using Custom Params    pymysql    host='192.168.3.113',port=3306,user='root',passwd='root',db='test',charset="utf8"
+    sleep    10
+    Comment    @{data}    xQxQX    select ResidentialAreaName from residentialarea
+    @{data}    query    select * from testcase
+    Log Many    @{data}
+    Disconnect From Database
+    log    ${data[0][1]}
+    Comment    log    @{data[2][1]}
+    Comment    Comment    ${a}    decode    @{data}
+    Comment    Comment    Comment    log    ${a}
+    Should Be Equal    ${data[0][1]}    测试
+    Comment    sleep    10
+    Comment    Comment    Disconnect From Database
+    Connect To Database Using Custom Params    pymysql    host='192.168.3.113',port=3306,user='root',passwd='root',db='test',charset="utf8"
+    Comment    Execute Sql String    insert into testcase(NAME,INPUT,OUTPUT,CHECKPOINT) values('是打发士大夫','手动阀','胜多负少','手动阀')
+    Execute Sql String    insert into testcase(CHECKPOINT) values('手动阀')
+    Comment    values('是打发士大夫','手动阀','胜多负少','手动阀')    query    select * from testcase
+    Disconnect From Database
+
+外业进行分配
+    Comment    打开浏览器    登录名    登录密码
+    登录新流程
+    Comment    流水号    报告编号    外项目地址    小区名称    紧急程度    物业类型
+    外业进行分配流程    568338894225
+    Comment    关闭浏览器
+
+内业进行分配
+    Comment    打开浏览器    登录名    登录密码
+    登录新流程
+    Comment    流水号    报告编号    外项目地址    小区名称    紧急程度    物业类型
+    click Element    //*[@id="expmenu-freebie"]/li/ul/li[3]/div
+    内业进行分配流程    568338894225
+    Comment    关闭浏览器
+
+查勘任务领取
+    Comment    打开浏览器    登录名    登录密码
+    登录新流程
+    Comment    流水号    报告编号    小区名称    项目地址    紧急程度    物业类型
+    click Element    //*[@id="expmenu-freebie"]/li/ul/li[3]/div
+    查勘任务领取流程    568338894225
+    Comment    关闭浏览器
+
+估价作业领取
+    Set Selenium Speed    0.5s
+    Comment    打开浏览器    登录名    登录密码
+    登录新流程
+    Comment    流水号    报告编号    旧流水号    旧报告编号    项目地址    小区名称
+    ...    紧急情况
+    click Element    //*[@id="expmenu-freebie"]/li/ul/li[3]/div
+    估价作业领取流程    561125054738
+    Comment    关闭浏览器
+
+估价作业线下报告
+    Comment    打开浏览器    登录名    登录密码
+    登录新流程
+    Comment    流水号    新报告月度    项目名称    目的描述    所在省    所在市
+    ...    所在县    小区地址    楼栋号    单元号    户号    项目推广名
+    ...    估价委托人    报告使用方    支行    报告有效期    现场勘察员    报告撰写人员
+    ...    估价师1    估价师2    估价方法1    估价方法2    评估总价（万元）    评估单价（元/㎡）
+    ...    成交总价（万元）    成交单价（元/㎡）    交易日期    处置扣税额（万元）}    扣税口净值（万元）    土地增值税（元）
+    ...    扣除土地税后（万元）    环线    其它影响因素    补交出让金/综合地价款（元）    优先受偿款    物理结构是否变化
+    ...    使用现状    登记用途    现状用途    建筑结构    建成年代    所在楼层
+    ...    总楼层    楼层    户型    房屋所有权号    房屋所有人    建筑面积（㎡）
+    ...    产别    装修程度    产权性质    最高使用年限    剩余经济寿命    土地使用权人
+    ...    土地用途    使用权类型    土地使用权面积（㎡）    图号    地号    剩余土地年限（年）
+    ...    国有土地使用号    土地坐落    借款人姓名    借款人身份证
+    click Element    //*[@id="expmenu-freebie"]/li/ul/li[3]/div
+    估价作业线下报告流程    561125054738    6    云房土地评估项目    为确定估价对象抵押贷款额度提供参考依据而评估房地产抵押价值    广东省    广州市
+    ...    增城市    天天家园    12    12    12    房地产评估项目
+    ...    北京云房    北京仁达    中国银行    一年    李文    ${login_name}
+    ...    李伟    微微    直接估算    混合估算    50000    555555
+    ...    234235    44444    20160421    234234    23424    123334
+    ...    12312    费所得到的    程序徐翠翠是多少方法    234234    234324    是
+    ...    水电费加快递费邓丽君手动阀的说法反反复复反复反复反复    时间段发扣水电费就    手动阀放大顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶大地的    钢筋结构    90    12
+    ...    13    12/13    士大夫的    23423sdfsdsd234234    米兰    200
+    ...    商用住宅    精装    商品房    70    69    ${login_name}
+    ...    手动阀    出让    100    234234sdsdf    dssd324    89
+    ...    24234gsdsdg    双方都大幅度发方法    李文    440892993423242341
+    Comment    \    \    新报告月度    项目名称    目的描述    所在省
+    ...    所在市    所在县    小区地址    楼栋号    单元号    户号
+    ...    项目推广名    估价委托人    报告使用方    支行    报告有效期    现场勘察员
+    ...    报告撰写人员    估价师1    估价师2    估价方法1    估价方法2    评估总价（万元）
+    ...    评估单价（元/㎡）
+    Comment    \    \    6    云房土地评估项目    为确定估价对象抵押贷款额度提供参考依据而评估房地产抵押价值    广东省
+    ...    广州市    增城市    天天家园    12    12    12
+    ...    房地产评估项目    北京云房    北京仁达    中国银行    一年    李文
+    ...    ${login_name}    李伟    微微    直接估算    混合估算    50000
+    ...    555555
+    Comment    关闭浏览器
+
+估价作业提交
+    Comment    打开浏览器    登录名    登录密码
+    登录新流程
+    Comment    流水号    附言信息
+    click Element    //*[@id="expmenu-freebie"]/li/ul/li[3]/div
+    估价作业提交流程    561125054738    估价作业提交
+    Comment    关闭浏览器
+
+估价作业
+    Comment    打开浏览器    登录名    登录密码
+    登录新流程
+    Comment    流水号    新报告月度    项目名称    目的描述    所在省    所在市
+    ...    所在县    小区地址    楼栋号    单元号    户号    项目推广名
+    ...    估价委托人    报告使用方    支行    报告有效期    现场勘察员    报告撰写人员
+    ...    估价师1    估价师2    估价方法1    估价方法2    评估总价（万元）    评估单价（元/㎡）
+    ...    成交总价（万元）    成交单价（元/㎡）    交易日期    处置扣税额（万元）}    扣税口净值（万元）    土地增值税（元）
+    ...    扣除土地税后（万元）    环线    其它影响因素    补交出让金/综合地价款（元）    优先受偿款    物理结构是否变化
+    ...    使用现状    登记用途    现状用途    建筑结构    建成年代    所在楼层
+    ...    总楼层    楼层    户型    房屋所有权号    房屋所有人    建筑面积（㎡）
+    ...    产别    装修程度    产权性质    最高使用年限    剩余经济寿命    土地使用权人
+    ...    土地用途    使用权类型    土地使用权面积（㎡）    图号    地号    剩余土地年限（年）
+    ...    国有土地使用号    土地坐落    借款人姓名    借款人身份证    附言信息
+    click Element    //*[@id="expmenu-freebie"]/li/ul/li[3]/div
+    估价作业主流程    568338894225    6    云房土地评估项目    为确定估价对象抵押贷款额度提供参考依据而评估房地产抵押价值    广东省    广州市
+    ...    增城市    天天家园    12    12    12    房地产评估项目
+    ...    北京云房    北京仁达    中国银行    一年    李文    ${login_name}
+    ...    李伟    微微    直接估算    混合估算    50000    555555
+    ...    234235    44444    20160421    234234    23424    123334
+    ...    12312    费所得到的    程序徐翠翠是多少方法    234234    234324    是
+    ...    水电费加快递费邓丽君手动阀的说法反反复复反复反复反复    时间段发扣水电费就    手动阀放大顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶大地的    钢筋结构    90    12
+    ...    13    12/13    士大夫的    23423sdfsdsd234234    米兰    200
+    ...    商用住宅    精装    商品房    70    69    ${login_name}
+    ...    手动阀    出让    100    234234sdsdf    dssd324    89
+    ...    24234gsdsdg    双方都大幅度发方法    李文    440892993423242341    估价作业提交
+    Comment    关闭浏览器
+
+项目审核
+    Comment    打开浏览器    登录名    登录密码
+    登录新流程
+    Comment    流水号    错误类型    错误描述
+    click Element    //*[@id="expmenu-freebie"]/li/ul/li[3]/div
+    项目审核流程    568338894225    低级错误    界面需要优化，不符合用户需求
+    Comment    关闭浏览器
+
+项目收费金额修改
+    Comment    打开浏览器    登录名    登录密码
+    登录新流程
+    Comment    流水号    最低收费    应收金额    单据编号    发生金额    缴费人
+    ...    费用类型    付款方式    备注    ${装订状态}
+    项目收费金额修改流程    568338894225    100    300    J23904    100.00    米楠
+    ...    评估费    现金    手动阀的说法是顶顶顶顶顶顶顶顶顶大顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶    true
+
+报告装订打印完成
+    Comment    打开浏览器    登录名    登录密码
+    登录新流程
+    Comment    流水号    装订状态
+    报告装订打印完成流程    501709334223    true
+    Comment
+
+发送报告
+    Comment    打开浏览器    登录名    登录密码
+    登录新流程
+    Comment    流水号    发送方式    快递公司    快递单号    新发送份数    接收人
+    ...    接收人电话    接收地址    备注    发送状态
+    发送报告流程    501709334223    快递    顺丰    j32423112    23    收费
+    ...    18911111111    的说法是打发反反复复发反反复复发    是多福多寿    true
+    Comment    关闭浏览器
+
+添加项目变更
+    Comment    打开浏览器    登录名    登录密码
+    登录新流程
+    Comment    流水号    报告号    小区名称    项目地址
+    Comment    添加项目变更申请查询流程    492419314564    201501102000032    天天家园    海淀区花园村2号7号楼3门1号
+    Run Keyword And Continue On Failure    click Element    xpath=//span[contains(.,'我的项目')]
+    添加项目变更申请流程    501709334223    加出    23    100.00    客户需求改变    78
+    ...    是收费收费十点多大顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶的
+    Comment    ${流水号} | ${变更类型} | ${加出份数} | ${收费金额} | ${变更原因} | ${修改审批人} | ${备注}
+    Comment    关闭浏览器
+
+项目变更审批
+    Comment    打开浏览器    登录名    登录密码
+    登录新流程
+    Comment    流水号    审批意见
+    click Element    xpath=//span[contains(.,'我的项目')]
+    变更审批流程    501709334223    是的反反复复反复反复反复反复反复反复反复反复反复反复反复反复反复发反反复复发
+    Comment    关闭浏览器
+
+添加项目撤销
+    Comment    打开浏览器    登录名    登录密码
+    登录新流程
+    Comment    流水号    报告收回负责人    退费收款人    开户银行    银行账号    项目审核人
+    ...    报告撤销理由
+    Run Keyword And Continue On Failure    click Element    xpath=//span[contains(.,'我的项目')]
+    添加项目撤销申请流程    490831132243    ${login_name}    李楠    中国银行    2342342342342    78
+    ...    的方法个地方官发给地方风风光光大幅度发给
+    Comment    546731397371
+
+项目撤销审批
+    Comment    打开浏览器    登录名    登录密码
+    登录新流程
+    Comment    流水号    审批理由
+    Run Keyword And Continue On Failure    click Element    xpath=//span[contains(.,'我的项目')]
+    项目撤销审批流程    490831132243    手动阀三大方法反反复复反复反复反复反复反复反复反复发反反复复发反反复复发
+    Comment    关闭浏览器
+
+添加免收申请
+    Comment    打开浏览器    登录名    登录密码
+    登录新流程
+    Comment    流水号
+    添加免收申请流程    465215975724    100.00    78    点的说法是大股东的嘎嘎嘎灌灌灌灌灌灌灌灌灌灌灌灌灌灌灌灌灌灌灌灌灌灌灌灌灌
+    Comment    关闭浏览器
+
+免收审批
+    Comment    打开浏览器    登录名    登录密码
+    登录新流程
+    Comment    流水号    审批理由
+    项目免收审批审批流程    465215975724    是经典款快快快快快快快快快快快快快快快快快快快快快快快快快快
+    Comment    关闭浏览器
+
+应收金额审批
+    Comment    打开浏览器    登录名    登录密码
+    登录新流程
+    Comment    流水号    审批理由
+    应收金额审批流程    547387248861    手动阀手动阀是的反反复复发反反复复
+    Comment    关闭浏览器
+
+收费确认
+    Comment    打开浏览器    登录名    登录密码
+    登录新流程
+    Comment    流水号
+    click Element    xpath=//span[contains(.,'财务管理')]
+    项目收费确认流程    546218920700
+
+提交出纳复核
+    Comment    打开浏览器    登录名    登录密码
+    登录新流程
+    Comment    流水号
+    提交出纳复核流程    548322513197    1
+
+出纳复核确定
+    Comment    打开浏览器    登录名    登录密码
+    登录新流程
+    Comment    流水号    确认状态
+    出纳复核确定流程    548322513197    已确认
+    Comment    关闭浏览器
+
+项目退费
+    Comment    打开浏览器    登录名    登录密码
+    登录新流程
+    Comment    流水号    原票据号    新票据号    备注    状态
+    Comment    项目退费流程    559925218859    1121    2323332    是对方是否发反反复复反复反复反复反复反复反复反复反复反复反复    true
+    Comment    关闭浏览器
+
+添加汇款信息
+    Comment    打开浏览器    登录名    登录密码
+    登录新流程
+    Comment    汇款银行    汇入帐号    汇款金额    汇款人    财务备注
+    添加汇款信息流程    中国银行    112413414    200.00    清    是打发士大夫
+    Comment    关闭浏览器
+
+汇款确认
+    Comment    打开浏览器    登录名    登录密码
+    登录新流程
+
+汇款领取
+    Comment    打开浏览器    登录名    登录密码
+    登录新流程
+    Comment    状态    流水号    状态    金额
+    汇款领取流程    未领取    546860064844    全部领取    200
+    Comment    关闭浏览器
+
+添加票据
+    Comment    打开浏览器    登录名    登录密码
+    登录新流程
+    Comment    流水号    票据类型    票据抬头    票据号    票据金额(元)    备注
+    添加票据流程    546860064844    收据    中国银行234234    234234234342    200    四大皆空法减肥急急急急急急急急急急急急
+    Comment    关闭浏览器
+
+票据管理操作
+    Comment    打开浏览器    登录名    登录密码
+    登录新流程
+    Comment    流水号    票据类型    领取人
+    票据管理操作流程    490916732246    增值税普通发票    ${login_name}
+
+领取票据
+    Comment    打开浏览器    登录名    登录密码
+    登录新流程
+    Comment    流水号    领取人
+    领取票据流程    533470102831    ${login_name}
+
+项目销毁
+    Comment    打开浏览器    登录名    登录密码
+    登录新流程
+    Comment    状态    流水号    销毁份数    回收负责人    备注
+    项目销毁流程    true    530531567536    2    李楠    未访问时
+
+添加归档盒
+    Comment    打开浏览器    登录名    登录密码
+    登录新流程
+    Comment    流水号
+    档案盒操作流程    524499389524    true
+
+确认收费责任人操作
+    Comment    打开浏览器    登录名    登录密码
+    登录新流程
+    Comment    流水号    调整应收    申请理由    审批人
+    确认收费责任人操作流程    554819690424    400    是的是多少的    78
+
+*** Keywords ***

@@ -1,0 +1,52 @@
+*** Keywords ***
+项目收费（未）按流水号查询校验
+    [Arguments]    ${项目收费流水号}    ${流水号}
+    run keyword if    ${项目收费流水号}==${流水号}    Capture Page Screenshot    项目收费未收费按流水号查询获取数据成功.png
+    ...    ELSE    Capture Page Screenshot    项目收费未收费按流水号查询获取数据失败.png
+    run keyword if    ${项目收费流水号}==${流水号}    log    pass
+    ...    ELSE    Fail
+
+项目收费（未）按报告编号查询校验
+    [Arguments]    ${报告编号}    ${项目收费报告编号}
+    run keyword if    ${报告编号}==${项目收费报告编号}    Capture Page Screenshot    项目未收费按报告编号查询获取数据成功.png
+    ...    ELSE    Capture Page Screenshot    项目未收费按报告编号查询获取数据失败.png
+    run keyword if    ${报告编号}==${项目收费报告编号}    log    pass
+    ...    ELSE    Fail
+
+项目收费（未）按小区名称查询校验
+    [Arguments]    ${小区名称}    ${项目收费小区名称}
+    run keyword if    '${小区名称}'=='${项目收费小区名称}'    Capture Page Screenshot    项目未收费按小区名称查询获取数据成功.png
+    ...    ELSE    Capture Page Screenshot    项目未收费按小区名称查询获取数据失败.png
+    run keyword if    '${小区名称}'=='${项目收费小区名称}'    log    pass
+    ...    ELSE    Fail
+
+项目收费（未）按项目地址查询校验
+    [Arguments]    ${项目地址}    ${项目收费项目地址}
+    run keyword if    '${项目地址}'=='${项目收费项目地址}'    Capture Page Screenshot    项目未收费按项目地址查询获取数据成功.png
+    ...    ELSE    Capture Page Screenshot    项目未收费按项目地址查询获取数据失败.png
+    run keyword if    '${项目地址}'=='${项目收费项目地址}'    log    pass
+    ...    ELSE    Fail
+
+项目收费（未）按票据号查询校验
+    [Arguments]    ${票据号}    ${项目收费票据号}
+    run keyword if    '${票据号}'=='${项目收费票据号}'    Capture Page Screenshot    项目未收费按票据号查询获取数据成功.png
+    ...    ELSE    Capture Page Screenshot    项目未收费按票据号查询获取数据失败.png
+    run keyword if    '${票据号}'=='${项目收费票据号}'    log    pass
+    ...    ELSE    Fail
+
+项目收费（未）按收费责任人查询校验
+    [Arguments]    ${收费责任人}    ${项目收费责任人}
+    run keyword if    '${收费责任人}'=='${项目收费责任人}'    Capture Page Screenshot    项目未收费按收费责任人查询获取数据成功.png
+    ...    ELSE    Capture Page Screenshot    项目未收费按收费责任人查询获取数据失败.png
+    run keyword if    '${收费责任人}'=='${项目收费责任人}'    log    pass
+    ...    ELSE    Fail
+
+项目收费（未）按实收金额(元)查询校验
+    [Arguments]    ${实收金额(元)1}    ${实收金额(元)2}    ${项目收费实收金额(元)}
+    Comment    ${a}    set variable    Convert To Integer    ${实收金额(元)1}
+    Comment    ${b}    set variable    Convert To Integer    ${实收金额(元)2}
+    Comment    ${c}    set variable    Convert To Integer    ${项目收费实收金额(元)}
+    run keyword if    ${项目收费实收金额(元)}>=${实收金额(元)1} and ${实收金额(元)2} >= ${项目收费实收金额(元)}    Capture Page Screenshot    项目收费未收费按实收金额查询获取数据成功.png
+    ...    ELSE    Capture Page Screenshot    项目收费未收费按实收金额查询获取数据失败.png
+    run keyword if    ${项目收费实收金额(元)}>=${实收金额(元)1} and ${实收金额(元)2} >= ${项目收费实收金额(元)}    log    pass
+    ...    ELSE    Fail

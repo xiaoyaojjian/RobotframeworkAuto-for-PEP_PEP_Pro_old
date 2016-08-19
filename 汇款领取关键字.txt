@@ -1,0 +1,9 @@
+*** Keywords ***
+汇款领取
+    sleep    2
+    Run Keyword And Continue On Failure    click Element    xpath=//a[contains(.,'汇款领取')]
+    sleep    5
+    汇款领取窗口
+
+汇款领取窗口
+    Run Keyword And Continue On Failure    select frame    id=Finance_CommitRemit

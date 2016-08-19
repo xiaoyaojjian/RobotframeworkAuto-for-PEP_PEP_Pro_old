@@ -1,0 +1,18 @@
+*** Keywords ***
+项目撤销
+    Comment    click Element    //*[@id="expmenu-freebie"]/li/ul/li[3]/div
+    Run Keyword And Continue On Failure    click Element    //a[contains(.,'撤销与退费')]
+    项目撤销窗口
+
+项目撤销窗口
+    Run Keyword And Continue On Failure    select frame    id=ProjectAllot_RevokeApply
+    Wait Until Page Contains    流水号
+
+项目撤销审批
+    Comment    click Element    //*[@id="expmenu-freebie"]/li/ul/li[3]/div
+    Run Keyword And Continue On Failure    click Element    //a[contains(.,'撤销审批')]
+    项目撤销审批窗口
+
+项目撤销审批窗口
+    Run Keyword And Continue On Failure    select frame    id=ProjectAllot_RevokeApprove
+    Wait Until Page Contains    报告号

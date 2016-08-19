@@ -1,0 +1,215 @@
+*** Keywords ***
+发送份数
+    [Arguments]    ${发送份数}
+    Run Keyword And Continue On Failure    Input Text    xpath=//*[@id="tbproject"]/tbody/tr[2]/td[8]/span/input[1]    ${发送份数}
+    sleep    3
+
+自动获取贷款支行
+    Run Keyword And Continue On Failure    click Element    xpath=//*[@id="tbproject"]/tbody/tr[7]/td[8]/img
+    sleep    3
+
+估价委托方
+    [Arguments]    ${估价委托方}
+    Run Keyword And Continue On Failure    Input Text    xpath=//*[@id="PriceDelegate"]    ${估价委托方}
+    sleep    3
+
+市场负责人
+    [Arguments]    ${市场负责人}
+    Run Keyword And Continue On Failure    Clear Element Text    xpath=//*[@id="tbkancha"]/tbody/tr[1]/td[2]/span/input[1]
+    Run Keyword And Continue On Failure    Input Text    //*[@id="tbkancha"]/tbody/tr[1]/td[2]/span/input[1]    ${市场负责人}
+    sleep    2
+    Run Keyword And Continue On Failure    click Element    xpath=//*[@id="_easyui_combobox_i32_29"]
+    sleep    3
+
+收费责任人
+    [Arguments]    ${收费责任人}
+    Run Keyword And Continue On Failure    Clear Element Text    xpath=//*[@id="tbkancha"]/tbody/tr[1]/td[4]/span/input[1]
+    Run Keyword And Continue On Failure    Input Text    xpath=//*[@id="tbkancha"]/tbody/tr[1]/td[4]/span/input[1]    ${收费责任人}
+    sleep    2
+    Run Keyword And Continue On Failure    click Element    xpath=//*[@id="_easyui_combobox_i34_29"]
+    sleep    3
+
+内部报单人
+    [Arguments]    ${内部保单人}
+    Run Keyword And Continue On Failure    Clear Element Text    xpath=//*[@id="tbkancha"]/tbody/tr[1]/td[6]/span/input[1]
+    Run Keyword And Continue On Failure    Input Text    xpath=//*[@id="tbkancha"]/tbody/tr[1]/td[6]/span/input[1]    ${内部保单人}
+    sleep    2
+    Run Keyword And Continue On Failure    click Element    xpath=//*[@id="_easyui_combobox_i33_29"]
+    sleep    2
+
+应收金额
+    [Arguments]    ${应收金额}
+    Run Keyword And Continue On Failure    Input Text    xpath=//*[@id="tbkancha"]/tbody/tr[2]/td[4]/span/input[1]    ${应收金额}
+
+预收费用
+    [Arguments]    ${预收费用}
+    Run Keyword And Continue On Failure    Input Text    xpath=/html/body/div[1]/form/div[4]/div[2]/table/tbody/tr[1]/td[4]/span/input[1]    ${预收费用}
+
+新增联系人
+    Run Keyword And Continue On Failure    click Element    xpath=//*[@id="tbkancha"]/tbody/tr[2]/td[2]/a
+    sleep    2
+
+新增联系人窗口
+    select Frame    id=xubox_iframe1
+    sleep    2
+    Wait Until Element Is Visible    xpath=//*[@id="Contacts"]
+
+联系人
+    [Arguments]    ${联系人}
+    Run Keyword And Continue On Failure    Input Text    xpath=//*[@id="Contacts"]    ${联系人}
+
+联系电话
+    [Arguments]    ${联系电话}
+    Run Keyword And Continue On Failure    Input Text    xpath=//*[@id="Phone"]    ${联系电话}
+
+收取方式
+    [Arguments]    ${收取方式}
+    Run Keyword And Continue On Failure    select From List By Value    id=ReceiptWay    ${收取方式}
+    sleep    2
+    新增地址
+
+收取方式窗口
+    select Frame    id=xubox_iframe2
+    Wait Until Element Is Visible    xpath=//*[@id="Receiver"]
+
+新增地址
+    Run Keyword And Continue On Failure    click Element    xpath=//*[@id="divAddReceipt"]/a
+    sleep    6
+    capture page screenshot    添加邮件地址1.png
+
+立项备注
+    [Arguments]    ${立项备注}
+    Run Keyword And Continue On Failure    Input Text    xpath=//*[@id="Remark"]    ${立项备注}
+    sleep    2
+    Capture Page Screenshot    转立项2.png
+    execute javascript    document.documentElement.scrollTop=0
+
+已立项
+    Run Keyword And Continue On Failure    click Element    xpath=//*[@id="tabs"]/div[1]/div[3]/ul/li[2]/a
+
+立项
+    Run Keyword And Continue On Failure    click Element    xpath=//*[@id="create_project_create"]
+
+快递地址
+    [Arguments]    ${快递地址}
+    Run Keyword And Continue On Failure    Input Text    xpath=//*[@id="Address"]    ${快递地址}
+
+公司名称
+    [Arguments]    ${公司名称}
+    Run Keyword And Continue On Failure    Input Text    xpath=//*[@id="Company"]    ${公司名称}
+
+邮政编码
+    [Arguments]    ${邮政编码}
+    Run Keyword And Continue On Failure    Input Text    xpath=//*[@id="form1"]/div/table/tbody/tr[1]/td[6]/span/input[1]    ${邮政编码}
+
+联系方式
+    [Arguments]    ${联系方式}
+    Run Keyword And Continue On Failure    Input Text    xpath=//*[@id="Phone"]    ${联系方式}
+
+姓名
+    [Arguments]    ${姓名}
+    Run Keyword And Continue On Failure    Input Text    xpath=//*[@id="Receiver"]    ${姓名}
+
+项目受理查询
+    Run Keyword And Continue On Failure    click Element    xpath=//*[@id="project_created_search"]
+
+已立项流水号
+    Comment    xpath=/html/body/div[1]/form/div/div[2]/div[2]/div/div/div/div/div[1]/div/table/tbody/tr[1]/td[2]/input    xpath=/html/body/div[1]/form/div/div[2]/div[2]/div/div/div/div[1]/div/table/tbody/tr[1]/td[2]/input
+    Run Keyword And Continue On Failure    Input Text    xpath=/html/body/div[1]/form/div/div[2]/div[2]/div/div/div/div/div[1]/div/table/tbody/tr[1]/td[2]/input    ${流水号}
+
+暂流水号
+    [Arguments]    ${暂流水号}
+    Run Keyword And Continue On Failure    Input Text    xpath=//*[@id="ProjectNo"]    ${暂流水号}
+
+暂存查询
+    Run Keyword And Continue On Failure    click Element    //*[@id="project_temp_search"]
+
+暂项目地址
+    [Arguments]    ${暂项目地址}
+    Run Keyword And Continue On Failure    Input Text    xpath=//*[@id="Address"]    ${暂项目地址}
+
+暂小区名称
+    [Arguments]    ${小区名称}
+    Run Keyword And Continue On Failure    Input Text    xpath=//*[@id="AreaName"]    ${小区名称}
+
+暂估价委托方
+    [Arguments]    ${暂估价委托方}
+    Run Keyword And Continue On Failure    Input Text    xpath=//*[@id="PriceDelegate"]    ${暂估价委托方}
+
+暂删除流水号
+    Run Keyword And Continue On Failure    Input Text    xpath=//*[@id="ProjectNo"]    ${zliushuihao1}
+
+获取第一条暂存数据
+    ${zliushuihao}    get Text    xpath=//*[@id="datagrid-row-r4-2-0"]/td[2]/div
+    ${zliushuihao1}    set variable    ${zliushuihao}
+    [Teardown]    Set Global Variable    ${zliushuihao1}
+    [Return]    ${zliushuihao1}
+
+暂存删除
+    Run Keyword And Continue On Failure    click Element    xpath=//*[@id="datagrid-row-r5-2-0"]/td[13]/div/a[2]
+
+已立项查询
+    Run Keyword And Continue On Failure    click Element    xpath=//*[@id="project_created_search"]
+
+已流水号
+    [Arguments]    ${已流水号}
+    comment    xpath=/html/body/div[1]/form/div/div[2]/div[2]/div/div/div/div[1]/div/table/tbody/tr[1]/td[2]/input    xpath=/html/body/div[1]/form/div/div[2]/div[2]/div/div/div/div/div[1]/div/table/tbody/tr[1]/td[2]/input
+    Run Keyword And Continue On Failure    Input Text    xpath=/html/body/div[1]/form/div/div[2]/div[2]/div/div/div/div/div[1]/div/table/tbody/tr[1]/td[2]/input    ${已流水号}
+
+清空已流水号
+    comment    xpath=/html/body/div[1]/form/div/div[2]/div[2]/div/div/div/div/div[1]/div/table/tbody/tr[1]/td[2]/input    xpath=/html/body/div[1]/form/div/div[2]/div[2]/div/div/div/div[1]/div/table/tbody/tr[1]/td[2]/input
+    Run Keyword And Continue On Failure    clear Element Text    xpath=/html/body/div[1]/form/div/div[2]/div[2]/div/div/div/div/div[1]/div/table/tbody/tr[1]/td[2]/input
+
+已报告编号
+    [Arguments]    ${已报告编号}
+    Run Keyword And Continue On Failure    Input Text    xpath=//*[@id="ReportNo"]    ${已报告编号}
+
+已项目地址
+    [Arguments]    ${已项目地址}
+    Comment    xpath=/html/body/div[1]/form/div/div[2]/div[2]/div/div/div/div[1]/div/table/tbody/tr[1]/td[6]/input    /html/body/div[1]/form/div/div[2]/div[2]/div/div/div/div/div[1]/div/table/tbody/tr[1]/td[6]/input
+    Run Keyword And Continue On Failure    Input Text    xpath=/html/body/div[1]/form/div/div[2]/div[2]/div/div/div/div/div[1]/div/table/tbody/tr[1]/td[6]/input    ${已项目地址}
+
+已小区名称
+    [Arguments]    ${已小区名称}
+    Comment    xpath=/html/body/div[1]/form/div/div[2]/div[2]/div/div/div/div[1]/div/table/tbody/tr[1]/td[8]/input    /html/body/div[1]/form/div/div[2]/div[2]/div/div/div/div/div[1]/div/table/tbody/tr[1]/td[8]/input
+    Run Keyword And Continue On Failure    Input Text    xpath=/html/body/div[1]/form/div/div[2]/div[2]/div/div/div/div/div[1]/div/table/tbody/tr[1]/td[8]/input    ${已小区名称}
+
+已受理人
+    [Arguments]    ${已受理人}
+    Run Keyword And Continue On Failure    Input Text    xpath=//*[@id="CreatorName"]    ${已受理人}
+
+清空已受理人
+    Run Keyword And Continue On Failure    clear Element Text    xpath=//*[@id="CreatorName"]
+
+已估价委托方
+    [Arguments]    ${已估价委托方}
+    Comment    xpath=/html/body/div[1]/form/div/div[2]/div[2]/div/div/div/div[1]/div/table/tbody/tr[3]/td[6]/input    /html/body/div[1]/form/div/div[2]/div[2]/div/div/div/div/div[1]/div/table/tbody/tr[3]/td[6]/input
+    Run Keyword And Continue On Failure    Input Text    xpath=/html/body/div[1]/form/div/div[2]/div[2]/div/div/div/div/div[1]/div/table/tbody/tr[3]/td[6]/input    ${已估价委托方}
+
+清空已小区名称
+    Comment    xpath=/html/body/div[1]/form/div/div[2]/div[2]/div/div/div/div[1]/div/table/tbody/tr[1]/td[8]/input    /html/body/div[1]/form/div/div[2]/div[2]/div/div/div/div/div[1]/div/table/tbody/tr[1]/td[8]/input
+    Run Keyword And Continue On Failure    clear Element Text    xpath=/html/body/div[1]/form/div/div[2]/div[2]/div/div/div/div/div[1]/div/table/tbody/tr[1]/td[8]/input
+
+已立项查询数据
+    ${流水号}    get text    xpath=//*[@id="datagrid-row-r6-2-0"]/td[2]
+    ${报告号}    get text    xpath=//*[@id="datagrid-row-r6-2-0"]/td[3]
+    log    ${报告号}
+    ${项目地址}    get text    xpath=//*[@id="datagrid-row-r6-2-0"]/td[4]
+    log    ${项目地址}
+    ${小区名称}    get text    xpath=//*[@id="datagrid-row-r6-2-0"]/td[5]
+    ${项目分类}    get text    xpath=//*[@id="datagrid-row-r6-2-0"]/td[6]
+    ${物业类型}    get text    xpath=//*[@id="datagrid-row-r6-2-0"]/td[7]
+    ${估价目的}    get text    xpath=//*[@id="datagrid-row-r6-2-0"]/td[8]
+    ${报告类型}    get text    xpath=//*[@id="datagrid-row-r6-2-0"]/td[9]
+    ${业务来源}    get text    xpath=//*[@id="datagrid-row-r6-2-0"]/td[10]
+    ${客户姓名}    get text    xpath=//*[@id="datagrid-row-r6-2-0"]/td[11]
+    ${受理人}    get text    xpath=//*[@id="datagrid-row-r6-2-0"]/td[12]
+    ${受理时间}    get text    xpath=//*[@id="datagrid-row-r6-2-0"]/td[13]
+    ${旧流水号}    get text    xpath=//*[@id="datagrid-row-r6-2-0"]/td[14]
+    ${旧报告号}    get text    xpath=//*[@id="datagrid-row-r6-2-0"]/td[15]
+    ${估价委托方}    get text    xpath=//*[@id="datagrid-row-r6-2-0"]/td[16]
+    ${状态}    get text    xpath=//*[@id="datagrid-row-r6-2-0"]/td[17]
+    ${项目状态}    get text    xpath=//*[@id="datagrid-row-r6-2-0"]/td[18]
+    [Teardown]    Set Global Variable    ${报告号}
+    [Return]    ${流水号}    ${报告号}    ${项目地址}    ${小区名称}    ${项目分类}    ${物业类型}
+    ...    ${估价目的}    ${报告类型}    ${业务来源}

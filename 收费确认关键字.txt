@@ -1,0 +1,17 @@
+*** Keywords ***
+确认收费流水号
+    [Arguments]    ${流水号}
+    Input Text    xpath=/html/body/form/div/div[2]/div[1]/div/div/div/div[1]/table/tbody/tr[1]/td[2]/span/input[1]    ${流水号}
+
+收费确认
+    sleep    2
+    Run Keyword And Continue On Failure    click Element    xpath=//a[contains(.,'收费确认')]
+    sleep    5
+    收费确认窗口
+
+收费确认窗口
+    Run Keyword And Continue On Failure    select frame    id=Finance_FreeComfirm
+    Wait Until Page Contains    未确认
+
+清空收费确认流水号
+    Run Keyword And Continue On Failure    Clear Element Text    xpath=/html/body/form/div/div[2]/div[1]/div/div/div/div[1]/table/tbody/tr[1]/td[2]/span/input[1]

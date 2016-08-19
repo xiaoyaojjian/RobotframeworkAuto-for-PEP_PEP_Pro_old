@@ -1,0 +1,38 @@
+*** Settings ***
+Library           Selenium2Library
+
+*** Keywords ***
+已分配按钮
+    Run Keyword And Continue On Failure    click Element    xpath=//*[@id="tabs"]/div[1]/div[3]/ul/li[2]/a
+
+分配人员
+    [Arguments]    ${分配人员}
+    Input Text    xpath=//*[@id="assignuser"]    ${分配人员}
+
+查勘人员
+    [Arguments]    ${查勘人员}
+    Input Text    xpath=//*[@id="TaskOwner"]    ${查勘人员}
+
+外采分配
+    Comment    sleep    5
+    Run Keyword And Continue On Failure    click Element    xpath=//span[contains(.,'我的项目')]
+    Comment    click Element    //*[@id="expmenu-freebie"]/li/ul/li[3]/div
+    Comment    sleep    1
+    Wait Until Page Does Not Contain Element    xpath=.//*[@id='expmenu-freebie']/li/ul/li[3]/ul[@class="menu" and contains(@style,"display: none;")]    #等待控件出现
+    Run Keyword And Continue On Failure    click Element    //a[contains(.,'外业分配')]
+    Comment    sleep    5
+    Wait Until Page Contains Element    xpath=.//*[@id='ProjectAllot_OutsideAssign']
+    Run Keyword And Continue On Failure    select frame    id=ProjectAllot_OutsideAssign
+    Wait Until Page Contains    未分配
+
+查勘任务分配
+    Comment    sleep    5
+    Comment    click Element    //*[@id="expmenu-freebie"]/li/ul/li[3]/div
+    Comment    sleep    1
+    Run Keyword And Continue On Failure    click Element    //a[contains(.,'查勘任务')]
+    Comment    sleep    5
+    外业分配窗口
+
+外业分配窗口
+    select frame    id=ProjectAllot_OutsideAccept
+    Wait Until Page Contains    未领取

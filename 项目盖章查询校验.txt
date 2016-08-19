@@ -1,0 +1,66 @@
+*** Settings ***
+Resource          业务流程.txt
+
+*** Keywords ***
+项目盖章（未）按流水号查询校验
+    [Arguments]    ${项目盖章流水号}    ${流水号}
+    run keyword if    ${项目盖章流水号}==${流水号}    Capture Page Screenshot    项目盖章未盖章按流水号查询获取数据成功.png
+    ...    ELSE    Capture Page Screenshot    项目盖章未盖章按流水号查询获取数据失败.png
+    run keyword if    ${项目盖章流水号}==${流水号}    log    pass
+    ...    ELSE    Fail
+
+项目盖章（未）按报告编号查询校验
+    [Arguments]    ${报告编号}    ${项目盖章报告编号}
+    run keyword if    ${报告编号}==${项目盖章报告编号}    Capture Page Screenshot    项目盖章未盖章按报告编号查询获取数据成功.png
+    ...    ELSE    Capture Page Screenshot    项目盖章未盖章按报告编号查询获取数据失败.png
+    run keyword if    ${报告编号}==${项目盖章报告编号}    log    pass
+    ...    ELSE    Fail
+
+项目盖章（未）按项目地址查询校验
+    [Arguments]    ${项目地址}    ${项目盖章项目地址}
+    run keyword if    '${项目地址}'=='${项目盖章项目地址}'    Capture Page Screenshot    项目盖章未盖章按项目地址查询获取数据成功.png
+    ...    ELSE    Capture Page Screenshot    项目盖章未盖章按项目地址查询获取数据失败.png
+    run keyword if    '${项目地址}'=='${项目盖章项目地址}'    log    pass
+    ...    ELSE    Fail
+
+项目盖章（未）按小区名称查询校验
+    [Arguments]    ${小区名称}    ${项目盖章小区名称}
+    run keyword if    '${小区名称}'=='${项目盖章小区名称}'    Capture Page Screenshot    项目盖章未盖章按小区名称查询获取数据成功.png
+    ...    ELSE    Capture Page Screenshot    项目盖章未盖章按小区名称查询获取数据失败.png
+    run keyword if    '${小区名称}'=='${项目盖章小区名称}'    log    pass
+    ...    ELSE    Fail
+
+项目盖章（已）按流水号查询校验
+    [Arguments]    ${项目盖章流水号}    ${流水号}    ${装订状态}
+    run keyword if    ${项目盖章流水号}==${流水号}    调用报告装订打印    ${流水号}    ${装订状态}
+    ...    ELSE    Capture Page Screenshot    项目盖章已盖章按流水号查询获取数据失败.png
+    run keyword if    ${项目盖章流水号}==${流水号}    log    pass
+    ...    ELSE    Fail
+
+项目盖章（已）按报告编号查询校验
+    [Arguments]    ${报告编号}    ${项目盖章报告编号}
+    run keyword if    ${报告编号}==${项目盖章报告编号}    Capture Page Screenshot    项目盖章已盖章按报告编号查询获取数据成功.png
+    ...    ELSE    Capture Page Screenshot    项目盖章已盖章按报告编号查询获取数据失败.png
+    run keyword if    ${报告编号}==${项目盖章报告编号}    log    pass
+    ...    ELSE    Fail
+
+项目盖章（已）按项目地址查询校验
+    [Arguments]    ${项目地址}    ${项目盖章项目地址}
+    run keyword if    '${项目地址}'=='${项目盖章项目地址}'    Capture Page Screenshot    项目盖章已盖章按项目地址查询获取数据成功.png
+    ...    ELSE    Capture Page Screenshot    项目盖章已盖章按项目地址查询获取数据失败.png
+    run keyword if    '${项目地址}'=='${项目盖章项目地址}'    log    pass
+    ...    ELSE    Fail
+
+项目盖章（已）按小区名称查询校验
+    [Arguments]    ${小区名称}    ${项目盖章小区名称}
+    run keyword if    '${小区名称}'=='${项目盖章小区名称}'    Capture Page Screenshot    项目盖章已盖章按小区名称查询获取数据成功.png
+    ...    ELSE    Capture Page Screenshot    项目盖章已盖章按小区名称查询获取数据失败.png
+    run keyword if    '${小区名称}'=='${项目盖章小区名称}'    log    pass
+    ...    ELSE    Fail
+
+项目盖章（已）按流水号查询校验1
+    [Arguments]    ${项目盖章流水号}    ${流水号}
+    run keyword if    ${项目盖章流水号}==${流水号}    Capture Page Screenshot    项目盖章已盖章按流水号查询获取数据成功.png
+    ...    ELSE    Capture Page Screenshot    项目盖章已盖章按流水号查询获取数据失败.png
+    run keyword if    ${项目盖章流水号}==${流水号}    log    pass
+    ...    ELSE    Fail

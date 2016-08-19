@@ -1,0 +1,443 @@
+*** Settings ***
+Library           Selenium2Library
+
+*** Keywords ***
+退出窗口
+    Unselect Frame
+
+所属机构
+    Run Keyword And Continue On Failure    Click Element    xpath=//*[@id="tbhead"]/tbody/tr[2]/td[2]/span/span/a
+    sleep    2
+    Run Keyword And Continue On Failure    Click Element    xpath=//*[@id="_easyui_combobox_i23_0"]
+    sleep    2
+
+分支机构
+    Run Keyword And Continue On Failure    Click Element    xpath=//*[@id="tbhead"]/tbody/tr[2]/td[4]/span/span/a
+    sleep    2
+    Run Keyword And Continue On Failure    Click Element    xpath=//*[@id="_easyui_combobox_i24_0"]
+    sleep    2
+
+客户姓名
+    Run Keyword And Continue On Failure    Click Element    xpath=//*[@id="tbhead"]/tbody/tr[1]/td[6]/span/span/a
+    sleep    2
+    Run Keyword And Continue On Failure    Click Element    xpath=//*[@id="_easyui_combobox_i22_0"]
+    sleep    2
+
+通过关键字选择小区
+    [Arguments]    ${小区名称}
+    Run Keyword And Continue On Failure    Input Text    xpath=//*[@id="ResidentialAreaName"]    ${小区名称}
+
+保存
+    Run Keyword And Continue On Failure    click Element    xpath=//*[@id="submitform"]
+
+操作成功提示语
+    Set Selenium Speed    1s
+    ${mes}    confirm action
+    log    ${mes}
+    Comment    Should Be Equal    ${mes}    操作成功
+    Choose Ok On Next Confirmation
+    Comment    sleep    5
+    Set Selenium Speed    0.5s
+
+立项提示语
+    sleep    3
+    ${lmes}    confirm action
+    log    ${lmes}
+    ${Imesl}    findall    号(.*) 报    ${lmes}
+    log    ${Imesl[0]}
+    ${流水号}    set variable    ${Imesl[0]}
+    sleep    2
+    [Teardown]    Set Global Variable    ${流水号}
+    [Return]    ${流水号}
+
+项目受理窗口
+    Run Keyword And Continue On Failure    select Frame    id=InquiryAndProject_ProjectAccept
+    Wait Until Page Contains    暂存项目
+
+项目受理
+    Run Keyword And Continue On Failure    click Element    xpath=//*[@id="expmenu-freebie"]/li/ul/li[1]/ul/li[2]/a
+
+清空流水号
+    Run Keyword And Continue On Failure    Clear Element Text    xpath=//*[@id="ProjectNo"]
+
+清空项目地址
+    Clear Element Text    xpath=//*[@id="Address"]
+
+清空小区名
+    Clear Element Text    xpath=//*[@id="AreaName"]
+
+清空估价委托方
+    Clear Element Text    xpath=//*[@id="PriceDelegate"]
+
+项目分类
+    [Arguments]    ${项目分类}
+    select From List By Value    id=ReportType    ${项目分类}
+
+删除成功提示语
+    ${deltishi}    get text    xpath=/html/body/div[10]/div[2]/div[2]
+    log    ${deltishi}
+    should be equal    ${deltishi}    确定要删除吗？
+    click Element    xpath=/html/body/div[10]/div[2]/div[4]/a[1]
+    sleep    2
+    ${deltishi1}    get text    xpath=/html/body/div[10]/div[2]/div[2]
+    log    ${deltishi1}
+    should be equal    ${deltishi1}    操作成功
+
+清空报告编号
+    Run Keyword And Continue On Failure    clear Element Text    xpath=//*[@id="ReportNo"]
+
+已估价目的
+    select From List By Value    xpath=/html/body/div[1]/form/div/div[2]/div[2]/div/div/div/div/div[1]/div/table/tbody/tr[2]/td[2]/select    房地产抵押（非按揭）
+    click Element    xpath=//*[@id="project_created_search"]
+    sleep    5
+    Capture Page Screenshot    立项根据房地产抵押（非按揭）查询.png
+    sleep    2
+    select From List By Value    xpath=/html/body/div[1]/form/div/div[2]/div[2]/div/div/div/div/div[1]/div/table/tbody/tr[2]/td[2]/select    房地产抵押（按揭）
+    click Element    xpath=//*[@id="project_created_search"]
+    sleep    5
+    Capture Page Screenshot    立项根据房地产抵押（按揭）查询.png
+    sleep    2
+    select From List By Value    xpath=/html/body/div[1]/form/div/div[2]/div[2]/div/div/div/div/div[1]/div/table/tbody/tr[2]/td[2]/select    土地抵押
+    click Element    xpath=//*[@id="project_created_search"]
+    sleep    5
+    Capture Page Screenshot    立项根据土地抵押查询.png
+    sleep    2
+    select From List By Value    xpath=/html/body/div[1]/form/div/div[2]/div[2]/div/div/div/div/div[1]/div/table/tbody/tr[2]/td[2]/select    咨询顾问服务
+    click Element    xpath=//*[@id="project_created_search"]
+    sleep    5
+    Capture Page Screenshot    立项根据咨询顾问服务查询.png
+    sleep    2
+    select From List By Value    xpath=/html/body/div[1]/form/div/div[2]/div[2]/div/div/div/div/div[1]/div/table/tbody/tr[2]/td[2]/select    移民评估
+    click Element    xpath=//*[@id="project_created_search"]
+    sleep    5
+    Capture Page Screenshot    立项根据移民评估查询.png
+    sleep    2
+    select From List By Value    xpath=/html/body/div[1]/form/div/div[2]/div[2]/div/div/div/div/div[1]/div/table/tbody/tr[2]/td[2]/select    价值鉴定
+    click Element    xpath=//*[@id="project_created_search"]
+    sleep    5
+    Capture Page Screenshot    立项根据价值鉴定查询.png
+    sleep    2
+    select From List By Value    xpath=/html/body/div[1]/form/div/div[2]/div[2]/div/div/div/div/div[1]/div/table/tbody/tr[2]/td[2]/select    司法鉴定
+    click Element    xpath=//*[@id="project_created_search"]
+    sleep    5
+    Capture Page Screenshot    立项根据司法鉴定查询.png
+    sleep    2
+    select From List By Value    xpath=/html/body/div[1]/form/div/div[2]/div[2]/div/div/div/div/div[1]/div/table/tbody/tr[2]/td[2]/select    课税评估
+    click Element    xpath=//*[@id="project_created_search"]
+    sleep    5
+    Capture Page Screenshot    立项根据课税评估查询.png
+    sleep    2
+    select From List By Value    xpath=/html/body/div[1]/form/div/div[2]/div[2]/div/div/div/div/div[1]/div/table/tbody/tr[2]/td[2]/select    招拍挂出让
+    click Element    xpath=//*[@id="project_created_search"]
+    sleep    5
+    Capture Page Screenshot    立项根据招拍挂出让查询.png
+    sleep    2
+    select From List By Value    xpath=/html/body/div[1]/form/div/div[2]/div[2]/div/div/div/div/div[1]/div/table/tbody/tr[2]/td[2]/select    协议出让
+    click Element    xpath=//*[@id="project_created_search"]
+    sleep    5
+    Capture Page Screenshot    立项根据协议出让查询.png
+    sleep    2
+    select From List By Value    xpath=/html/body/div[1]/form/div/div[2]/div[2]/div/div/div/div/div[1]/div/table/tbody/tr[2]/td[2]/select    房屋征收
+    click Element    xpath=//*[@id="project_created_search"]
+    sleep    5
+    Capture Page Screenshot    立项根据房屋征收查询.png
+    sleep    2
+    select From List By Value    xpath=/html/body/div[1]/form/div/div[2]/div[2]/div/div/div/div/div[1]/div/table/tbody/tr[2]/td[2]/select    拆迁腾退
+    click Element    xpath=//*[@id="project_created_search"]
+    sleep    5
+    Capture Page Screenshot    立项根据拆迁腾退查询.png
+    sleep    2
+    select From List By Value    xpath=/html/body/div[1]/form/div/div[2]/div[2]/div/div/div/div/div[1]/div/table/tbody/tr[2]/td[2]/select    房地产转让
+    click Element    xpath=//*[@id="project_created_search"]
+    sleep    5
+    Capture Page Screenshot    立项根据房地产转让查询.png
+    sleep    2
+    select From List By Value    xpath=/html/body/div[1]/form/div/div[2]/div[2]/div/div/div/div/div[1]/div/table/tbody/tr[2]/td[2]/select    租赁价格评估
+    click Element    xpath=//*[@id="project_created_search"]
+    sleep    5
+    Capture Page Screenshot    立项根据租赁价格评估查询.png
+    sleep    2
+    select From List By Value    xpath=/html/body/div[1]/form/div/div[2]/div[2]/div/div/div/div/div[1]/div/table/tbody/tr[2]/td[2]/select    其他目的
+    click Element    xpath=//*[@id="project_created_search"]
+    sleep    5
+    Capture Page Screenshot    立项根据租其他目的查询.png
+    sleep    2
+    select From List By Value    xpath=/html/body/div[1]/form/div/div[2]/div[2]/div/div/div/div/div[1]/div/table/tbody/tr[2]/td[2]/select    项目评估
+    click Element    xpath=//*[@id="project_created_search"]
+    sleep    5
+    Capture Page Screenshot    立项根据项目评估查询.png
+    sleep    2
+    click Element    xpath=/html/body/div[1]/form/div/div[2]/div[2]/div/div/div/div/div[1]/div/table/tbody/tr[2]/td[2]/select
+    sleep    2
+    click Element    xpath=/html/body/div[1]/form/div/div[2]/div[2]/div/div/div/div/div[1]/div/table/tbody/tr[2]/td[2]/select/option[1]
+    click Element    xpath=//*[@id="project_created_search"]
+    sleep    5
+    Capture Page Screenshot    立项根据估价目的为空查询.png
+
+已报告类型
+    select From List By Value    id=ReportCategory    正式报告
+    click Element    xpath=//*[@id="project_created_search"]
+    sleep    5
+    Capture Page Screenshot    立项根据正式报告查询.png
+    sleep    2
+    select From List By Value    id=ReportCategory    预估报告
+    click Element    xpath=//*[@id="project_created_search"]
+    sleep    5
+    Capture Page Screenshot    立项根据预估报告查询.png
+    sleep    2
+    select From List By Value    id=ReportCategory    询价单
+    click Element    xpath=//*[@id="project_created_search"]
+    sleep    5
+    Capture Page Screenshot    立项根据询价单查询.png
+    sleep    2
+    click Element    xpath=/html/body/div[1]/form/div/div[2]/div[2]/div/div/div/div/div[1]/div/table/tbody/tr[2]/td[4]/select
+    sleep    2
+    click Element    xpath=/html/body/div[1]/form/div/div[2]/div[2]/div/div/div/div/div[1]/div/table/tbody/tr[2]/td[4]/select/option[1]
+    click Element    xpath=//*[@id="project_created_search"]
+    sleep    5
+    Capture Page Screenshot    立项根据报告类型为空查询.png
+
+已业务来源
+    select From List By Value    xpath=/html/body/div[1]/form/div/div[2]/div[2]/div/div/div/div/div[1]/div/table/tbody/tr[2]/td[6]/select    电话
+    click Element    xpath=//*[@id="project_created_search"]
+    sleep    5
+    Capture Page Screenshot    立项根据电话查询.png
+    sleep    2
+    select From List By Value    xpath=/html/body/div[1]/form/div/div[2]/div[2]/div/div/div/div/div[1]/div/table/tbody/tr[2]/td[6]/select    微信
+    click Element    xpath=//*[@id="project_created_search"]
+    sleep    5
+    Capture Page Screenshot    立项根据微信查询.png
+    sleep    2
+    select From List By Value    xpath=/html/body/div[1]/form/div/div[2]/div[2]/div/div/div/div/div[1]/div/table/tbody/tr[2]/td[6]/select    QQ
+    click Element    xpath=//*[@id="project_created_search"]
+    sleep    5
+    Capture Page Screenshot    立项根据QQ查询.png
+    sleep    2
+    select From List By Value    xpath=/html/body/div[1]/form/div/div[2]/div[2]/div/div/div/div/div[1]/div/table/tbody/tr[2]/td[6]/select    房估估
+    click Element    xpath=//*[@id="project_created_search"]
+    sleep    5
+    Capture Page Screenshot    立项根据房估估查询.png
+    sleep    2
+    select From List By Value    xpath=/html/body/div[1]/form/div/div[2]/div[2]/div/div/div/div/div[1]/div/table/tbody/tr[2]/td[6]/select    链家
+    click Element    xpath=//*[@id="project_created_search"]
+    sleep    5
+    Capture Page Screenshot    立项根据链家查询.png
+    sleep    2
+    select From List By Value    xpath=/html/body/div[1]/form/div/div[2]/div[2]/div/div/div/div/div[1]/div/table/tbody/tr[2]/td[6]/select    百度房产
+    click Element    xpath=//*[@id="project_created_search"]
+    sleep    5
+    Capture Page Screenshot    立项根据百度房产查询.png
+    sleep    2
+    select From List By Value    xpath=/html/body/div[1]/form/div/div[2]/div[2]/div/div/div/div/div[1]/div/table/tbody/tr[2]/td[6]/select    平安普惠
+    click Element    xpath=//*[@id="project_created_search"]
+    sleep    5
+    Capture Page Screenshot    立项根据平安普惠查询.png
+    sleep    2
+    select From List By Value    xpath=/html/body/div[1]/form/div/div[2]/div[2]/div/div/div/div/div[1]/div/table/tbody/tr[2]/td[6]/select    其他方式
+    click Element    xpath=//*[@id="project_created_search"]
+    sleep    5
+    Capture Page Screenshot    立项根据其他方式查询.png
+    sleep    2
+    click Element    xpath=/html/body/div[1]/form/div/div[2]/div[2]/div/div/div/div/div[1]/div/table/tbody/tr[2]/td[6]/select
+    sleep    2
+    click Element    xpath=/html/body/div[1]/form/div/div[2]/div[2]/div/div/div/div/div[1]/div/table/tbody/tr[2]/td[6]/select/option[1]
+    click Element    xpath=//*[@id="project_created_search"]
+    sleep    5
+    Capture Page Screenshot    立项根据业务来源为空查询.png
+
+已物业类型
+    select From List By Value    xpath=/html/body/div[1]/form/div/div[2]/div[2]/div/div/div/div/div[1]/div/table/tbody/tr[2]/td[8]/select    成套住宅
+    click Element    xpath=//*[@id="project_created_search"]
+    sleep    5
+    Capture Page Screenshot    立项根据成套住宅查询.png
+    sleep    2
+    select From List By Value    xpath=/html/body/div[1]/form/div/div[2]/div[2]/div/div/div/div/div[1]/div/table/tbody/tr[2]/td[8]/select    成套商业
+    click Element    xpath=//*[@id="project_created_search"]
+    sleep    5
+    Capture Page Screenshot    立项根据成套商业查询.png
+    sleep    2
+    select From List By Value    xpath=/html/body/div[1]/form/div/div[2]/div[2]/div/div/div/div/div[1]/div/table/tbody/tr[2]/td[8]/select    成套办公
+    click Element    xpath=//*[@id="project_created_search"]
+    sleep    5
+    Capture Page Screenshot    立项根据成套办公查询.png
+    sleep    2
+    select From List By Value    xpath=/html/body/div[1]/form/div/div[2]/div[2]/div/div/div/div/div[1]/div/table/tbody/tr[2]/td[8]/select    别墅
+    click Element    xpath=//*[@id="project_created_search"]
+    sleep    5
+    Capture Page Screenshot    立项根据别墅查询.png
+    sleep    2
+    select From List By Value    xpath=/html/body/div[1]/form/div/div[2]/div[2]/div/div/div/div/div[1]/div/table/tbody/tr[2]/td[8]/select    城镇土地
+    click Element    xpath=//*[@id="project_created_search"]
+    sleep    5
+    Capture Page Screenshot    立项根据城镇土地查询.png
+    sleep    2
+    select From List By Value    xpath=/html/body/div[1]/form/div/div[2]/div[2]/div/div/div/div/div[1]/div/table/tbody/tr[2]/td[8]/select    在建工程
+    click Element    xpath=//*[@id="project_created_search"]
+    sleep    5
+    Capture Page Screenshot    立项根据在建工程查询.png
+    sleep    2
+    select From List By Value    xpath=/html/body/div[1]/form/div/div[2]/div[2]/div/div/div/div/div[1]/div/table/tbody/tr[2]/td[8]/select    酒店、度假村
+    click Element    xpath=//*[@id="project_created_search"]
+    sleep    5
+    Capture Page Screenshot    立项根据酒店、度假村查询.png
+    sleep    2
+    select From List By Value    xpath=/html/body/div[1]/form/div/div[2]/div[2]/div/div/div/div/div[1]/div/table/tbody/tr[2]/td[8]/select    工业房地产
+    click Element    xpath=//*[@id="project_created_search"]
+    sleep    5
+    Capture Page Screenshot    立项根据工业房地产查询.png
+    sleep    2
+    click Element    xpath=/html/body/div[1]/form/div/div[2]/div[2]/div/div/div/div/div[1]/div/table/tbody/tr[2]/td[8]/select
+    sleep    2
+    click Element    xpath=/html/body/div[1]/form/div/div[2]/div[2]/div/div/div/div/div[1]/div/table/tbody/tr[2]/td[8]/select/option[1]
+    click Element    xpath=//*[@id="project_created_search"]
+    sleep    5
+    Capture Page Screenshot    立项根据物业类型为空查询.png
+
+暂存根据流水号查询校验
+    [Arguments]    ${暂流水号}
+    Comment    wait until element is visible    xpath=//*[@id="datagrid-row-r5-2-0"]/td[2]
+    ${暂存流水号}    get text    xpath=//*[@id="datagrid-row-r5-2-0"]/td[2]
+    log    ${暂存流水号}
+    Run Keyword And Continue On Failure    run keyword if    ${暂存流水号}==${暂流水号}    Capture Page Screenshot    暂存根据流水号查询成功.png
+    ...    ELSE    Capture Page Screenshot    暂存根据流水号查询失败.png
+    Run Keyword And Continue On Failure    run keyword if    ${暂存流水号}==${暂流水号}    log    pass
+    ...    ELSE    Fail
+
+暂存根据项目地址查询校验
+    [Arguments]    ${暂项目地址}
+    Comment    wait until element is visible    xpath=//*[@id="datagrid-row-r7-2-0"]/td[3]
+    ${暂存项目地址}    get text    xpath=//*[@id="datagrid-row-r7-2-0"]/td[3]
+    log    ${暂存项目地址}
+    Run Keyword And Continue On Failure    run keyword if    '${暂存项目地址}'=='${暂项目地址}'    Capture Page Screenshot    暂存根据项目地址查询成功.png
+    ...    ELSE    Capture Page Screenshot    暂存根据项目地址查询失败.png
+    Run Keyword And Continue On Failure    run keyword if    '${暂存项目地址}'=='${暂项目地址}'    log    pass
+    ...    ELSE    Fail
+
+询价查看窗口
+    Run Keyword And Continue On Failure    select frame    id=询价查看
+    Wait Until Page Contains    客户信息
+
+非住宅添加询价窗口
+    Run Keyword And Continue On Failure    select frame    id=add_inquiry_nothouse
+    Wait Until Page Contains    非住宅信息
+
+客户信息查询按钮
+    Run Keyword And Continue On Failure    click Element    xpath=//*[@id="SearchCustomer"]
+
+内外业分配查询按钮
+    Comment    sleep    5
+    Run Keyword And Continue On Failure    click Element    xpath=.//div[@class="panel" and contains(@style,"display: block")]//span[text()="查询"]/ancestor::a
+
+流水号
+    [Arguments]    ${流水号}
+    Run Keyword And Continue On Failure    Input Text    xpath=//*[@id="ProjectNo"]    ${流水号}
+
+报告编号
+    [Arguments]    ${报告编号}
+    Run Keyword And Continue On Failure    Input Text    xpath=//*[@id="ReportNo"]    ${报告编号}
+
+外项目地址
+    [Arguments]    ${项目地址}
+    Run Keyword And Continue On Failure    Input Text    xpath=//*[@id="address"]    ${项目地址}
+
+外小区名称
+    [Arguments]    ${小区名称}
+    Input Text    xpath=//*[@id="areaname"]    ${小区名称}
+
+内外流水号
+    [Arguments]    ${流水号}
+    Run Keyword And Continue On Failure    Input Text    xpath=//*[@id="ProjectNo"]    ${流水号}
+
+清空旧流水号
+    Clear Element Text    xpath=//*[@id="OldProjectNo"]
+
+清空旧报告编号
+    Clear Element Text    xpath=//*[@id="OldReportNo"]
+
+项目已申请提示
+    ${mes}    confirm action
+    log    ${mes}
+    Comment    Should Be Equal    ${mes}    操作成功
+    Comment    Choose Ok On Next Confirmation
+    Comment    sleep    5
+
+暂存根据小区名称查询校验
+    [Arguments]    ${小区名称}
+    Comment    wait until element is visible    xpath=//*[@id="datagrid-row-r9-2-0"]/td[4]
+    ${暂存小区名称}    get text    xpath=//*[@id="datagrid-row-r9-2-0"]/td[4]
+    log    ${暂存小区名称}
+    Run Keyword And Continue On Failure    run keyword if    '${暂存小区名称}'=='${小区名称}'    Capture Page Screenshot    暂存根据小区名称查询成功.png
+    ...    ELSE    Capture Page Screenshot    暂存根据小区名称查询失败.png
+    Run Keyword And Continue On Failure    run keyword if    '${暂存小区名称}'=='${小区名称}'    log    pass
+    ...    ELSE    Fail
+
+暂存根据委托方查询校验
+    [Arguments]    ${委托方}
+    Comment    wait until element is visible    xpath=//*[@id="datagrid-row-r11-2-0"]/td[11]
+    ${暂存委托方}    get text    xpath=//*[@id="datagrid-row-r11-2-0"]/td[11]
+    Run Keyword And Continue On Failure    run keyword if    '${暂存委托方}'=='${委托方}'    Capture Page Screenshot    暂存根据委托方查询成功.png
+    ...    ELSE    Capture Page Screenshot    暂存根据委托方查询失败.png
+    Run Keyword And Continue On Failure    run keyword if    '${暂存委托方}'=='${委托方}'    log    pass
+    ...    ELSE    Fail
+
+暂存根据项目分类查询校验
+    [Arguments]    ${项目分类}
+    Comment    wait until element is visible    xpath=//*[@id="datagrid-row-r13-2-0"]/td[5]
+    ${暂存项目分类}    get text    xpath=//*[@id="datagrid-row-r13-2-0"]/td[5]
+    log    ${暂存项目分类}
+    Run Keyword And Continue On Failure    run keyword if    '${暂存项目分类}'=='${项目分类}'    Capture Page Screenshot    暂存${项目分类}根据项目分类查询成功.png
+    ...    ELSE    Capture Page Screenshot    暂存${项目分类}根据项目分类查询失败.png
+    Run Keyword And Continue On Failure    run keyword if    '${暂存项目分类}'=='${项目分类}'    log    pass
+    ...    ELSE    Fail
+
+物业类型
+    [Arguments]    ${物业类型}
+    select From List By Value    id=ProjectType    ${物业类型}
+
+暂存根据物业类型查询校验
+    [Arguments]    ${物业类型}
+    Comment    wait until element is visible    xpath=//*[@id="datagrid-row-r15-2-0"]/td[6]
+    ${暂存物业类型}    get text    xpath=//*[@id="datagrid-row-r15-2-0"]/td[6]
+    log    ${暂存物业类型}
+    Run Keyword And Continue On Failure    run keyword if    '${暂存物业类型}'=='${物业类型}'    Capture Page Screenshot    暂存物业类型根据物业类型查询成功.png
+    ...    ELSE    Capture Page Screenshot    暂存物业类型根据物业类型查询失败.png
+    Run Keyword And Continue On Failure    run keyword if    '${暂存物业类型}'=='${物业类型}'    log    pass
+    ...    ELSE    Fail
+
+估价目的
+    [Arguments]    ${估价目的}
+    select From List By Value    id=BusinessType    ${估价目的}
+
+暂存根据估价目的查询校验
+    [Arguments]    ${估价目的}
+    Comment    wait until element is visible    xpath=//*[@id="datagrid-row-r17-2-0"]/td[7]
+    ${暂存估价目的}    get text    xpath=//*[@id="datagrid-row-r17-2-0"]/td[7]
+    log    ${暂存估价目的}
+    Run Keyword And Continue On Failure    run keyword if    '${暂存估价目的}'=='${估价目的}'    Capture Page Screenshot    暂存估价目的根据估价目的查询成功.png
+    ...    ELSE    Capture Page Screenshot    暂存估价目的根据估价目的查询失败.png
+    Run Keyword And Continue On Failure    run keyword if    '${暂存估价目的}'=='${估价目的}'    log    pass
+    ...    ELSE    Fail
+
+暂存根据业务来源查询校验
+    [Arguments]    ${业务来源}
+    Comment    wait until element is visible    xpath=//*[@id="datagrid-row-r19-2-0"]/td[9]
+    ${暂存业务来源}    get text    xpath=//*[@id="datagrid-row-r19-2-0"]/td[9]
+    log    ${暂存业务来源}
+    Run Keyword And Continue On Failure    run keyword if    '${暂存业务来源}'=='${业务来源}'    Capture Page Screenshot    暂存业务来源根据业务来源查询成功.png
+    ...    ELSE    Capture Page Screenshot    暂存业务来源根据业务来源查询失败.png
+    Run Keyword And Continue On Failure    run keyword if    '${暂存业务来源}'=='${业务来源}'    log    pass
+    ...    ELSE    Fail
+
+等待处理完毕
+    Set Selenium Speed    0.5s
+    Wait Until Page Contains Element    xpath=//*[@id="LoadingBG" and @style="display: none;"]    timeout=30s
+    Wait Until Page Contains Element    xpath=//*[@id="load_Tips" and contains(@style,"display: none")]    timeout=30s
+
+等待弹出框
+    Wait Until Page Contains Element    xpath=//*[contains(@id,'xubox_iframe')]    60s
+
+等待表格创建完毕
+    Wait Until Page Does Not Contain Element    xpath=//*[@class="datagrid-mask" and contains(@style,"display:block")]    timeout=30s
+
+等待提示框
+    Wait Until Page Contains Element    xpath=.//div[contains(@class,"messager-window") and contains(@style,"display: block")]    60s

@@ -1,0 +1,28 @@
+*** Keywords ***
+汇款领取按流水号查询校验
+    [Arguments]    ${汇款确认流水号}    ${流水号}
+    run keyword if    ${汇款确认流水号}==${流水号}    Capture Page Screenshot    汇款领取按流水号查询获取数据成功.png
+    ...    ELSE    Capture Page Screenshot    汇款领取按流水号查询获取数据失败.png
+    run keyword if    ${汇款确认流水号}==${流水号}    log    pass
+    ...    ELSE    Fail
+
+汇款领取按地址查询校验
+    [Arguments]    ${汇款领取地址}    ${地址}
+    run keyword if    '${汇款领取地址}'=='${地址}'    Capture Page Screenshot    汇款领取按地址查询获取数据成功.png
+    ...    ELSE    Capture Page Screenshot    汇款领取按地址查询获取数据失败.png
+    run keyword if    '${汇款领取地址}'=='${地址}'    log    pass
+    ...    ELSE    Fail
+
+汇款领取按金额查询校验
+    [Arguments]    ${汇款领取金额}    ${金额}
+    run keyword if    ${汇款领取金额}==${金额}    Capture Page Screenshot    汇款领取按金额查询获取数据成功.png
+    ...    ELSE    Capture Page Screenshot    汇款领取按金额查询获取数据失败.png
+    run keyword if    ${汇款领取金额}==${金额}    log    pass
+    ...    ELSE    Fail
+
+汇款领取按状态查询校验
+    [Arguments]    ${汇款领取状态}    ${状态}
+    run keyword if    '${汇款领取状态}'=='${状态}'    Capture Page Screenshot    汇款领取按状态查询获取数据成功.png
+    ...    ELSE    Capture Page Screenshot    汇款领取按状态查询获取数据失败.png
+    run keyword if    '${汇款领取状态}'=='${状态}'    log    pass
+    ...    ELSE    Fail

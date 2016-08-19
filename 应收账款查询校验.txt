@@ -1,0 +1,35 @@
+*** Keywords ***
+应收账款按流水号查询校验
+    [Arguments]    ${勘流水号}    ${流水号}
+    run keyword if    ${勘流水号}==${流水号}    Capture Page Screenshot    应收账款按流水号查询获取数据成功.png
+    ...    ELSE    Capture Page Screenshot    应收账款按流水号查询获取数据失败.png
+    run keyword if    ${勘流水号}==${流水号}    log    pass
+    ...    ELSE    Fail
+
+应收账款按报告编号查询获取数据校验
+    [Arguments]    ${报告编号}    ${勘报告编号}
+    run keyword if    ${报告编号}==${勘报告编号}    Capture Page Screenshot    应收账款按报告编号查询获取数据成功.png
+    ...    ELSE    Capture Page Screenshot    应收账款按报告编号查询获取数据失败.png
+    run keyword if    ${报告编号}==${勘报告编号}    log    pass
+    ...    ELSE    Fail
+
+应收账款按小区名称查询获取数据校验
+    [Arguments]    ${小区名称}    ${勘小区名称}
+    run keyword if    '${小区名称}'=='${勘小区名称}'    Capture Page Screenshot    应收账款按小区名称查询获取数据成功.png
+    ...    ELSE    Capture Page Screenshot    应收账款按小区名称查询获取数据失败.png
+    run keyword if    '${小区名称}'=='${勘小区名称}'    log    pass
+    ...    ELSE    Fail
+
+应收账款按项目地址查询获取数据校验
+    [Arguments]    ${项目地址}    ${勘项目地址}
+    run keyword if    '${项目地址}'=='${勘项目地址}'    Capture Page Screenshot    应收账款按项目地址查询获取数据成功.png
+    ...    ELSE    Capture Page Screenshot    应收账款按项目地址查询获取数据失败.png
+    run keyword if    '${项目地址}'=='${勘项目地址}'    log    pass
+    ...    ELSE    Fail
+
+应收账款按所属机构查询获取数据校验
+    [Arguments]    ${所属机构}    ${应所属机构}
+    run keyword if    '${所属机构}'=='${应所属机构}'    Capture Page Screenshot    应收账款按所属机构查询获取数据成功.png
+    ...    ELSE    Capture Page Screenshot    应收账款按所属机构查询获取数据失败.png
+    run keyword if    '${所属机构}'=='${应所属机构}'    log    pass
+    ...    ELSE    Fail

@@ -1,0 +1,516 @@
+*** Settings ***
+Test Teardown     关闭浏览器
+Library           Selenium2Library
+Library           re
+Resource          登录关键字.txt
+Resource          业务流程.txt
+Resource          询价关键字.txt
+Resource          公共关键字.txt
+Resource          检测判断.txt
+Resource          立项关键字.txt
+Resource          外业分配关键字.txt
+Resource          内业分配关键字.txt
+Resource          查勘任务查询校验.txt
+Resource          估价作业查询校验.txt
+Resource          模块主流程.txt
+Resource          项目审核关键字.txt
+Resource          项目审核查询校验.txt
+Resource          项目盖章关键字.txt
+Resource          项目盖章查询校验.txt
+Resource          项目盖章关键字.txt
+Resource          项目盖章查询校验.txt
+Resource          项目收费查询校验.txt
+Resource          报告装订打印关键字.txt
+Resource          报告打印装订查询校验.txt
+Resource          报告发送关键字.txt
+Resource          报告发送查询校验.txt
+Resource          项目变更查询校验.txt
+Resource          项目变更关键字.txt
+Resource          项目撤销关键字.txt
+Resource          项目撤销查询校验.txt
+Resource          免收申请关键字.txt
+Resource          项目免收查询校验.txt
+Resource          应收金额审批关键字.txt
+Resource          应收金额审批查询校验.txt
+Resource          收费确认关键字.txt
+Resource          收费确认查询校验.txt
+Resource          出纳复核关键字.txt
+Resource          出纳复核查询校验.txt
+Resource          项目退费查询校验.txt
+Resource          汇款信息关键字.txt
+Resource          汇款信息查询校验.txt
+Resource          汇款领取关键字.txt
+Resource          汇款领取查询校验.txt
+Resource          票据管理关键字.txt
+Resource          票据管理查询校验.txt
+Resource          项目归档关键字.txt
+Resource          项目归档查询校验.txt
+Resource          应收账款关键字.txt
+Resource          应收账款查询校验.txt
+Resource          确认收费责任关键字.txt
+Resource          确认收费责任查询校验.txt
+
+*** Test Cases ***
+登录
+    Comment    打开浏览器    登录名    登录密码
+    登录流程    http://inworktest.yunfangdata.com:82/    123456
+
+添加询价（住）
+    Comment    打开浏览器    登录名    登录密码
+    登录新流程
+    Comment    模糊小区名    楼栋号    单元号    户号名    建筑面积    所在楼层
+    ...    总楼层    建成年代    抵押单价    市场单价
+    添加询价流程    wddl    12    13    14    200    15
+    ...    16    90    50000.00    55555.00
+
+转立项
+    Comment    发送份数    估价委托方    市场负责人    应收金额    收费责任人    内部保单人
+    ...    预收费用    联系人    联系电话    收取方式    姓名    联系方式
+    ...    邮政编码    公司名称    快递地址    立项备注
+    转立项流程    23    北京云房    ${login_name}    200    ${login_name}    ${login_name}
+    ...    300    李文    18911111111    快递    文文    18911111112
+    ...    123456    是的发生简单快乐房间爱思考复旦    的发生大幅度发的方法个电饭锅电饭锅地方反复反复反复发反反复复发    手动阀三大方法反反复复反复反复反复反复反复反复反复发反反复复发反反复复方法
+    Comment    关闭浏览器
+
+暂存删除
+    Comment    打开浏览器    登录名    登录密码
+    登录新流程
+    Comment
+    Comment    暂存删除流程
+    Comment    关闭浏览器
+
+新建立项
+    Comment    打开浏览器    登录名    登录密码
+    登录新流程
+    Comment    流水号    报告编号    外项目地址    小区名称    已受理人    估价委托方
+    click Element    xpath=//*[@id="expmenu-freebie"]/li/ul/li[1]/ul/li[2]/a
+    select frame    id=InquiryAndProject_ProjectAccept
+    sleep    5
+    click Element    xpath=//*[@id="project_temp_create"]
+    unselect frame
+    select frame    id=create_project_
+    Input Text    xpath=//*[@id="MobileNumber"]    18911111111
+    sleep    8
+    click Element    xpath=//*[@id="customer_search"]
+    sleep    4
+    ${查询存在客户}    confirm action
+    log    ${查询存在客户}
+    ${mes}=    findall    该(.*)户    ${查询存在客户}
+    log    '${mes[0]}'
+    sleep    4
+    run keyword if    '${mes[0]}'=='电话号码未绑定用'    Capture Page Screenshot    客户信息不存在.png
+    ...    ELSE    Capture Page Screenshot    客户信息存在.png
+    clear Element Text    xpath=//*[@id="MobileNumber"]
+    comment    输入客户电话号码查询(13911188516 \ 张耀 \ 单笔单结为0)
+    Input Text    xpath=//*[@id="MobileNumber"]    13911188516
+    sleep    8
+    click Element    xpath=//*[@id="customer_search"]
+    sleep    8
+    ${固定电话}    get value    //*[@id="Telephone"]
+    ${客户姓名}    get value    //*[@id="tbcustomer"]/tbody/tr[1]/td[6]/span/input[1]
+    ${所属机构}    get value    //*[@id="tbcustomer"]/tbody/tr[2]/td[2]/span/input[1]
+    ${分支机构}    get value    //*[@id="tbcustomer"]/tbody/tr[2]/td[4]/span/input[1]
+    run keyword if    '${固定电话}'!=''    Capture Page Screenshot    客户信息存在.png
+    ...    ELSE    Capture Page Screenshot    客户信息不存在.png
+    ${项目来源}    get value    //*[@id="ProjectSource"]
+    ${项目类型}    get value    //*[@id="ItemType"]
+    ${项目分类}    get value    //*[@id="ReportType"]
+    ${估价目的}    get value    //*[@id="BusinessType"]
+    ${物业类型}    get value    //*[@id="ProjectType"]
+    ${报告类型}    get value    //*[@id="ReportCategory"]
+    ${城市}    get value    //*[@id="tbproject"]/tbody/tr[3]/td[2]/span/input[1]
+    ${所属部门}    get value    //*[@id="Department"]
+    ${结算方式}    get value    //*[@id="CalculateType"]
+    ${结算金额}    get value    //*[@id="tbkancha"]/tbody/tr[2]/td[4]/span/input[1]
+    click Element    //*[@id="tbproject"]/tbody/tr[2]/td[4]/span/span/a
+    click Element    //*[@id="_easyui_combobox_i30_1"]
+    sleep    8
+    ${子物业类型}    get value    //*[@id="tbproject"]/tbody/tr[2]/td[4]/span/input[1]
+    Comment    输入发送份数
+    ${发送份数}    set variable    23
+    Input Text    //*[@id="tbproject"]/tbody/tr[2]/td[8]/span/input[1]    ${发送份数}
+    sleep    2
+    Comment    输入小区名称进行关键字读取
+    Input Text    //*[@id="ResidentialAreaName"]    远
+    sleep    15
+    click Element    xpath=/html/body/div[16]/ul/li[5]
+    sleep    8
+    ${行政区}    get value    //*[@id="tbproject"]/tbody/tr[3]/td[4]/span/input[1]
+    ${小区名}    get value    //*[@id="ResidentialAreaName"]
+    ${小区地址}    get value    //*[@id="ResidentialAddress"]
+    sleep    3
+    click Element    //*[@id="tbproject"]/tbody/tr[4]/td[2]/span/span/a
+    sleep    8
+    click Element    //*[@id="_easyui_combobox_i37_0"]
+    sleep    5
+    click Element    //*[@id="tbproject"]/tbody/tr[4]/td[4]/span/span/a
+    sleep    8
+    click Element    //*[@id="_easyui_combobox_i38_0"]
+    sleep    5
+    click Element    //*[@id="tbproject"]/tbody/tr[4]/td[6]/span/span/a
+    sleep    8
+    click Element    //*[@id="_easyui_combobox_i39_5"]
+    sleep    5
+    ${项目地址}    get value    //*[@id="ResidentialAreaAddress"]
+    sleep    2
+    clear Element Text    //*[@id="tbproject"]/tbody/tr[6]/td[2]/span/input[1]
+    ${建筑面积}    set variable    300
+    Input Text    //*[@id="tbproject"]/tbody/tr[6]/td[2]/span/input[1]    ${建筑面积}
+    sleep    2
+    clear Element Text    //*[@id="tbproject"]/tbody/tr[6]/td[4]/span/input[1]
+    ${土地面积}    set variable    100
+    Input Text    //*[@id="tbproject"]/tbody/tr[6]/td[4]/span/input[1]    ${土地面积}
+    sleep    2
+    clear Element Text    //*[@id="tbproject"]/tbody/tr[6]/td[6]/span/input[1]
+    ${询值单价}    set variable    50000
+    Input Text    //*[@id="tbproject"]/tbody/tr[6]/td[6]/span/input[1]    ${询值单价}
+    sleep    2
+    ${建成年代}    set variable    90
+    Input Text    //*[@id="tbproject"]/tbody/tr[7]/td[2]/span/input[1]    ${建成年代}
+    sleep    2
+    click Element    //*[@id="tbproject"]/tbody/tr[7]/td[8]/img
+    sleep    8
+    ${贷款机构}    get value    //*[@id="LendersCompany"]
+    ${贷款支行}    get value    //*[@id="LendersBranch"]
+    ${估价委托方}    set variable    北京云房
+    Input Text    //*[@id="PriceDelegate"]    ${估价委托方}
+    sleep    2
+    clear Element Text    //*[@id="tbkancha"]/tbody/tr[1]/td[2]/span/input[1]
+    sleep    2
+    Input Text    //*[@id="tbkancha"]/tbody/tr[1]/td[2]/span/input[1]    ${login_name}
+    sleep    3
+    click Element    //*[@id="_easyui_combobox_i32_29"]
+    sleep    8
+    ${市场负责人}    get value    //*[@id="tbkancha"]/tbody/tr[1]/td[2]/span/input[1]
+    sleep    5
+    clear Element Text    //*[@id="tbkancha"]/tbody/tr[1]/td[4]/span/input[1]
+    sleep    2
+    Input Text    //*[@id="tbkancha"]/tbody/tr[1]/td[4]/span/input[1]    ${login_name}
+    sleep    3
+    click Element    //*[@id="_easyui_combobox_i34_29"]
+    sleep    8
+    ${收费责任人}    get value    //*[@id="tbkancha"]/tbody/tr[1]/td[2]/span/input[1]
+    sleep    3
+    clear Element Text    //*[@id="tbkancha"]/tbody/tr[1]/td[6]/span/input[1]
+    sleep    2
+    Input Text    //*[@id="tbkancha"]/tbody/tr[1]/td[6]/span/input[1]    ${login_name}
+    sleep    5
+    click Element    //*[@id="_easyui_combobox_i33_29"]
+    sleep    8
+    ${内部报单人}    get value    //*[@id="tbkancha"]/tbody/tr[1]/td[2]/span/input[1]
+    ${预收费用}    set variable    500
+    Input text    xpath=/html/body/div[1]/form/div[4]/div[2]/table/tbody/tr[1]/td[4]/span/input[1]    ${预收费用}
+    sleep    2
+    click Element    //*[@id="tbkancha"]/tbody/tr[2]/td[2]/a
+    sleep    3
+    select frame    id=xubox_iframe1
+    sleep    2
+    ${联系人}    set variable    李健
+    Input Text    //*[@id="Contacts"]    ${联系人}
+    sleep    2
+    ${联系电话}    set variable    18911111112
+    Input Text    //*[@id="Phone"]    ${联系电话}
+    sleep    2
+    click Element    //*[@id="submitform"]
+    sleep    4
+    ${mes}    confirm action
+    log    ${mes}
+    Should Be Equal    ${mes}    操作成功
+    Choose Ok On Next Confirmation
+    unselect frame
+    select frame    id=create_project_
+    sleep    6
+    Capture Page Screenshot    立项1.png
+    select From List By Value    id=ReceiptWay    快递
+    sleep    2
+    click Element    xpath=//*[@id="divAddReceipt"]/a
+    sleep    6
+    capture page screenshot    立项添加邮件地址1.png
+    select Frame    id=xubox_iframe2
+    ${姓名}    set variable    李健
+    Input Text    xpath=//*[@id="Receiver"]    ${姓名}
+    ${联系方式}    set variable    18911111111
+    Input Text    xpath=//*[@id="Phone"]    ${联系方式}
+    ${邮政编码}    set variable    123456
+    Input Text    xpath=//*[@id="form1"]/div/table/tbody/tr[1]/td[6]/span/input[1]    ${邮政编码}
+    ${公司名称}    set variable    时间段发抗裂砂浆大富科技就急急急急急急急急急急急急急急急急急急急急急急急急急急急急急急急急急急急急急急急急急急急急急
+    Input Text    xpath=//*[@id="Company"]    ${公司名称}
+    ${快递地址}    set variable    士大夫是多发发是打发士大夫撒打发士大夫撒的方法士大夫士大夫
+    Input Text    xpath=//*[@id="Address"]    ${快递地址}
+    Click Element    xpath=//*[@id="submitform"]
+    sleep    2
+    capture page screenshot    立项添加邮件地址2.png
+    unselect frame
+    select Frame    id=create_project_
+    ${立项备注}    set variable    防守打法三大方法反反复复反复反复反复反复反复反复反复发反反复复发反反复复反复反复反复反复发反反复复发反反复复反复反复发反反复复发
+    Input Text    xpath=//*[@id="Remark"]    ${立项备注}
+    sleep    2
+    Capture Page Screenshot    立项2.png
+    execute javascript    document.documentElement.scrollTop=0
+    click Element    xpath=//*[@id="create_project_create"]
+    sleep    8
+    ${lmes}    confirm action
+    log    ${lmes}
+    ${Imesl}=    findall    号(.*)报    ${lmes}
+    ${Imesl1}    findall    号(.*) 报    ${lmes}
+    log    ${Imesl[0]}
+    log    ${Imesl1[0]}
+    ${liushuihao}    set variable    ${Imesl[0]}
+    sleep    2
+    unselect frame
+    select Frame    id=InquiryAndProject_ProjectAccept
+    sleep    2
+    click Element    xpath=//*[@id="tabs"]/div[1]/div[3]/ul/li[2]/a
+    sleep    5
+    Input Text    xpath=/html/body/div[1]/form/div/div[2]/div[2]/div/div/div/div/div[1]/div/table/tbody/tr[1]/td[2]/input    ${liushuihao}
+    click Element    xpath=//*[@id="project_created_search"]
+    sleep    8
+    ${已立项流水号}    get text    xpath=//*[@id="datagrid-row-r6-2-0"]/td[2]/div
+    run keyword if    ${已立项流水号}==${liushuihao}    Capture Page Screenshot    立项成功.png
+    ...    ELSE    Capture Page Screenshot    立项失败.png
+    Comment    外业检测是否存在立项流水号
+    unselect frame
+    click Element    //*[@id="framecenter"]/div[1]/ul/li/div[3]
+    外采分配
+    Comment    sleep    2
+    Comment    click Element    //*[@id="expmenu-freebie"]/li/ul/li[3]/div
+    Comment    sleep    1
+    Comment    click Element    //*[@id="expmenu-freebie"]/li/ul/li[3]/ul/li[1]
+    Comment    sleep    5
+    Comment    select frame    id=ProjectAllot_OutsideAssign
+    Comment    sleep    3
+    Input Text    //*[@id="ProjectNo"]    ${liushuihao}
+    sleep    5
+    内外业分配查询按钮
+    Comment    click Element    //*[@id="searchCondition1"]/table/tbody/tr/td[9]/a
+    sleep    8
+    ${外业分配流水号}    get Text    //*[@id="datagrid-row-r5-2-0"]/td[2]
+    run keyword if    ${外业分配流水号}==${liushuihao}    Capture Page Screenshot    立项外业成功.png
+    ...    ELSE    Capture Page Screenshot    立项外业失败.png
+    unselect frame
+    click Element    //*[@id="framecenter"]/div[1]/ul/li/div[3]
+    Comment    内业检测是否存在立项流水号
+    sleep    2
+    click Element    //*[@id="expmenu-freebie"]/li/ul/li[3]/ul/li[2]
+    sleep    5
+    select frame    id=ProjectAllot_ReportAssign
+    sleep    3
+    Input Text    //*[@id="ProjectNo"]    ${liushuihao}
+    click Element    //*[@id="searchCondition1"]/table/tbody/tr/td[9]/a
+    sleep    8
+    ${内业分配流水号}    get Text    //*[@id="datagrid-row-r5-2-0"]/td[2]
+    run keyword if    ${内业分配流水号}==${liushuihao}    Capture Page Screenshot    立项内业成功.png
+    ...    ELSE    Capture Page Screenshot    立项内业失败.png
+    unselect frame
+    click Element    //*[@id="framecenter"]/div[1]/ul/li/div[3]
+
+新建立项（暂存）
+    Comment    打开浏览器    登录名    登录密码
+    登录新流程
+    Comment
+    Comment    click Element    xpath=//*[@id="expmenu-freebie"]/li/ul/li[1]/div
+    sleep    2
+    click Element    xpath=//*[@id="expmenu-freebie"]/li/ul/li[1]/ul/li[2]/a
+    select frame    id=InquiryAndProject_ProjectAccept
+    sleep    5
+    click Element    xpath=//*[@id="project_temp_create"]
+    unselect frame
+    select frame    id=create_project_
+    Comment    Input Text    xpath=//*[@id="MobileNumber"]    18911111111
+    Comment    sleep    2
+    Comment    click Element    xpath=//*[@id="customer_search"]
+    Comment    sleep    4
+    Comment    ${查询存在客户}    confirm action
+    Comment    log    ${查询存在客户}
+    Comment    ${mes}=    findall    该(.*)户    ${查询存在客户}
+    Comment    log    '${mes[0]}'
+    Comment    sleep    4
+    Comment    run keyword if    '${mes[0]}'=='电话号码未绑定用'    Capture Page Screenshot    客户信息不存在.png
+    ...    ELSE    Capture Page Screenshot    客户信息存在.png
+    Comment    clear Element Text    xpath=//*[@id="MobileNumber"]
+    comment    输入客户电话号码查询(13911188516 \ 张耀 \ 单笔单结为0)
+    Input Text    xpath=//*[@id="MobileNumber"]    13911188516
+    sleep    8
+    click Element    xpath=//*[@id="customer_search"]
+    sleep    8
+    ${固定电话}    get value    //*[@id="Telephone"]
+    ${客户姓名}    get value    //*[@id="tbcustomer"]/tbody/tr[1]/td[6]/span/input[1]
+    ${所属机构}    get value    //*[@id="tbcustomer"]/tbody/tr[2]/td[2]/span/input[1]
+    ${分支机构}    get value    //*[@id="tbcustomer"]/tbody/tr[2]/td[4]/span/input[1]
+    run keyword if    '${固定电话}'!=''    Capture Page Screenshot    客户信息存在.png
+    ...    ELSE    Capture Page Screenshot    客户信息不存在.png
+    ${项目来源}    get value    //*[@id="ProjectSource"]
+    ${项目类型}    get value    //*[@id="ItemType"]
+    ${项目分类}    get value    //*[@id="ReportType"]
+    ${估价目的}    get value    //*[@id="BusinessType"]
+    ${物业类型}    get value    //*[@id="ProjectType"]
+    ${报告类型}    get value    //*[@id="ReportCategory"]
+    ${城市}    get value    //*[@id="tbproject"]/tbody/tr[3]/td[2]/span/input[1]
+    ${所属部门}    get value    //*[@id="Department"]
+    ${结算方式}    get value    //*[@id="CalculateType"]
+    ${结算金额}    get value    //*[@id="tbkancha"]/tbody/tr[2]/td[4]/span/input[1]
+    click Element    //*[@id="tbproject"]/tbody/tr[2]/td[4]/span/span/a
+    click Element    //*[@id="_easyui_combobox_i30_1"]
+    sleep    8
+    ${子物业类型}    get value    //*[@id="tbproject"]/tbody/tr[2]/td[4]/span/input[1]
+    Comment    输入发送份数
+    ${发送份数}    set variable    23
+    Input Text    //*[@id="tbproject"]/tbody/tr[2]/td[8]/span/input[1]    ${发送份数}
+    sleep    2
+    Comment    输入小区名称进行关键字读取
+    Input Text    //*[@id="ResidentialAreaName"]    远
+    sleep    18
+    click Element    xpath=/html/body/div[16]/ul/li[5]
+    sleep    8
+    ${行政区}    get value    //*[@id="tbproject"]/tbody/tr[3]/td[4]/span/input[1]
+    ${小区名}    get value    //*[@id="ResidentialAreaName"]
+    ${小区地址}    get value    //*[@id="ResidentialAddress"]
+    click Element    //*[@id="tbproject"]/tbody/tr[4]/td[2]/span/span/a
+    sleep    8
+    click Element    //*[@id="_easyui_combobox_i37_0"]
+    sleep    5
+    click Element    //*[@id="tbproject"]/tbody/tr[4]/td[4]/span/span/a
+    sleep    8
+    click Element    //*[@id="_easyui_combobox_i38_0"]
+    sleep    5
+    click Element    //*[@id="tbproject"]/tbody/tr[4]/td[6]/span/span/a
+    sleep    8
+    click Element    //*[@id="_easyui_combobox_i39_5"]
+    sleep    5
+    ${项目地址}    get value    //*[@id="ResidentialAreaAddress"]
+    sleep    2
+    clear Element Text    //*[@id="tbproject"]/tbody/tr[6]/td[2]/span/input[1]
+    ${建筑面积}    set variable    300
+    Input Text    //*[@id="tbproject"]/tbody/tr[6]/td[2]/span/input[1]    ${建筑面积}
+    sleep    2
+    clear Element Text    //*[@id="tbproject"]/tbody/tr[6]/td[4]/span/input[1]
+    ${土地面积}    set variable    100
+    Input Text    //*[@id="tbproject"]/tbody/tr[6]/td[4]/span/input[1]    ${土地面积}
+    sleep    2
+    clear Element Text    //*[@id="tbproject"]/tbody/tr[6]/td[6]/span/input[1]
+    ${询值单价}    set variable    50000
+    Input Text    //*[@id="tbproject"]/tbody/tr[6]/td[6]/span/input[1]    ${询值单价}
+    sleep    2
+    ${建成年代}    set variable    90
+    Input Text    //*[@id="tbproject"]/tbody/tr[7]/td[2]/span/input[1]    ${建成年代}
+    sleep    2
+    click Element    //*[@id="tbproject"]/tbody/tr[7]/td[8]/img
+    sleep    8
+    ${贷款机构}    get value    //*[@id="LendersCompany"]
+    ${贷款支行}    get value    //*[@id="LendersBranch"]
+    ${估价委托方}    set variable    北京云房
+    Input Text    //*[@id="PriceDelegate"]    ${估价委托方}
+    sleep    2
+    clear Element Text    //*[@id="tbkancha"]/tbody/tr[1]/td[2]/span/input[1]
+    Input Text    //*[@id="tbkancha"]/tbody/tr[1]/td[2]/span/input[1]    ${login_name}
+    sleep    3
+    click Element    //*[@id="_easyui_combobox_i32_29"]
+    sleep    8
+    ${市场负责人}    get value    //*[@id="tbkancha"]/tbody/tr[1]/td[2]/span/input[1]
+    sleep    5
+    clear Element Text    //*[@id="tbkancha"]/tbody/tr[1]/td[4]/span/input[1]
+    Input Text    //*[@id="tbkancha"]/tbody/tr[1]/td[4]/span/input[1]    ${login_name}
+    sleep    3
+    click Element    //*[@id="_easyui_combobox_i34_29"]
+    sleep    8
+    ${收费责任人}    get value    //*[@id="tbkancha"]/tbody/tr[1]/td[2]/span/input[1]
+    sleep    3
+    clear Element Text    //*[@id="tbkancha"]/tbody/tr[1]/td[6]/span/input[1]
+    sleep    3
+    Input Text    //*[@id="tbkancha"]/tbody/tr[1]/td[6]/span/input[1]    ${login_name}
+    sleep    5
+    click Element    //*[@id="_easyui_combobox_i33_29"]
+    sleep    8
+    ${内部报单人}    get value    //*[@id="tbkancha"]/tbody/tr[1]/td[2]/span/input[1]
+    ${预收费用}    set variable    500
+    Input text    xpath=/html/body/div[1]/form/div[4]/div[2]/table/tbody/tr[1]/td[4]/span/input[1]    ${预收费用}
+    sleep    2
+    click Element    //*[@id="tbkancha"]/tbody/tr[2]/td[2]/a
+    sleep    3
+    select frame    id=xubox_iframe1
+    sleep    2
+    ${联系人}    set variable    李健
+    Input Text    //*[@id="Contacts"]    ${联系人}
+    sleep    2
+    ${联系电话}    set variable    18911111112
+    Input Text    //*[@id="Phone"]    ${联系电话}
+    sleep    2
+    click Element    //*[@id="submitform"]
+    sleep    4
+    ${mes}    confirm action
+    log    ${mes}
+    Should Be Equal    ${mes}    操作成功
+    Choose Ok On Next Confirmation
+    unselect frame
+    select frame    id=create_project_
+    sleep    6
+    Capture Page Screenshot    立项1.png
+    select From List By Value    id=ReceiptWay    快递
+    sleep    2
+    click Element    xpath=//*[@id="divAddReceipt"]/a
+    sleep    6
+    capture page screenshot    立项添加邮件地址1.png
+    select Frame    id=xubox_iframe2
+    ${姓名}    set variable    李健
+    Input Text    xpath=//*[@id="Receiver"]    ${姓名}
+    ${联系方式}    set variable    18911111111
+    Input Text    xpath=//*[@id="Phone"]    ${联系方式}
+    ${邮政编码}    set variable    123456
+    Input Text    xpath=//*[@id="form1"]/div/table/tbody/tr[1]/td[6]/span/input[1]    ${邮政编码}
+    ${公司名称}    set variable    时间段发抗裂砂浆大富科技就急急急急急急急急急急急急急急急急急急急急急急急急急急急急急急急急急急急急急急急急急急急急急
+    Input Text    xpath=//*[@id="Company"]    ${公司名称}
+    ${快递地址}    set variable    士大夫是多发发是打发士大夫撒打发士大夫撒的方法士大夫士大夫
+    Input Text    xpath=//*[@id="Address"]    ${快递地址}
+    Click Element    xpath=//*[@id="submitform"]
+    sleep    2
+    capture page screenshot    立项添加邮件地址2.png
+    unselect frame
+    select Frame    id=create_project_
+    ${立项备注}    set variable    防守打法三大方法反反复复反复反复反复反复反复反复反复发反反复复发反反复复反复反复反复反复发反反复复发反反复复反复反复发反反复复发
+    Input Text    xpath=//*[@id="Remark"]    ${立项备注}
+    sleep    2
+    Capture Page Screenshot    立项2.png
+    execute javascript    document.documentElement.scrollTop=0
+    click Element    xpath=//*[@id="create_project_temp_save"]
+    sleep    5
+    ${lmes}    confirm action
+    log    ${lmes}
+    ${Imesl}=    findall    号(.*)    ${lmes}
+    log    ${Imesl[0]}
+    ${liushuihao}    set variable    ${Imesl[0]}
+    sleep    2
+    unselect frame
+    select Frame    id=InquiryAndProject_ProjectAccept
+    sleep    5
+    Input Text    xpath=//*[@id="ProjectNo"]    ${liushuihao}
+    sleep    5
+    click Element    xpath=//*[@id="project_temp_search"]
+    sleep    8
+    ${暂存流水号}    get Text    xpath=//*[@id="datagrid-row-r5-2-0"]/td[2]
+    run keyword if    ${暂存流水号}==${liushuihao}    Capture Page Screenshot    暂存成功.png
+    ...    ELSE    Capture Page Screenshot    暂存失败.png
+
+询价回复（非）
+    Comment    打开浏览器    登录名    登录密码
+    登录新流程
+    Comment    外项目地址    询价机构    询价人(客户名称)    回复内容
+    非住宅询价回复    北京市海淀区万泉河路109号(小南庄)    兴业银行    李杰    计算机的地方
+    Comment    关闭浏览器
+
+添加询价（非）
+    Comment    打开浏览器    登录名    登录密码
+    登录新流程
+    Comment    客户手机号    行政区    项目推广名    询价来源    装修情况    朝向
+    ...    建筑面积    所在楼层    总楼层    建成年代    对象详情    询值单价1
+    ...    询值单价2    询值总价1    询值总价2
+    添加询价流程（非）    13521136881    海淀区    曙光花园水云天    电话    豪华装修    东南
+    ...    200    12    15    90    s的健康副书记等方式的离开房间费    55
+    ...    40000    2342    1324566
+    Comment    关闭浏览器
+
+已立项编辑
+    Comment    打开浏览器    登录名    登录密码
+    登录新流程
+    Comment    流水号    项目分类    报告类型    估价目的    物业类型    小区名称
+    已立项编辑流程    476584999357    土地评估    预估报告    房地产抵押（按揭）    成套商业    天天家园
+    Comment    关闭浏览器

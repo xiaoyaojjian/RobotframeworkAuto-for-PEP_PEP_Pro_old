@@ -1,0 +1,18 @@
+*** Keywords ***
+项目盖章
+    click Element    //a[contains(.,'项目盖章')]
+    项目盖章窗口
+
+项目盖章窗口
+    select frame    id=ProjectAllot_Seal
+    Wait Until Page Contains    未盖章
+
+项目盖章查询
+    Run Keyword And Continue On Failure    click Element    xpath=//span[contains(.,'查询')]
+    Comment    click Element    xpath=//*[@id="sealTime2"]/a
+
+项目已盖章
+    Run Keyword And Continue On Failure    click Element    xpath=//a[contains(.,'已盖章')]
+
+项目盖章查询1
+    Run Keyword And Continue On Failure    click Element    xpath=//*[@id="sealTime2"]/a

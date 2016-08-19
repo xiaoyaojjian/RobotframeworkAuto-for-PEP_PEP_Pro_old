@@ -1,0 +1,16 @@
+*** Keywords ***
+汇款信息
+    sleep    2
+    Run Keyword And Continue On Failure    click Element    xpath=//a[contains(.,'汇款信息')]
+    sleep    5
+    汇款信息窗口
+
+汇款信息窗口
+    Run Keyword And Continue On Failure    select frame    id=Finance_Remittance
+
+清空汇款人
+    Run Keyword And Continue On Failure    Clear Element Text    xpath=//*[@id="toolbar"]/div[6]/input
+
+清空汇款确认金额
+    Clear Element Text    xpath=//*[@id="RemitAmountFrom"]
+    Clear Element Text    xpath=//*[@id="RemitAmountTo"]

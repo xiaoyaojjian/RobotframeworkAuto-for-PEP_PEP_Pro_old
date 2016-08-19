@@ -1,0 +1,294 @@
+*** Settings ***
+Resource          检测判断.txt
+
+*** Keywords ***
+询价按钮
+    Run Keyword And Continue On Failure    Click Element    xpath=//*[@id="expmenu-freebie"]/li/ul/li[1]/ul/li[1]/a
+
+询价窗口
+    Select Frame    id=InquiryAndProject_Residential
+    Wait Until Page Contains    住宅信息
+
+小区名称
+    [Arguments]    ${询小区名称}
+    Comment    ${小区名称}    set variable    ${询小区名称}
+    Run Keyword And Continue On Failure    Input Text    xpath=//*[@id="ResidentialAreaName"]    ${询小区名称}
+
+查询
+    Run Keyword And Continue On Failure    Click Element    id=inquiryprice_search
+
+清除小区名
+    Run Keyword And Continue On Failure    Clear Element Text    xpath=//*[@id="ResidentialAreaName"]
+
+项目地址
+    [Arguments]    ${询项目地址}
+    Comment    ${小区地址}    set variable    北京市海淀区海淀中街15号(远中悦莱国际公寓)海淀中街15号4号楼默认单元
+    Run Keyword And Continue On Failure    Input Text    xpath=//*[@id="Address"]    ${询项目地址}
+
+清除项目地址
+    Run Keyword And Continue On Failure    Clear Element Text    xpath=//*[@id="Address"]
+
+询价机构
+    [Arguments]    ${询询价机构}
+    Comment    ${询价机构}    set variable    链家
+    Run Keyword And Continue On Failure    Input Text    xpath=//*[@id="CustomerTypeName"]    ${询询价机构}
+
+清除询价机构
+    Run Keyword And Continue On Failure    Clear Element Text    xpath=//*[@id="CustomerTypeName"]
+
+询价人(客户名称)
+    [Arguments]    ${询询价人}
+    Comment    ${询价人}    set variable    叶相飞
+    Run Keyword And Continue On Failure    Input Text    xpath=//*[@id="CustomerName"]    ${询询价人}
+
+添加询价
+    Run Keyword And Continue On Failure    Click Element    id=inquiryprice_add
+
+添加询价窗口
+    Select Frame    id=add_inquiry_house
+    Wait Until Page Contains    客户信息
+
+选择某个小区
+    Run Keyword And Continue On Failure    Click Element    xpath=//div[@class="ac_results" ]/ul/li[1]
+
+楼栋号
+    [Arguments]    ${楼栋号}
+    Run Keyword And Continue On Failure    Input Text    xpath=//*[@id="tbbody"]/tbody/tr[2]/td[2]/span/input[1]    ${楼栋号}
+    log    ${楼栋号}
+    [Teardown]    Set Global Variable    ${楼栋号}
+    [Return]    ${楼栋号}
+
+单元号
+    [Arguments]    ${单元号}
+    Run Keyword And Continue On Failure    Input Text    xpath=//*[@id="tbbody"]/tbody/tr[2]/td[4]/span/input[1]    ${单元号}
+
+户号名
+    [Arguments]    ${户号名}
+    Run Keyword And Continue On Failure    Input Text    xpath=//*[@id="tbbody"]/tbody/tr[2]/td[6]/span/input[1]    ${户号名}
+
+房屋类型
+    Run Keyword And Continue On Failure    Click Element    xpath=//*[@id="tbbody"]/tbody/tr[2]/td[8]/span/span/a
+    sleep    2
+    Run Keyword And Continue On Failure    Click Element    xpath=//*[@id="_easyui_combobox_i29_1"]
+
+建筑面积
+    [Arguments]    ${建筑面积}
+    Run Keyword And Continue On Failure    Input Text    xpath=//*[@id="tbbody"]/tbody/tr[3]/td[2]/span/input[1]    ${建筑面积}
+    Comment    ${建筑面积}    get value    xpath=//*[@id="tbbody"]/tbody/tr[3]/td[2]/span/input[1]
+    Comment    log    ${建筑面积}
+    [Teardown]    Set Global Variable    ${建筑面积}
+    [Return]    ${建筑面积}
+
+所在楼层
+    [Arguments]    ${所在楼层}
+    Run Keyword And Continue On Failure    Input Text    xpath=//*[@id="tbbody"]/tbody/tr[3]/td[4]/span/input[1]    ${所在楼层}
+
+总楼层
+    [Arguments]    ${总楼层}
+    Run Keyword And Continue On Failure    Input Text    xpath=//*[@id="tbbody"]/tbody/tr[3]/td[6]/span/input[1]    ${总楼层}
+
+户型
+    Run Keyword And Continue On Failure    Click Element    xpath=//*[@id="tbbody"]/tbody/tr[3]/td[8]/span/span/a
+    sleep    2
+    Run Keyword And Continue On Failure    Click Element    xpath=//*[@id="_easyui_combobox_i30_2"]
+
+建成年代
+    [Arguments]    ${建成年代}
+    Run Keyword And Continue On Failure    Input Text    xpath=//*[@id="tbbody"]/tbody/tr[4]/td[2]/span/input[1]    ${建成年代}
+    Comment    Run Keyword And Continue On Failure    ${建成年代}    get value    xpath=//*[@id="tbbody"]/tbody/tr[4]/td[2]/span/input[1]
+    Comment    log    xpath=//*[@id="tbbody"]/tbody/tr[4]/td[2]/span/input[1]
+    [Teardown]    Set Global Variable    ${建成年代}
+    [Return]    ${建成年代}
+
+朝向
+    Run Keyword And Continue On Failure    Click Element    xpath=//*[@id="tbbody"]/tbody/tr[4]/td[4]/span/span/a
+    sleep    2
+    Run Keyword And Continue On Failure    Click Element    xpath=//*[@id="_easyui_combobox_i31_6"]
+    sleep    2
+
+装修情况
+    Run Keyword And Continue On Failure    Click Element    xpath=//*[@id="tbbody"]/tbody/tr[4]/td[6]/span/span/a
+    sleep    2
+    Run Keyword And Continue On Failure    Click Element    xpath=//*[@id="_easyui_combobox_i32_3"]
+    sleep    2
+
+特殊因素
+    Run Keyword And Continue On Failure    Click Element    xpath=//*[@id="tbbody"]/tbody/tr[4]/td[8]/span/span/a
+    sleep    2
+    Run Keyword And Continue On Failure    Click Element    xpath=//*[@id="_easyui_combobox_i33_1"]
+    sleep    2
+
+询价来源
+    Run Keyword And Continue On Failure    Click Element    xpath=//*[@id="tbbody"]/tbody/tr[5]/td[2]/span/span/a
+    sleep    2
+    Run Keyword And Continue On Failure    Click Element    xpath=//*[@id="_easyui_combobox_i34_3"]
+    sleep    2
+
+抵押单价
+    [Arguments]    ${抵押单价}
+    Run Keyword And Continue On Failure    Input Text    xpath=//*[@id="tbbody"]/tbody/tr[8]/td/div[1]/table[2]/tbody/tr/td[2]/span[1]/input[1]    ${抵押单价}
+    Comment    ${抵押单价}    get value    xpath=//*[@id="tbbody"]/tbody/tr[8]/td/div[1]/table[2]/tbody/tr/td[2]/span[1]/input[1]
+    Comment    log    ${抵押单价}
+    [Teardown]    Set Global Variable    ${抵押单价}
+    [Return]    ${抵押单价}
+
+市场单价
+    [Arguments]    ${市场单价}
+    Run Keyword And Continue On Failure    Input Text    xpath=//*[@id="tbbody"]/tbody/tr[8]/td/div[1]/table[3]/tbody/tr/td[2]/span[1]/input[1]    ${市场单价}
+
+添加询价检测
+    ${niandai}    get value    xpath=//*[@id="tbbody"]/tbody/tr[4]/td[2]/span/input[1]
+    log    ${niandai}
+    should contain    ${niandai}    90
+    sleep    2
+    Capture Page Screenshot    添加询价.png
+
+询价查询
+    Run Keyword And Continue On Failure    click Element    xpath=//*[@id="BtnSearch"]
+
+报盘案例
+    Run Keyword And Continue On Failure    Click Element    xpath=//*[@id="tabs"]/div[1]/div[3]/ul/li[2]/a
+    sleep    10
+    Run Keyword And Continue On Failure    click Element    xpath=//*[@id="SearchArea"]/tbody/tr[2]/td[2]/a
+    sleep    5
+    报盘案例校验
+
+成交案例
+    Run Keyword And Continue On Failure    Click Element    xpath=//*[@id="tabs"]/div[1]/div[3]/ul/li[3]/a
+    sleep    10
+    Run Keyword And Continue On Failure    Click Element    xpath=//*[@id="SearchArea"]/tbody/tr[2]/td[2]/a
+    sleep    5
+    成交案例校验
+    Comment    Capture Page Screenshot    成交案例.png
+
+报告案例
+    Run Keyword And Continue On Failure    Click Element    xpath=//*[@id="tabs"]/div[1]/div[3]/ul/li[4]/a
+    sleep    10
+    Run Keyword And Continue On Failure    Click Element    xpath=//*[@id="SearchArea"]/tbody/tr[2]/td[2]/a
+    sleep    5
+    报告案例校验
+    Comment    Capture Page Screenshot    报告案例.png
+
+旧系统案例
+    Run Keyword And Continue On Failure    Click Element    xpath=//*[@id="tabs"]/div[1]/div[3]/ul/li[5]/a
+    旧系统案例校验
+    Comment    Capture Page Screenshot    旧系统报告案例.png
+    unselect frame
+    添加询价窗口
+
+老系统案例
+    Run Keyword And Continue On Failure    Click Element    xpath=//*[@id="tabs"]/div[1]/div[3]/ul/li[6]/a
+    老系统案例校验
+    unselect frame
+    添加询价窗口
+
+询客户手机号
+    ${客户手机}    get value    xpath=//*[@id="MobileNumber"]
+    log    ${客户手机}
+    [Teardown]    Set Global Variable    ${客户手机}
+    [Return]    ${客户手机}
+
+询客户固话号
+    ${固定电话}    get value    xpath=//*[@id="Telephone"]
+    log    ${固定电话}
+    [Teardown]    Set Global Variable    ${固定电话}
+    [Return]    ${固定电话}
+
+询客户QQ
+    ${客户QQ}    get value    xpath=//*[@id="QQ"]
+    log    ${客户QQ}
+    [Teardown]    Set Global Variable    ${客户QQ}
+    [Return]    ${客户QQ}
+
+询城市
+    ${城市}    get value    xpath=//*[@id="tbbody"]/tbody/tr[1]/td[2]/span/input[1]
+    log    ${城市}
+    [Teardown]    Set Global Variable    ${城市}
+    [Return]    ${城市}
+
+询询价地址
+    ${询价地址}    get Value    xpath=//*[@id="Address"]
+    log    ${询价地址}
+    [Teardown]    Set Global Variable    ${询价地址}
+    [Return]    ${询价地址}
+
+询询价来源
+    ${询价来源}    get Value    xpath=//*[@id="tbbody"]/tbody/tr[5]/td[2]/span/input[1]
+    log    ${询价来源}
+    [Teardown]    Set Global Variable    ${询价来源}
+    [Return]    ${询价来源}
+
+询特殊因素
+    ${特殊因素}    get Value    xpath=//*[@id="tbbody"]/tbody/tr[4]/td[8]/span/input[1]
+    log    ${特殊因素}
+    [Teardown]    Set Global Variable    ${特殊因素}
+    [Return]    ${特殊因素}
+
+询装修情况
+    ${装修情况}    get Value    xpath=//*[@id="tbbody"]/tbody/tr[4]/td[6]/span/input[1]
+    log    ${装修情况}
+    [Teardown]    Set Global Variable    ${装修情况}
+    [Return]    ${装修情况}
+
+询朝向
+    ${朝向}    get Value    xpath=//*[@id="tbbody"]/tbody/tr[4]/td[4]/span/input[1]
+    log    ${朝向}
+    [Teardown]    Set Global Variable    ${朝向}
+    [Return]    ${朝向}
+
+询户型
+    ${户型}    get Value    xpath=//*[@id="tbbody"]/tbody/tr[3]/td[8]/span/input[1]
+    log    ${户型}
+    [Teardown]    Set Global Variable    ${户型}
+    [Return]    ${户型}
+
+询房屋类型
+    ${房屋类型}    get Value    xpath=//*[@id="tbbody"]/tbody/tr[2]/td[8]/span/input[1]
+    log    ${房屋类型}
+    [Teardown]    Set Global Variable    ${房屋类型}
+    [Return]    ${房屋类型}
+
+询小区地址
+    ${小区地址}    get Value    xpath=//*[@id="ResidentialAddress"]
+    log    ${小区地址}
+    [Teardown]    Set Global Variable    ${小区地址}
+    [Return]    ${小区地址}
+
+询小区名称
+    ${小区名称}    get Value    xpath=//*[@id="ResidentialAreaName"]
+    log    ${小区名称}
+    [Teardown]    Set Global Variable    ${小区名称}
+    [Return]    ${小区名称}
+
+询行政区
+    ${行政区}    get Value    xpath=//*[@id="DistrictName"]
+    log    ${行政区}
+    [Teardown]    Set Global Variable    ${行政区}
+    [Return]    ${行政区}
+
+转立项按钮
+    Run Keyword And Continue On Failure    Click Element    xpath=//*[@id="BtnLixiang"]
+
+转立项窗口
+    Select Frame    id=立项
+
+住宅询价查询获取数据
+    ${小区名称}    get text    xpath=//*[@id="datagrid-row-r4-2-0"]/td[2]
+    ${项目地址}    get text    xpath=//*[@id="datagrid-row-r4-2-0"]/td[3]
+    ${询值价格}    get text    xpath=//*[@id="datagrid-row-r4-2-0"]/td[4]
+    ${市场价格}    get text    xpath=//*[@id="datagrid-row-r4-2-0"]/td[5]
+    ${建筑面积}    get text    xpath=//*[@id="datagrid-row-r4-2-0"]/td[6]
+    ${询价机构}    get text    xpath=//*[@id="datagrid-row-r4-2-0"]/td[7]
+    ${询价人}    get text    xpath=//*[@id="datagrid-row-r4-2-0"]/td[8]
+    ${询价时间}    get text    xpath=//*[@id="datagrid-row-r4-2-0"]/td[9]
+    ${询价添加人}    get text    xpath=//*[@id="datagrid-row-r4-2-0"]/td[10]
+    ${立项}    get text    xpath=//*[@id="datagrid-row-r4-2-0"]/td[11]
+    ${操作}    get text    xpath=//*[@id="datagrid-row-r4-2-0"]/td[12]
+
+非住宅查询
+    Run Keyword And Continue On Failure    click Element    xpath=//*[@id="toolbarNo"]/div/table/tbody/tr/td[7]/a
+    sleep    5
+
+回复内容
+    [Arguments]    ${新回复}
+    Input text    xpath=//*[@id="OnlineMessage"]    ${新回复}

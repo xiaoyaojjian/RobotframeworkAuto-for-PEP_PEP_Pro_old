@@ -1,0 +1,497 @@
+*** Settings ***
+Resource          内业分配关键字.txt
+Resource          公共关键字.txt
+Resource          估价作业查询校验.txt
+Resource          项目审核关键字.txt
+Resource          项目盖章关键字.txt
+Library           Selenium2Library
+Library           re
+Library           ModifyDocx.py
+Resource          线上报告/线上报告对外资源.txt
+Library           DateTime
+
+*** Keywords ***
+估价作业线下报告上传主流程
+    [Arguments]    ${流水号}
+    Set Selenium Speed    0.3s
+    内外流水号    ${流水号}
+    Comment    sleep    5
+    Run Keyword And Continue On Failure    click Element    xpath=//span[text()='查询']/ancestor::a    #点击查询按钮
+    等待处理完毕
+    等待表格创建完毕
+    ${report_no}    get text    xpath=//div[@class="panel" and contains(@style,"display: block")]//*[contains(@id,"datagrid-row") ]/td[@field="ReportNo"]/div
+    Run Keyword And Continue On Failure    click Element    xpath=.//*[contains(@id,'datagrid-row')][1]/td/div/a[text() ="线下报告"]    #点击线下报告
+    Comment    sleep    2
+    退出窗口
+    Wait Until Page Contains Element    xpath=.//*[@id='offline_report']
+    Run Keyword And Continue On Failure    线下报告窗口
+    Run Keyword And Continue On Failure    click Element    xpath=//*[@id="form1"]/div[1]/a[1]    #点击【报告上传】按钮
+    等待弹出框
+    Run Keyword And Continue On Failure    select frame    id=xubox_iframe1
+    Set Report Id In Docx    ${report_no}    ${CURDIR}/光大银行_temp.docx    ${CURDIR}/光大银行.docx
+    Run Keyword And Continue On Failure    choose file    xpath=//*[@id="Uploadfile"]    ${CURDIR}/光大银行.docx
+    Comment    click Element    xpath=//*[@id="Uploadfile"]
+    Comment    sleep    5
+    Run Keyword And Continue On Failure    click Element    xpath=//*[@id="form1"]/table/tbody/tr[3]/td/a    #点击【保存】按钮
+    Comment    sleep    5
+    Run Keyword And Continue On Failure    操作成功提示语
+    Comment    sleep    5
+    退出窗口
+    Run Keyword And Continue On Failure    线下报告窗口
+
+估价作业汇总数据主流程
+    [Arguments]    ${新报告月度}    ${项目名称}    ${目的描述}    ${项目所在省}    ${项目所在市}    ${项目区县}
+    ...    ${小区名称}    ${楼栋号}    ${单元号}    ${户号}    ${项目推广名}    ${估价委托人}
+    ...    ${报告使用方}    ${支行}    ${报告有效期}    ${现场勘察员}    ${报告撰写人员}    ${估价师1}
+    ...    ${估价师2}    ${估价方法1}    ${估价方法2}    ${评估总价（万元）}    ${评估单价（元/㎡）}    ${成交总价（万元）}
+    ...    ${成交单价（元/㎡）}    ${交易日期}    ${处置扣税额（万元）}    ${扣税口净值（万元）}    ${土地增值税（元）}    ${扣除土地税后（万元）}
+    ...    ${环线}    ${其它影响因素}    ${补交出让金/综合地价款（元）}    ${优先受偿款}    ${物理结构是否变化}    ${使用现状}
+    ...    ${登记用途}    ${现状用途}    ${建筑结构}    ${建成年代}    ${所在楼层}    ${总楼层}
+    ...    ${楼层}    ${户型}    ${房屋所有权号}    ${房屋所有人}    ${建筑面积（㎡）}    ${产别}
+    ...    ${装修程度}    ${产权性质}    ${最高使用年限}    ${剩余经济寿命}    ${土地使用权人}    ${土地用途}
+    ...    ${使用权类型}    ${土地使用权面积（㎡）}    ${图号}    ${地号}    ${剩余土地年限（年）}    ${国有土地使用号}
+    ...    ${土地坐落}    ${借款人姓名}    ${借款人身份证}
+    Set Selenium Speed    0.3s
+    退出窗口
+    汇总表窗口
+    等待处理完毕
+    ${所属公司}    get value    xpath=//*[@id="Company"]
+    ${所属部门}    get value    xpath=//*[@id="Department"]
+    ${报告年度}    get value    xpath=//*[@id="ReportYear"]
+    ${报告月度}    get value    xpath=//*[@id="ReportMonth"]
+    ${估价目的}    get value    xpath=//*[@id="EvalGoal"]
+    Clear Element Text    xpath=.//div[@class="panel" and contains(@style,"display: block")]//form//*[@id='Company']
+    Input Text    xpath=.//div[@class="panel" and contains(@style,"display: block")]//form//*[@id='Company']    ${所属公司}
+    Clear Element Text    xpath=.//div[@class="panel" and contains(@style,"display: block")]//form//*[@id='Department']
+    Input Text    xpath=.//div[@class="panel" and contains(@style,"display: block")]//form//*[@id='Department']    ${所属部门}
+    Clear Element Text    xpath=.//div[@class="panel" and contains(@style,"display: block")]//form//*[@id='ReportYear']
+    Input Text    xpath=.//div[@class="panel" and contains(@style,"display: block")]//form//*[@id='ReportYear']    ${报告年度}
+    Clear Element Text    xpath=.//div[@class="panel" and contains(@style,"display: block")]//form//*[@id='ReportMonth']
+    Input Text    xpath=.//div[@class="panel" and contains(@style,"display: block")]//form//*[@id='ReportMonth']    ${新报告月度}
+    Clear Element Text    xpath=.//div[@class="panel" and contains(@style,"display: block")]//form//*[@id='ProjectName']
+    Input Text    xpath=.//div[@class="panel" and contains(@style,"display: block")]//form//*[@id='ProjectName']    ${项目名称}
+    Clear Element Text    xpath=//div[@class="panel" and contains(@style,"display: block")]//form//*[@id='GoalDescription']/../span/input[1]
+    Input Text    xpath=//div[@class="panel" and contains(@style,"display: block")]//form//*[@id='GoalDescription']/../span/input[1]    ${目的描述}
+    Clear Element Text    xpath=.//div[@class="panel" and contains(@style,"display: block")]//form//*[@id='ProjectProvince']
+    Input Text    xpath=.//div[@class="panel" and contains(@style,"display: block")]//form//*[@id='ProjectProvince']    ${项目所在省}
+    Clear Element Text    xpath=.//div[@class="panel" and contains(@style,"display: block")]//form//*[@id='ProjectCity']/../span/input[1]
+    Input Text    xpath=.//div[@class="panel" and contains(@style,"display: block")]//form//*[@id='ProjectCity']/../span/input[1]    ${项目所在市}
+    Clear Element Text    xpath=.//div[@class="panel" and contains(@style,"display: block")]//form//*[@id='ProjectDistrict']/../span/input[1]
+    Input Text    xpath=.//div[@class="panel" and contains(@style,"display: block")]//form//*[@id='ProjectDistrict']/../span/input[1]    ${项目区县}
+    Clear Element Text    xpath=.//div[@class="panel" and contains(@style,"display: block")]//form//*[@id='ResidentialAreaAddress']
+    Input Text    xpath=.//div[@class="panel" and contains(@style,"display: block")]//form//*[@id='ResidentialAreaAddress']    ${小区名称}
+    Clear Element Text    xpath=.//div[@class="panel" and contains(@style,"display: block")]//form//*[@id='BuildingNo']
+    Input Text    xpath=.//div[@class="panel" and contains(@style,"display: block")]//form//*[@id='BuildingNo']    ${楼栋号}
+    Clear Element Text    xpath=.//div[@class="panel" and contains(@style,"display: block")]//form//*[@id='BuildingUnitNo']
+    Input Text    xpath=.//div[@class="panel" and contains(@style,"display: block")]//form//*[@id='BuildingUnitNo']    ${单元号}
+    Clear Element Text    xpath=.//div[@class="panel" and contains(@style,"display: block")]//form//*[@id='HouseNo']
+    Input Text    xpath=.//div[@class="panel" and contains(@style,"display: block")]//form//*[@id='HouseNo']    ${户号}
+    ${余下地址}    get value    xpath=.//div[@class="panel" and contains(@style,"display: block")]//form//*[@id='OtherAddress']
+    #Input Text    xpath=//*[@id="OtherAddress"]    ${余下地址}
+    #完整地址
+    Clear Element Text    xpath=.//div[@class="panel" and contains(@style,"display: block")]//form//*[@id='ProjectAddress']/../span/input[1]
+    Input Text    xpath=.//div[@class="panel" and contains(@style,"display: block")]//form//*[@id='ProjectAddress']/../span/input[1]    ${项目所在省}${项目所在市}${项目区县}${小区名称}${楼栋号}${单元号}${户号}${余下地址}
+    Clear Element Text    xpath=.//div[@class="panel" and contains(@style,"display: block")]//form//*[@id='ProjectPopularizeName']
+    Input Text    xpath=.//div[@class="panel" and contains(@style,"display: block")]//form//*[@id='ProjectPopularizeName']    ${项目推广名}
+    Clear Element Text    xpath=.//div[@class="panel" and contains(@style,"display: block")]//form//*[@id='EvalEntrust']
+    Input Text    xpath=.//div[@class="panel" and contains(@style,"display: block")]//form//*[@id='EvalEntrust']    ${估价委托人}
+    Clear Element Text    xpath=.//div[@class="panel" and contains(@style,"display: block")]//form//*[@id='ReportUse']
+    Input Text    xpath=.//div[@class="panel" and contains(@style,"display: block")]//form//*[@id='ReportUse']    ${报告使用方}
+    Clear Element Text    xpath=.//div[@class="panel" and contains(@style,"display: block")]//form//*[@id='Subbranch']
+    Input Text    xpath=.//div[@class="panel" and contains(@style,"display: block")]//form//*[@id='Subbranch']    ${支行}
+    #click Element    xpath=/html/body/div[1]/div[1]/div[2]/div[2]/div[5]/div/form/div[2]/div/table/tbody/tr[6]/td[8]/span/span/a
+    #click Element    xpath=/html/body/div[50]/div/div[1]
+    #select From List By Value    xpath=//*[@id="tbhead"]/tbody/tr[6]/td[8]/span/input[1][5]/div/form/div[2]/div/table/tbody/tr[6]/td[8]/span/input[1]    ${报告有效期}
+    #Input Text    xpath=/html/body/div[1]/div[1]/div[2]/div[2]/div[5]/div/form/div[2]/div/table/tbody/tr[6]/td[8]/span/input[1]    ${报告有效期}
+    Clear Element Text    xpath=.//div[@class="panel" and contains(@style,"display: block")]//form//*[@id='SurveyPeople']
+    Input Text    xpath=.//div[@class="panel" and contains(@style,"display: block")]//form//*[@id='SurveyPeople']    ${现场勘察员}
+    Clear Element Text    xpath=.//div[@class="panel" and contains(@style,"display: block")]//form//*[@id='ReportWriting']
+    Input Text    xpath=.//div[@class="panel" and contains(@style,"display: block")]//form//*[@id='ReportWriting']    ${报告撰写人员}
+    Clear Element Text    xpath=.//div[@class="panel" and contains(@style,"display: block")]//form//*[@id='QuantitySurveyor1']
+    Input Text    xpath=.//div[@class="panel" and contains(@style,"display: block")]//form//*[@id='QuantitySurveyor1']    ${估价师1}
+    Clear Element Text    xpath=.//div[@class="panel" and contains(@style,"display: block")]//form//*[@id='QuantitySurveyor2']
+    Input Text    xpath=.//div[@class="panel" and contains(@style,"display: block")]//form//*[@id='QuantitySurveyor2']    ${估价师2}
+    ${估价师合并}    get value    xpath=.//div[@class="panel" and contains(@style,"display: block")]//form//*[@id='QuantitySurveyorJoin']
+    Clear Element Text    xpath=.//div[@class="panel" and contains(@style,"display: block")]//form//*[@id='EvalMethod1']
+    Input Text    xpath=.//div[@class="panel" and contains(@style,"display: block")]//form//*[@id='EvalMethod1']    ${估价方法1}
+    Clear Element Text    xpath=.//div[@class="panel" and contains(@style,"display: block")]//form//*[@id='EvalMethod2']
+    Input Text    xpath=.//div[@class="panel" and contains(@style,"display: block")]//form//*[@id='EvalMethod2']    ${估价方法2}
+    ${方法汇总}    get value    xpath=.//div[@class="panel" and contains(@style,"display: block")]//form//*[@id='EvalMethodJoin']
+    Clear Element Text    xpath=.//div[@class="panel" and contains(@style,"display: block")]//form//*[@id='EvaluateTotal']/../span/input[1]
+    Input Text    xpath=.//div[@class="panel" and contains(@style,"display: block")]//form//*[@id='EvaluateTotal']/../span/input[1]    ${评估总价（万元）}
+    Clear Element Text    xpath=.//div[@class="panel" and contains(@style,"display: block")]//form//*[@id='EvaluatePrice']
+    Input Text    xpath=.//div[@class="panel" and contains(@style,"display: block")]//form//*[@id='EvaluatePrice']    ${评估单价（元/㎡）}
+    Clear Element Text    xpath=.//div[@class="panel" and contains(@style,"display: block")]//form//*[@id='DealTotal']
+    Input Text    xpath=.//div[@class="panel" and contains(@style,"display: block")]//form//*[@id='DealTotal']    ${成交总价（万元）}
+    Clear Element Text    xpath=.//div[@class="panel" and contains(@style,"display: block")]//form//*[@id='DeaPrice']
+    Input Text    xpath=.//div[@class="panel" and contains(@style,"display: block")]//form//*[@id='DeaPrice']    ${成交单价（元/㎡）}
+    Clear Element Text    xpath=.//div[@class="panel" and contains(@style,"display: block")]//form//*[@id='BusinessTime']
+    Input Text    xpath=.//div[@class="panel" and contains(@style,"display: block")]//form//*[@id='BusinessTime']    ${交易日期}
+    Clear Element Text    xpath=.//div[@class="panel" and contains(@style,"display: block")]//form//*[@id='HandleTaxQuota']
+    Input Text    xpath=.//div[@class="panel" and contains(@style,"display: block")]//form//*[@id='HandleTaxQuota']    ${处置扣税额（万元）}
+    Clear Element Text    xpath=.//div[@class="panel" and contains(@style,"display: block")]//form//*[@id='TaxAfterNet']
+    Input Text    xpath=.//div[@class="panel" and contains(@style,"display: block")]//form//*[@id='TaxAfterNet']    ${扣税口净值（万元）}
+    Clear Element Text    xpath=.//div[@class="panel" and contains(@style,"display: block")]//form//*[@id='LandVatQuota']
+    Input Text    xpath=.//div[@class="panel" and contains(@style,"display: block")]//form//*[@id='LandVatQuota']    ${土地增值税（元）}
+    Clear Element Text    xpath=.//div[@class="panel" and contains(@style,"display: block")]//form//*[@id='TaxAfterVatQuota']
+    Input Text    xpath=.//div[@class="panel" and contains(@style,"display: block")]//form//*[@id='TaxAfterVatQuota']    ${扣除土地税后（万元）}
+    Clear Element Text    xpath=.//div[@class="panel" and contains(@style,"display: block")]//form//*[@id='LoopLine']/../span/input[1]
+    Input Text    xpath=.//div[@class="panel" and contains(@style,"display: block")]//form//*[@id='LoopLine']/../span/input[1]    ${环线}
+    Clear Element Text    xpath=.//div[@class="panel" and contains(@style,"display: block")]//form//*[@id='OtherInfluenceFactor']
+    Input Text    xpath=.//div[@class="panel" and contains(@style,"display: block")]//form//*[@id='OtherInfluenceFactor']    ${其它影响因素}
+    Clear Element Text    xpath=.//div[@class="panel" and contains(@style,"display: block")]//form//*[@id='PayLeasing']
+    Input Text    xpath=.//div[@class="panel" and contains(@style,"display: block")]//form//*[@id='PayLeasing']    ${补交出让金/综合地价款（元）}
+    Clear Element Text    xpath=.//div[@class="panel" and contains(@style,"display: block")]//form//*[@id='PriorityRepaymentInfo']
+    Input Text    xpath=.//div[@class="panel" and contains(@style,"display: block")]//form//*[@id='PriorityRepaymentInfo']    ${优先受偿款}
+    Clear Element Text    xpath=.//div[@class="panel" and contains(@style,"display: block")]//form//*[@id='PhysicalHasChanged']
+    Input Text    xpath=.//div[@class="panel" and contains(@style,"display: block")]//form//*[@id='PhysicalHasChanged']    ${物理结构是否变化}
+    Clear Element Text    xpath=.//div[@class="panel" and contains(@style,"display: block")]//form//*[@id='StatusQuo']
+    Input Text    xpath=.//div[@class="panel" and contains(@style,"display: block")]//form//*[@id='StatusQuo']    ${使用现状}
+    Clear Element Text    xpath=.//div[@class="panel" and contains(@style,"display: block")]//form//*[@id='RegisterUse']/../span/input[1]
+    Input Text    xpath=.//div[@class="panel" and contains(@style,"display: block")]//form//*[@id='RegisterUse']/../span/input[1]    ${登记用途}
+    Clear Element Text    xpath=.//div[@class="panel" and contains(@style,"display: block")]//form//*[@id='LandUse']/../span/input[1]
+    Input Text    xpath=.//div[@class="panel" and contains(@style,"display: block")]//form//*[@id='LandUse']/../span/input[1]    ${现状用途}
+    Clear Element Text    xpath=.//div[@class="panel" and contains(@style,"display: block")]//form//*[@id='BuildingStructure']/../span/input[1]
+    Input Text    xpath=.//div[@class="panel" and contains(@style,"display: block")]//form//*[@id='BuildingStructure']/../span/input[1]    ${建筑结构}
+    Clear Element Text    xpath=.//div[@class="panel" and contains(@style,"display: block")]//form//*[@id='BuiltYear']
+    Input Text    xpath=.//div[@class="panel" and contains(@style,"display: block")]//form//*[@id='BuiltYear']    ${建成年代}
+    Clear Element Text    xpath=//div[@class="panel" and contains(@style,"display: block")]//form//*[@id='Floor']
+    Input Text    xpath=//div[@class="panel" and contains(@style,"display: block")]//form//*[@id='Floor']    ${所在楼层}
+    Clear Element Text    xpath=.//div[@class="panel" and contains(@style,"display: block")]//form//*[@id='MaxFloor']
+    Input Text    xpath=.//div[@class="panel" and contains(@style,"display: block")]//form//*[@id='MaxFloor']    ${总楼层}
+    Clear Element Text    xpath=.//div[@class="panel" and contains(@style,"display: block")]//form//*[@id='FloorJoin']
+    Input Text    xpath=.//div[@class="panel" and contains(@style,"display: block")]//form//*[@id='FloorJoin']    ${楼层}
+    Clear Element Text    xpath=.//div[@class="panel" and contains(@style,"display: block")]//form//*[@id='HouseType']
+    Input Text    xpath=.//div[@class="panel" and contains(@style,"display: block")]//form//*[@id='HouseType']    ${户型}
+    Clear Element Text    xpath=.//div[@class="panel" and contains(@style,"display: block")]//form//*[@id='HouseOwnershipNo']
+    Input Text    xpath=.//div[@class="panel" and contains(@style,"display: block")]//form//*[@id='HouseOwnershipNo']    ${房屋所有权号}
+    Clear Element Text    xpath=.//div[@class="panel" and contains(@style,"display: block")]//form//*[@id='HouseOwnershipPeople']
+    Input Text    xpath=.//div[@class="panel" and contains(@style,"display: block")]//form//*[@id='HouseOwnershipPeople']    ${房屋所有人}
+    Clear Element Text    xpath=.//div[@class="panel" and contains(@style,"display: block")]//form//*[@id='ArchitectureArea']
+    Input Text    xpath=.//div[@class="panel" and contains(@style,"display: block")]//form//*[@id='ArchitectureArea']    ${建筑面积（㎡）}
+    Clear Element Text    xpath=.//div[@class="panel" and contains(@style,"display: block")]//form//*[@id='Yield']
+    Input Text    xpath=.//div[@class="panel" and contains(@style,"display: block")]//form//*[@id='Yield']    ${产别}
+    Clear Element Text    xpath=.//div[@class="panel" and contains(@style,"display: block")]//form//*[@id='Decoration']
+    Input Text    xpath=.//div[@class="panel" and contains(@style,"display: block")]//form//*[@id='Decoration']    ${装修程度}
+    select From List By Value    xpath=.//div[@class="panel" and contains(@style,"display: block")]//form//*[@id='PropertyNature']    ${产权性质}
+    Clear Element Text    xpath=.//div[@class="panel" and contains(@style,"display: block")]//form//*[@id='MaxUseYear']/../span/input[1]
+    Input Text    xpath=.//div[@class="panel" and contains(@style,"display: block")]//form//*[@id='MaxUseYear']/../span/input[1]    ${最高使用年限}
+    Clear Element Text    xpath=.//div[@class="panel" and contains(@style,"display: block")]//form//*[@id='SpareEconomicsYear']
+    Input Text    xpath=.//div[@class="panel" and contains(@style,"display: block")]//form//*[@id='SpareEconomicsYear']    ${剩余经济寿命}
+    Clear Element Text    xpath=.//div[@class="panel" and contains(@style,"display: block")]//form//*[@id='LandUsePeople']
+    Input Text    xpath=.//div[@class="panel" and contains(@style,"display: block")]//form//*[@id='LandUsePeople']    ${土地使用权人}
+    Clear Element Text    xpath=.//div[@class="panel" and contains(@style,"display: block")]//form//*[@id='LandUse']/../span/input[1]
+    Input Text    xpath=.//div[@class="panel" and contains(@style,"display: block")]//form//*[@id='LandUse']/../span/input[1]    ${土地用途}
+    select From List By Value    xpath=.//div[@class="panel" and contains(@style,"display: block")]//form//*[@id='LandUseType']    ${使用权类型}
+    Clear Element Text    xpath=.//div[@class="panel" and contains(@style,"display: block")]//form//*[@id='LandUseArea']
+    Input Text    xpath=.//div[@class="panel" and contains(@style,"display: block")]//form//*[@id='LandUseArea']    ${土地使用权面积（㎡）}
+    Clear Element Text    xpath=.//div[@class="panel" and contains(@style,"display: block")]//form//*[@id='TuHao']
+    Input Text    xpath=.//div[@class="panel" and contains(@style,"display: block")]//form//*[@id='TuHao']    ${图号}
+    Clear Element Text    xpath=.//div[@class="panel" and contains(@style,"display: block")]//form//*[@id='DiHao']
+    Input Text    xpath=.//div[@class="panel" and contains(@style,"display: block")]//form//*[@id='DiHao']    ${地号}
+    Clear Element Text    xpath=.//div[@class="panel" and contains(@style,"display: block")]//form//*[@id='LanSpareYear']/../span/input[1]
+    Input Text    xpath=.//div[@class="panel" and contains(@style,"display: block")]//form//*[@id='LanSpareYear']/../span/input[1]    ${剩余土地年限（年）}
+    Clear Element Text    xpath=.//div[@class="panel" and contains(@style,"display: block")]//form//*[@id='LandUseNo']
+    Input Text    xpath=.//div[@class="panel" and contains(@style,"display: block")]//form//*[@id='LandUseNo']    ${国有土地使用号}
+    Clear Element Text    xpath=.//div[@class="panel" and contains(@style,"display: block")]//form//*[@id='LandAddress']
+    Input Text    xpath=.//div[@class="panel" and contains(@style,"display: block")]//form//*[@id='LandAddress']    ${土地坐落}
+    Clear Element Text    xpath=.//div[@class="panel" and contains(@style,"display: block")]//form//*[@id='BorrowerName']
+    Input Text    xpath=.//div[@class="panel" and contains(@style,"display: block")]//form//*[@id='BorrowerName']    ${借款人姓名}
+    Clear Element Text    xpath=.//div[@class="panel" and contains(@style,"display: block")]//form//*[@id='BorrowerID']
+    Input Text    xpath=.//div[@class="panel" and contains(@style,"display: block")]//form//*[@id='BorrowerID']    ${借款人身份证}
+    [Return]    ${新报告月度}    ${项目名称}    ${目的描述}    ${项目所在省}    ${项目所在市}    ${项目区县}
+    ...    ${小区名称}    ${楼栋号}    ${单元号}    ${户号}    ${项目推广名}    ${估价委托人}
+    ...    ${报告使用方}    ${支行}    ${报告有效期}    ${现场勘察员}    ${报告撰写人员}    ${估价师1}
+    ...    ${估价师2}    ${估价方法1}    ${估价方法2}    ${评估总价（万元）}    ${评估单价（元/㎡）}    ${成交总价（万元）}
+    ...    ${成交单价（元/㎡）}    ${交易日期}    ${处置扣税额（万元）}    ${扣税口净值（万元）}    ${土地增值税（元）}    ${扣除土地税后（万元）}
+    ...    ${环线}    ${其它影响因素}    ${补交出让金/综合地价款（元）}    ${优先受偿款}    ${物理结构是否变化}    ${使用现状}
+    ...    ${登记用途}    ${现状用途}    ${建筑结构}    ${建成年代}    ${所在楼层}    ${总楼层}
+    ...    ${楼层}    ${户型}    ${房屋所有权号}    ${房屋所有人}    ${建筑面积（㎡）}    ${产别}
+    ...    ${装修程度}    ${产权性质}    ${最高使用年限}    ${剩余经济寿命}    ${土地使用权人}    ${土地用途}
+    ...    ${使用权类型}    ${土地使用权面积（㎡）}    ${图号}    ${地号}    ${剩余土地年限（年）}    ${国有土地使用号}
+    ...    ${土地坐落}    ${借款人姓名}    ${借款人身份证}
+
+估价作业提交主流程
+    [Arguments]    ${流水号}    ${附言信息}
+    Set Selenium Speed    0.3s
+    等待处理完毕
+    清空流水号
+    内外流水号    ${流水号}
+    click Element    xpath=.//div[@class="panel" and contains(@style,"display: block")]//span[text()="查询"]/ancestor::a    #点击查询按钮
+    等待处理完毕
+    等待表格创建完毕
+    click Element    xpath=.//*[contains(@id,'datagrid-row')][1]/td/div/a[1]    #点击提交按钮
+    等待弹出框
+    select frame    id=xubox_iframe1
+    等待处理完毕
+    Wait Until Page Contains Element    xpath=.//*[@id='lab_ProjectNo']
+    ${a}    get text    xpath=//*[@id="lab_ProjectNo"]
+    run keyword if    ${a}!=''    Capture Page Screenshot    估价提交审核提交获取数据正常.png
+    ...    ELSE    估价提交审核提交获取数据异常.png
+    Select From List By Label    id=nextTask    三审
+    等待处理完毕
+    Select From List By Label    id=ReceiverId    ${login_name}
+    Input Text    xpath=//*[@id="from"]/div/table/tbody/tr[5]/td[2]/span/textarea    ${附言信息}
+    Comment    估价作业提交
+    : FOR    ${index}    IN RANGE    6
+    \    click Element    xpath=//*[@id="dlg-buttons"]/a[1]    #点击提交按钮
+    \    等待提示框
+    \    click Element    xpath=//div[contains(@class,"messager-window") and contains(@style,"display: block")]//div[@class="messager-button"]/a[1]    #点击提示框中的确定按钮
+    \    等待提示框
+    \    ${获取估价提交成功提示}    get text    xpath=//div[contains(@class,"messager-window") and contains(@style,"display: block")]//div[contains(@class,"messager-body")]/div[2]
+    \    click Element    xpath=//div[contains(@class,"messager-window") and contains(@style,"display: block")]//div[@class="messager-button"]/a[1]    #点击提示框中的确定按钮
+    \    Exit For Loop If    '${获取估价提交成功提示}'=='操作成功！'
+    退出窗口
+    估价作业窗口
+    等待处理完毕
+    click Element    xpath=//*[@id="tabs"]/div[1]/div[3]/ul/li[3]/a
+    等待处理完毕
+    等待表格创建完毕
+    ${已完成估价作业}    get text    xpath=//div[@class="panel" and contains(@style,"display: block")]//div[@class="datagrid-body"]//*[contains(@id,"datagrid-row") and @datagrid-row-index="0"]/td[@field="ProjectNo"]/div
+    run keyword if    ${已完成估价作业}==${流水号}    Capture Page Screenshot    估价作业已完成.png
+    ...    ELSE    估价作业未完成.png
+
+估价作业主流程
+    [Arguments]    ${流水号}    ${新报告月度}    ${项目名称}    ${目的描述}    ${项目所在省}    ${项目所在市}
+    ...    ${项目区县}    ${小区名称}    ${楼栋号}    ${单元号}    ${户号}    ${项目推广名}
+    ...    ${估价委托人}    ${报告使用方}    ${支行}    ${报告有效期}    ${现场勘察员}    ${报告撰写人员}
+    ...    ${估价师1}    ${估价师2}    ${估价方法1}    ${估价方法2}    ${评估总价（万元）}    ${评估单价（元/㎡）}
+    ...    ${成交总价（万元）}    ${成交单价（元/㎡）}    ${交易日期}    ${处置扣税额（万元）}    ${扣税口净值（万元）}    ${土地增值税（元）}
+    ...    ${扣除土地税后（万元）}    ${环线}    ${其它影响因素}    ${补交出让金/综合地价款（元）}    ${优先受偿款}    ${物理结构是否变化}
+    ...    ${使用现状}    ${登记用途}    ${现状用途}    ${建筑结构}    ${建成年代}    ${所在楼层}
+    ...    ${总楼层}    ${楼层}    ${户型}    ${房屋所有权号}    ${房屋所有人}    ${建筑面积（㎡）}
+    ...    ${产别}    ${装修程度}    ${产权性质}    ${最高使用年限}    ${剩余经济寿命}    ${土地使用权人}
+    ...    ${土地用途}    ${使用权类型}    ${土地使用权面积（㎡）}    ${图号}    ${地号}    ${剩余土地年限（年）}
+    ...    ${国有土地使用号}    ${土地坐落}    ${借款人姓名}    ${借款人身份证}    ${附言信息}
+    Set Selenium Speed    0.3s
+    估价作业
+    等待表格创建完毕
+    内外流水号    ${流水号}
+    click Element    xpath=.//div[@class="panel" and contains(@style,"display: block")]//span[text()="查询"]/ancestor::a
+    等待处理完毕
+    ${估流水号}    get text    xpath=//*//*[contains(@id,"datagrid-row")]/td[2]
+    Comment    领取
+    click Element    xpath=//*//*[contains(@id,"datagrid-row")]/td/div/a[1]
+    等待处理完毕
+    click Element    xpath=//*[@id="tabs"]/div[1]/div[3]/ul/li[2]/a    #进入【进行中】界面
+    等待处理完毕
+    等待表格创建完毕
+    ${估流水号1}    get text    xpath=//div[@class="panel" and contains(@style,"display: block")]//*[contains(@id,"datagrid-row") ]/td[@field="ProjectNo"]/div
+    ${report_no}    get text    xpath=//div[@class="panel" and contains(@style,"display: block")]//*[contains(@id,"datagrid-row") ]/td[@field="ReportNo"]/div
+    完成线上报告    ${估流水号1}    ${report_no}
+    Comment    估价作业领取校验    ${估流水号1}    ${估流水号}
+    Comment    估价作业线下报告上传主流程    ${流水号}
+    Comment    ${a}    get text    xpath=//*//*[contains(@id,"datagrid-row")]/td[1]
+    Comment    click Element    xpath=//*[@id="ProjectData"]
+    #进入汇总数据
+    Comment    估价作业汇总数据主流程    ${新报告月度}    ${项目名称}    ${目的描述}    ${项目所在省}    ${项目所在市}
+    ...    ${项目区县}    ${小区名称}    ${楼栋号}    ${单元号}    ${户号}    ${项目推广名}
+    ...    ${估价委托人}    ${报告使用方}    ${支行}    ${报告有效期}    ${现场勘察员}    ${报告撰写人员}
+    ...    ${估价师1}    ${估价师2}    ${估价方法1}    ${估价方法2}    ${评估总价（万元）}    ${评估单价（元/㎡）}
+    ...    ${成交总价（万元）}    ${成交单价（元/㎡）}    ${交易日期}    ${处置扣税额（万元）}    ${扣税口净值（万元）}    ${土地增值税（元）}
+    ...    ${扣除土地税后（万元）}    ${环线}    ${其它影响因素}    ${补交出让金/综合地价款（元）}    ${优先受偿款}    ${物理结构是否变化}
+    ...    ${使用现状}    ${登记用途}    ${现状用途}    ${建筑结构}    ${建成年代}    ${所在楼层}
+    ...    ${总楼层}    ${楼层}    ${户型}    ${房屋所有权号}    ${房屋所有人}    ${建筑面积（㎡）}
+    ...    ${产别}    ${装修程度}    ${产权性质}    ${最高使用年限}    ${剩余经济寿命}    ${土地使用权人}
+    ...    ${土地用途}    ${使用权类型}    ${土地使用权面积（㎡）}    ${图号}    ${地号}    ${剩余土地年限（年）}
+    ...    ${国有土地使用号}    ${土地坐落}    ${借款人姓名}    ${借款人身份证}
+    Comment    click Element    xpath=//*[@id="BtnSubmit"]
+    Comment    等待提示框
+    Comment    Run Keyword And Continue On Failure    click Element    xpath=//a[contains(.,'确定')]
+    Comment    退出窗口
+    Comment    click Element    xpath=.//*[@id='framecenter']/div[1]/ul/li[@tabid="collection_data"]/div[3]    #关闭汇总数据Tab
+    Comment    click Element    xpath=.//*[@id='framecenter']/div[1]/ul/li[@tabid="offline_report"]/div[3]    #关闭线下报告Tab
+    Comment    估价作业窗口
+    估价作业提交主流程    ${流水号}    ${附言信息}
+    退出窗口
+    click Element    xpath=//*[@id="framecenter"]/div[1]/ul/li/div[3]
+
+立项主流程
+    [Arguments]    ${客户手机}    ${发送份数}    ${行政区}    ${小区名称}    ${小区地址}    ${楼栋号}
+    ...    ${单元号}    ${户号名}    ${建筑面积}    ${土地面积}    ${询值单价}    ${建成年代}
+    ...    ${估价委托方}    ${市场负责人}    ${收费责任人}    ${内部报单人}    ${新结算金额}    ${预收费用}
+    ...    ${联系人}    ${联系电话}    ${收件方式}    ${姓名}    ${联系方式}    ${邮政编码}
+    ...    ${公司名称}    ${快递地址}    ${立项备注}
+    Set Selenium Speed    0.3s
+    click Element    xpath=//*[@id="expmenu-freebie"]/li/ul/li[1]/ul/li[2]/a
+    select frame    id=InquiryAndProject_ProjectAccept
+    Click Element    xpath=.//span[text()="暂存项目"]/parent::a
+    Wait Until Page Does Not Contain Element    xpath=//*[@class="datagrid-mask" and contains(@style,"display:block")]    timeout=30s
+    click Element    xpath=//*[@id="project_temp_create"]
+    unselect frame
+    select frame    id=create_project_
+    #客户信息
+    Wait Until Page Contains    客户信息
+    客户信息流程    ${客户手机}
+    #获取相应数据
+    Wait Until Element Is Visible    //*[@id="ProjectSource"]
+    #${项目来源}    get value    //*[@id="ProjectSource"]
+    #${项目类型}    get value    //*[@id="ItemType"]
+    #${项目分类}    get value    //*[@id="ReportType"]
+    #${估价目的}    get value    //*[@id="BusinessType"]
+    #${物业类型}    get value    //*[@id="ProjectType"]
+    #${报告类型}    get value    //*[@id="ReportCategory"]
+    #${城市}    get value    //*[@id="tbproject"]/tbody/tr[3]/td[2]/span/input[1]
+    #${所属部门}    get value    //*[@id="Department"]
+    ${结算方式}    get value    //*[@id="CalculateType"]
+    ${结算金额}    get value    //*[@id="tbkancha"]/tbody/tr[2]/td[4]/span/input[1]
+    log    ${结算金额}
+    click Element    //*[@id="tbproject"]/tbody/tr[2]/td[4]/span/span/a
+    click Element    xpath=.//div[text()="普通住宅"]
+    Wait Until Element Is Visible    //*[@id="tbproject"]/tbody/tr[2]/td[4]/span/input[1]
+    #${子物业类型}    get value    //*[@id="tbproject"]/tbody/tr[2]/td[4]/span/input[1]
+    #    输入发送份数
+    #    ${发送份数}    set variable    23
+    Input Text    //*[@id="tbproject"]/tbody/tr[2]/td[8]/span/input[1]    ${发送份数}
+    Comment    输入小区名称进行关键字读取
+    Input Text    //*[@id="tbproject"]/tbody/tr[3]/td[4]/span/input[1]    ${行政区}
+    ${time}    Get Current Date    result_format=%Y%m%d%H%M%S
+    Input Text    //*[@id="ResidentialAreaName"]    ${小区名称}${time}
+    Input Text    //*[@id="ResidentialAddress"]    ${小区地址}
+    Input Text    //*[@id="tbproject"]/tbody/tr[4]/td[2]/span/input[1]    ${楼栋号}
+    Input Text    //*[@id="tbproject"]/tbody/tr[4]/td[4]/span/input[1]    ${单元号}
+    Input Text    //*[@id="tbproject"]/tbody/tr[4]/td[6]/span/input[1]    ${户号名}
+    #    click Element    xpath=/html/body/div[16]/ul/li[5]
+    ${行政区}    get value    //*[@id="tbproject"]/tbody/tr[3]/td[4]/span/input[1]
+    ${小区名}    get value    //*[@id="ResidentialAreaName"]
+    ${小区地址}    get value    //*[@id="ResidentialAddress"]
+    #${项目地址}    get value    //*[@id="ResidentialAreaAddress"]
+    clear Element Text    //*[@id="tbproject"]/tbody/tr[6]/td[2]/span/input[1]
+    #    ${建筑面积}    set variable    300
+    Input Text    //*[@id="tbproject"]/tbody/tr[6]/td[2]/span/input[1]    ${建筑面积}
+    clear Element Text    //*[@id="tbproject"]/tbody/tr[6]/td[4]/span/input[1]
+    #    ${土地面积}    set variable    100
+    Input Text    //*[@id="tbproject"]/tbody/tr[6]/td[4]/span/input[1]    ${土地面积}
+    clear Element Text    //*[@id="tbproject"]/tbody/tr[6]/td[6]/span/input[1]
+    #    ${询值单价}    set variable    50000
+    Input Text    //*[@id="tbproject"]/tbody/tr[6]/td[6]/span/input[1]    ${询值单价}
+    #    ${建成年代}    set variable    90
+    Input Text    //*[@id="tbproject"]/tbody/tr[7]/td[2]/span/input[1]    ${建成年代}
+    click Element    //*[@id="tbproject"]/tbody/tr[7]/td[8]/img
+    ${贷款机构}    get value    //*[@id="LendersCompany"]
+    ${贷款支行}    get value    //*[@id="LendersBranch"]
+    #    ${估价委托方}    set variable    北京云房
+    Input Text    //*[@id="PriceDelegate"]    ${估价委托方}
+    clear Element Text    //*[@id="tbkancha"]/tbody/tr[1]/td[2]/span/input[1]
+    Input Text    //*[@id="tbkancha"]/tbody/tr[1]/td[2]/span/input[1]    ${市场负责人}
+    #click Element    //*[@id="_easyui_combobox_i32_29"]
+    #${市场负责人1}    get value    //*[@id="tbkancha"]/tbody/tr[1]/td[2]/span/input[1]
+    clear Element Text    //*[@id="tbkancha"]/tbody/tr[1]/td[4]/span/input[1]
+    Input Text    //*[@id="tbkancha"]/tbody/tr[1]/td[4]/span/input[1]    ${收费责任人}
+    #click Element    //*[@id="_easyui_combobox_i34_29"]
+    #${收费责任人1}    get value    //*[@id="tbkancha"]/tbody/tr[1]/td[2]/span/input[1]
+    clear Element Text    //*[@id="tbkancha"]/tbody/tr[1]/td[6]/span/input[1]
+    Input Text    //*[@id="tbkancha"]/tbody/tr[1]/td[6]/span/input[1]    ${内部报单人}
+    #click Element    //*[@id="_easyui_combobox_i33_29"]
+    #${内部报单人1}    get value    //*[@id="tbkancha"]/tbody/tr[1]/td[2]/span/input[1]
+    clear Element Text    //*[@id="tbkancha"]/tbody/tr[2]/td[4]/span/input[1]
+    Input Text    //*[@id="tbkancha"]/tbody/tr[2]/td[4]/span/input[1]    ${新结算金额}
+    Input text    xpath=/html/body/div[1]/form/div[4]/div[2]/table/tbody/tr[1]/td[4]/span/input[1]    ${预收费用}
+    #    添加联系人信息
+    添加联系人    ${联系人}    ${联系电话}
+    unselect frame
+    select frame    id=create_project_
+    Capture Page Screenshot    立项1.png
+    #    快递选项
+    其它信息流程    ${收件方式}    ${姓名}    ${联系方式}    ${邮政编码}    ${公司名称}    ${快递地址}
+    ...    ${立项备注}
+    execute javascript    document.documentElement.scrollTop=0
+    click Element    xpath=//*[@id="create_project_create"]
+    等待提示框
+    ${lmes}    get text    xpath=html/body/div[@class="panel window messager-window"]/div[2]/div[2]
+    ${Imesl}=    findall    :(.*)    ${lmes}
+    #${Imesl1}    findall    号(.*) 报    ${lmes}
+    log    ${Imesl[0]}
+    #log    ${Imesl1[0]}
+    ${liushuihao}    set variable    ${Imesl[0]}
+    Wait Until Page Contains Element    xpath=//a[contains(.,'确定')]
+    click Element    xpath=//a[contains(.,'确定')]
+    unselect frame
+    select Frame    id=InquiryAndProject_ProjectAccept
+    click Element    xpath=.//span[text()="已立项"]/parent::a
+    等待表格创建完毕
+    Wait Until Page Contains Element    xpath=.//div[@class="panel" and contains(@style,"display: block")]//*[@id="ProjectNo"]
+    Input Text    xpath=.//div[@class="panel" and contains(@style,"display: block")]//*[@id="ProjectNo"]    ${liushuihao}
+    Wait Until Element Is Visible    xpath=//*[@id="project_created_search"]
+    click Element    xpath=//*[@id="project_created_search"]
+    Wait Until Page Does Not Contain Element    xpath=//*[@class="datagrid-mask" and contains(@style,"display:block")]    timeout=30s
+    ${已立项流水号}    get text    xpath=//div[@class="panel" and contains(@style,"display: block")]//*[contains(@id,"datagrid-row") ]/td[@field="ProjectNo"]/div
+    run keyword if    ${已立项流水号}==${liushuihao}    Capture Page Screenshot    立项成功.png
+    ...    ELSE    Capture Page Screenshot    立项失败.png
+    退出窗口
+    click Element    xpath=//*[@id="framecenter"]/div[1]/ul/li[1]/div[3]
+    [Teardown]    Set Global Variable    ${liushuihao}
+    [Return]    ${liushuihao}    ${新结算金额}    ${结算方式}    ${发送份数}
+
+客户信息流程
+    [Arguments]    ${客户手机}
+    等待处理完毕
+    Set Selenium Speed    0.3s
+    Input Text    xpath=//*[@id="MobileNumber"]    ${客户手机}
+    Comment    sleep    8
+    click Element    xpath=//*[@id="customer_search"]
+    Comment    sleep    8
+    等待处理完毕
+    ${固定电话}    get value    //*[@id="Telephone"]
+    ${客户姓名}    get value    //*[@id="tbcustomer"]/tbody/tr[1]/td[6]/span/input[1]
+    ${所属机构}    get value    //*[@id="tbcustomer"]/tbody/tr[2]/td[2]/span/input[1]
+    ${分支机构}    get value    //*[@id="tbcustomer"]/tbody/tr[2]/td[4]/span/input[1]
+    run keyword if    '${固定电话}'!=''    Capture Page Screenshot    客户信息存在.png
+    ...    ELSE    Capture Page Screenshot    客户信息不存在.png
+    [Teardown]    Set Global Variable    ${客户手机}
+    [Return]    ${固定电话}    ${客户姓名}    ${所属机构}    ${分支机构}
+
+添加联系人
+    [Arguments]    ${联系人}    ${联系电话}
+    click Element    //*[@id="tbkancha"]/tbody/tr[2]/td[2]/a
+    Comment    sleep    3
+    等待弹出框
+    select frame    id=xubox_iframe1
+    Comment    sleep    2
+    Comment    ${联系人}    set variable    李健
+    Input Text    //*[@id="Contacts"]    ${联系人}
+    Comment    sleep    2
+    Comment    ${联系电话}    set variable    18911111112
+    Input Text    //*[@id="Phone"]    ${联系电话}
+    Comment    sleep    2
+    click Element    //*[@id="submitform"]
+    Comment    sleep    8
+    Comment    ${mes}    confirm action
+    Comment    log    ${mes}
+    Comment    Should Be Equal    ${mes}    操作成功
+    Comment    Choose Ok On Next Confirmation
+    退出窗口
+    select frame    id=create_project_
+    Wait Until Page Contains Element    xpath=//a[contains(.,'确定')]
+    click Element    xpath=//a[contains(.,'确定')]
+
+其它信息流程
+    [Arguments]    ${收件方式}    ${姓名}    ${联系方式}    ${邮政编码}    ${公司名称}    ${快递地址}
+    ...    ${立项备注}
+    select From List By Value    id=ReceiptWay    ${收件方式}
+    Wait Until Page Contains Element    xpath=//*[@id="divAddReceipt" and contains(@style,'display: block')]/a
+    click Element    xpath=//*[@id="divAddReceipt"]/a
+    capture page screenshot    立项添加邮件地址1.png
+    等待弹出框
+    select Frame    id=xubox_iframe2
+    Comment    ${姓名}    set variable    李健
+    Input Text    xpath=//*[@id="Receiver"]    ${姓名}
+    Comment    ${联系方式}    set variable    18911111111
+    Input Text    xpath=//*[@id="Phone"]    ${联系方式}
+    Comment    ${邮政编码}    set variable    123456
+    Input Text    xpath=//*[@id="form1"]/div/table/tbody/tr[1]/td[6]/span/input[1]    ${邮政编码}
+    Comment    ${公司名称}    set variable    时间段发抗裂砂浆大富科技就急急急急急急急急急急急急急急急急急急急急急急急急急急急急急急急急急急急急急急急急急急急急急
+    Input Text    xpath=//*[@id="Company"]    ${公司名称}
+    Comment    ${快递地址}    set variable    士大夫是多发发是打发士大夫撒打发士大夫撒的方法士大夫士大夫
+    Input Text    xpath=//*[@id="Address"]    ${快递地址}
+    Click Element    xpath=//*[@id="submitform"]
+    capture page screenshot    立项添加邮件地址2.png
+    退出窗口
+    select frame    id=create_project_
+    click Element    xpath=//a[contains(.,'确定')]
+    unselect frame
+    select Frame    id=create_project_
+    Comment    ${立项备注}    set variable    防守打法三大方法反反复复反复反复反复反复反复反复反复发反反复复发反反复复反复反复反复反复发反反复复发反反复复反复反复发反反复复发
+    Input Text    xpath=//*[@id="Remark"]    ${立项备注}
+    Comment    sleep    2
+    Capture Page Screenshot    立项2.png

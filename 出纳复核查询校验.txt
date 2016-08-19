@@ -1,0 +1,28 @@
+*** Keywords ***
+出纳复核按流水号查询校验
+    [Arguments]    ${出纳复核流水号}    ${流水号}
+    run keyword if    ${出纳复核流水号}==${流水号}    Capture Page Screenshot    出纳复核按流水号查询获取数据成功.png
+    ...    ELSE    Capture Page Screenshot    出纳复核按流水号查询获取数据失败.png
+    run keyword if    ${出纳复核流水号}==${流水号}    log    pass
+    ...    ELSE    Fail
+
+出纳复核按报告编号查询校验
+    [Arguments]    ${报告编号}    ${出纳复核报告编号}
+    run keyword if    ${报告编号}==${出纳复核报告编号}    Capture Page Screenshot    出纳复核按报告编号查询获取数据成功.png
+    ...    ELSE    Capture Page Screenshot    出纳复核按报告编号查询获取数据失败.png
+    run keyword if    ${报告编号}==${出纳复核报告编号}    log    pass
+    ...    ELSE    Fail
+
+出纳复核按票据号查询校验
+    [Arguments]    ${出纳复核票据号}    ${票据号}
+    run keyword if    '${出纳复核票据号}'=='${票据号}'    Capture Page Screenshot    出纳复核按票据号查询获取数据成功.png
+    ...    ELSE    Capture Page Screenshot    出纳复核按票据号查询获取数据失败.png
+    run keyword if    '${出纳复核票据号}'=='${票据号}'    log    pass
+    ...    ELSE    Fail
+
+出纳复核按小区名称查询校验
+    [Arguments]    ${小区名称}    ${出纳复核小区名称}
+    run keyword if    '${小区名称}'=='${出纳复核小区名称}'    Capture Page Screenshot    出纳复核按小区名称查询获取数据成功.png
+    ...    ELSE    Capture Page Screenshot    出纳复核按小区名称查询获取数据失败.png
+    run keyword if    '${小区名称}'=='${出纳复核小区名称}'    log    pass
+    ...    ELSE    Fail

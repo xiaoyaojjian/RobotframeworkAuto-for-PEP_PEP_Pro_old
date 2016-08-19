@@ -1,0 +1,42 @@
+*** Keywords ***
+应收金额审批按项目地址查询校验
+    [Arguments]    ${应收金额项目地址}    ${项目地址}
+    run keyword if    '${应收金额项目地址}'=='${项目地址}'    Capture Page Screenshot    应收金额审批按项目地址查询获取数据成功.png
+    ...    ELSE    Capture Page Screenshot    应收金额审批按项目地址查询获取数据失败.png
+    run keyword if    '${应收金额项目地址}'=='${项目地址}'    log    pass
+    ...    ELSE    Fail
+
+应收金额审批按报告编号查询校验
+    [Arguments]    ${应收金额审批报告编号}    ${报告编号}
+    run keyword if    ${应收金额审批报告编号}==${报告编号}    Capture Page Screenshot    应收金额审批按报告编号查询获取数据成功.png
+    ...    ELSE    Capture Page Screenshot    应收金额审批按报告编号查询获取数据失败.png
+    run keyword if    ${应收金额审批报告编号}==${报告编号}    log    pass
+    ...    ELSE    Fail
+
+应收金额审批按流水号查询校验
+    [Arguments]    ${应收金额审批流水号}    ${流水号}
+    run keyword if    ${应收金额审批流水号}==${流水号}    Capture Page Screenshot    应收金额审批按流水号查询获取数据成功.png
+    ...    ELSE    Capture Page Screenshot    应收金额审批按流水号查询获取数据失败.png
+    run keyword if    ${应收金额审批流水号}==${流水号}    log    pass
+    ...    ELSE    Fail
+
+应收金额审批按小区名称查询校验
+    [Arguments]    ${应收金额审批小区名称}    ${小区名称}
+    run keyword if    '${应收金额审批小区名称}'=='${小区名称}'    Capture Page Screenshot    应收金额审批按小区名称查询获取数据成功.png
+    ...    ELSE    Capture Page Screenshot    应收金额审批按小区名称查询获取数据失败.png
+    run keyword if    '${应收金额审批小区名称}'=='${小区名称}'    log    pass
+    ...    ELSE    Fail
+
+应收金额审批按审核状态查询校验
+    [Arguments]    ${应收金额审批审核状态}    ${状态}
+    run keyword if    '${应收金额审批审核状态}'=='${状态}'    Capture Page Screenshot    应收金额审批按审核状态查询获取数据成功.png
+    ...    ELSE    Capture Page Screenshot    应收金额审批按审核状态查询获取数据失败.png
+    run keyword if    '${应收金额审批审核状态}'=='${状态}'    log    pass
+    ...    ELSE    Fail
+
+应收金额审批按项目状态查询校验
+    [Arguments]    ${应收金额审批项目状态}    ${状态}
+    run keyword if    '${应收金额审批项目状态}'=='${状态}'    Capture Page Screenshot    应收金额审批按项目状态查询获取数据成功.png
+    ...    ELSE    Capture Page Screenshot    应收金额审批按项目状态查询获取数据失败.png
+    run keyword if    '${应收金额审批项目状态}'=='${状态}'    log    pass
+    ...    ELSE    Fail

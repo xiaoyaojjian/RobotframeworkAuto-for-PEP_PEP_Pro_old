@@ -1,0 +1,369 @@
+*** Keywords ***
+登录校验
+    [Arguments]    ${login_name}
+    ${用户名}    get text    xpath=.//i[contains(@class,'user-name')]/..
+    log    ${用户名}
+    Comment    should Be Equal    ${用户名}    ${login_name}
+    run keyword if    '${用户名}'=='${login_name}'    Capture Page Screenshot    登录成功.png
+    ...    ELSE    Capture Page Screenshot    登录失败.png
+    run keyword if    '${用户名}'=='${login_name}'    log    Login pass
+    ...    ELSE    Fail
+
+添加询价校验
+    ${系统价格单价}    get value    xpath=//*[@id="areaprice"]
+    log    ${系统价格单价}
+    run keyword if    '${系统价格单价}'!=''    Capture Page Screenshot    添加询价获取系统价格成功.png
+    ...    ELSE    Capture Page Screenshot    添加询价获取系统价格不存在.png
+    run keyword if    '${系统价格单价}'!=''    log    添加询价获取系统价格成功
+    ...    ELSE    Fail
+
+询价根据询价人校验
+    [Arguments]    ${询询价人}
+    wait until element is visible    xpath=/html/body/div/form/div/div[2]/div[1]/div/div/div/div/div[2]/div[2]/div[2]/table/tbody/tr[1]/td[8]/div
+    ${x询价人}    get text    xpath=/html/body/div/form/div/div[2]/div[1]/div/div/div/div/div[2]/div[2]/div[2]/table/tbody/tr[1]/td[8]/div
+    log    ${x询价人}
+    Comment    should Be Equal    ${x询价人}    ${询价人}
+    run keyword if    '${x询价人}'=='${询询价人}'    Capture Page Screenshot    根据询价人查询成功.png
+    ...    ELSE    Capture Page Screenshot    根据询价人查询失败.png
+    run keyword if    '${x询价人}'=='${询询价人}'    log    根据询价人查询成功
+    ...    ELSE    Fail
+
+询价根据询价机构校验
+    [Arguments]    ${询询价机构}
+    Comment    Wait Until Element Contains    xpath=/html/body/div/form/div/div[2]/div[1]/div/div/div/div/div[2]/div[2]/div[2]/table/tbody/tr[1]/td[7]/div    42    查询不到相关数据
+    sleep    6
+    ${x询价机构}    get text    xpath=/html/body/div/form/div/div[2]/div[1]/div/div/div/div/div[2]/div[2]/div[2]/table/tbody/tr[1]/td[7]/div
+    log    ${x询价机构}
+    Comment    should Be Equal    ${x询价机构}    ${询价机构}
+    run keyword if    '${x询价机构}'=='${询询价机构}'    Capture Page Screenshot    询价根据询价机构查询成功.png
+    ...    ELSE    Capture Page Screenshot    询价根据询价机构查询失败.png
+    run keyword if    '${x询价机构}'=='${询询价机构}'    log    询价根据询价机构查询成功
+    ...    ELSE    Fail
+    Comment    Capture Page Screenshot    询价机构查询.png
+
+询价根据项目地址校验
+    [Arguments]    ${询项目地址}
+    ${x小区地址}    get text    xpath=/html/body/div/form/div/div[2]/div[1]/div/div/div/div/div[2]/div[2]/div[2]/table/tbody/tr[1]/td[3]/div
+    log    ${x小区地址}
+    Comment    should Be Equal    ${x小区地址}    ${小区地址}
+    run keyword if    '${x小区地址}'=='${询项目地址}'    Capture Page Screenshot    询价根据项目地址查询成功.png
+    ...    ELSE    Capture Page Screenshot    询价根据项目地址查询失败.png
+    run keyword if    '${x小区地址}'=='${询项目地址}'    log    询价根据项目地址查询成功
+    ...    ELSE    Fail
+
+询价根据小区名校验
+    [Arguments]    ${询小区名称}
+    Comment    wait until element is visible    xpath=/html/body/div/form/div/div[2]/div[1]/div/div/div/div/div[2]/div[2]/div[2]/table/tbody/tr[2]/td[2]/div
+    ${x小区名称}    get text    xpath=/html/body/div/form/div/div[2]/div[1]/div/div/div/div/div[2]/div[2]/div[2]/table/tbody/tr[1]/td[2]/div
+    log    ${x小区名称}
+    run keyword if    '${x小区名称}'=='${询小区名称}'    Capture Page Screenshot    询价根据小区名查询成功.png
+    ...    ELSE    Capture Page Screenshot    询价根据小区名查询失败.png
+    run keyword if    '${x小区名称}'=='${询小区名称}'    log    询价根据小区名查询成功
+    ...    ELSE    Fail
+
+报盘案例校验
+    Wait Until Element Is Visible    xpath=//*[@id="datagrid-row-r7-2-0"]/td[1]
+    ${案例来源}    get text    xpath=//*[@id="datagrid-row-r7-2-0"]/td[1]
+    run keyword if    '${案例来源}'!=''    Capture Page Screenshot    报盘案例获取数据成功.png
+    ...    ELSE    Capture Page Screenshot    报盘案例获取数据为空.png
+    run keyword if    '${案例来源}'!=''    log    报盘案例获取数据成功
+    ...    ELSE    Fail
+
+成交案例校验
+    Wait Until Element Is Visible    xpath=//*[@id="datagrid-row-r9-2-0"]/td[1]
+    ${案例来源}    get text    xpath=//*[@id="datagrid-row-r9-2-0"]/td[1]
+    run keyword if    '${案例来源}'!=''    Capture Page Screenshot    成交案例获取数据成功.png
+    ...    ELSE    Capture Page Screenshot    成交案例获取数据为空.png
+    run keyword if    '${案例来源}'!=''    log    成交案例获取数据成功
+    ...    ELSE    Fail
+
+报告案例校验
+    Wait Until Element Is Visible    xpath=//*[@id="datagrid-row-r11-2-0"]/td[1]
+    ${案例来源}    get text    xpath=//*[@id="datagrid-row-r11-2-0"]/td[1]
+    run keyword if    '${案例来源}'!=''    Capture Page Screenshot    成交案例获取数据成功.png
+    ...    ELSE    Capture Page Screenshot    成交案例获取数据为空.png
+    run keyword if    '${案例来源}'!=''    log    成交案例获取数据成功
+    ...    ELSE    Fail
+
+旧系统案例校验
+    sleep    10
+    select frame    id=frame_oldReport
+    Wait Until Element Is Visible    xpath=//*[@id="hidden-table-info_wrapper"]/table/tbody/tr[1]/td[1]
+    ${询价操作人}    get text    xpath=//*[@id="hidden-table-info_wrapper"]/table/tbody/tr[1]/td[1]
+    run keyword if    '${询价操作人}'!=''    Capture Page Screenshot    成交案例获取数据成功.png
+    ...    ELSE    Capture Page Screenshot    成交案例获取数据为空.png
+    run keyword if    '${询价操作人}'!=''    log    成交案例获取数据成功
+    ...    ELSE    Fail
+
+老系统案例校验
+    sleep    5
+    select frame    id=frame_oldInquiry
+    Wait Until Element Is Visible    xpath=//*[@id="hidden-table-info_wrapper"]/table/tbody/tr[1]/td[1]
+    ${ 询价操作人}    get text    xpath=//*[@id="hidden-table-info_wrapper"]/table/tbody/tr[1]/td[1]
+    run keyword if    '${ 询价操作人}'!=''    Capture Page Screenshot    成交案例获取数据成功.png
+    ...    ELSE    Capture Page Screenshot    成交案例获取数据为空.png
+    run keyword if    '${ 询价操作人}'!=''    log    成交案例获取数据成功
+    ...    ELSE    Fail
+
+已立项根据流水号查询校验
+    sleep    5
+    ${liushuihao}    get Text    xpath=//*[@id="datagrid-row-r6-2-0"]/td[2]
+    ${baogaobianhao}    get Text    xpath=//*[@id="datagrid-row-r6-2-0"]/td[3]
+    ${xiangmudizi}    get Text    xpath=//*[@id="datagrid-row-r6-2-0"]/td[4]
+    ${xiaoqumingchen}    get Text    xpath=//*[@id="datagrid-row-r6-2-0"]/td[5]
+    ${xiangmufenlei}    get Text    xpath=//*[@id="datagrid-row-r6-2-0"]/td[6]
+    ${wuyeleixing}    get Text    xpath=//*[@id="datagrid-row-r6-2-0"]/td[7]
+    ${gujiamudi}    get Text    xpath=//*[@id="datagrid-row-r6-2-0"]/td[8]
+    ${baogaoleixing}    get Text    xpath=//*[@id="datagrid-row-r6-2-0"]/td[9]
+    ${yewulaiyuan}    get Text    xpath=//*[@id="datagrid-row-r6-2-0"]/td[10]
+    ${kehuxingming}    get Text    xpath=//*[@id="datagrid-row-r6-2-0"]/td[11]
+    ${shouliren}    get Text    xpath=//*[@id="datagrid-row-r6-2-0"]/td[12]
+    ${gujiaweituofang}    get Text    xpath=//*[@id="datagrid-row-r6-2-0"]/td[16]
+    ${zhuangtai}    get Text    xpath=//*[@id="datagrid-row-r6-2-0"]/td[17]
+    ${xiangmuzhuangtai}    get Text    xpath=//*[@id="datagrid-row-r6-2-0"]/td[18]
+    log    ${liushuihao}
+    run keyword if    ${流水号}==${liushuihao} and '${xiangmudizi}'=='${询价地址}' and '${xiaoqumingchen}'=='${小区名称}'    Capture Page Screenshot    立项成功.png
+    ...    ELSE    Capture Page Screenshot    立项不成功.png
+    Should Be Equal    ${流水号}    ${liushuihao}
+    Capture Page Screenshot    转立项3.png
+    sleep    3
+    [Teardown]    Set Global Variable    ${流水号}
+    [Return]    ${流水号}
+
+询价查看数据校验
+    [Arguments]    ${暂存查小区名}    ${暂存查项目地址}    ${暂存查建筑面积}    ${询小区名称}    ${项目地址}    ${建筑面积}
+    sleep    5
+    run keyword if    '${暂存查小区名}'=='${询小区名称}' and '${暂存查项目地址}'=='${项目地址}' and ${暂存查建筑面积}==${建筑面积}    Capture Page Screenshot    暂存查看获取数据成功.png
+    ...    ELSE    Capture Page Screenshot    暂存查看获取数据失败.png
+    run keyword if    '${暂存查小区名}'=='${询小区名称}' and '${暂存查项目地址}'=='${项目地址}' and ${暂存查建筑面积}==${建筑面积}    log    暂存查看获取数据成功
+    ...    ELSE    Fail
+
+非住宅询价查看数据校验
+    [Arguments]    ${非住宅项目地址}    ${项目地址}
+    sleep    5
+    run keyword if    '${非住宅项目地址}'=='${项目地址}'    Capture Page Screenshot    非住宅查看获取数据成功.png
+    ...    ELSE    Capture Page Screenshot    非住宅查看获取数据失败.png
+    run keyword if    '${非住宅项目地址}'=='${项目地址}'    log    非住宅查看获取数据成功
+    ...    ELSE    Fail
+
+回复数据校验
+    [Arguments]    ${回复}    ${新回复}
+    sleep    5
+    run keyword if    '${回复}'=='${新回复}'    Capture Page Screenshot    回复成功.png
+    ...    ELSE    Capture Page Screenshot    回复失败.png
+    run keyword if    '${回复}'=='${新回复}'    log    回复成功
+    ...    ELSE    Fail
+
+非住宅添加询价数据校验
+    [Arguments]    ${询价地址}    ${非查询地址}
+    run keyword if    '${询价地址}'=='${非查询地址}'    Capture Page Screenshot    非住宅添加询价成功.png
+    ...    ELSE    Capture Page Screenshot    非住宅添加询价失败.png
+    run keyword if    '${询价地址}'=='${非查询地址}'    log    非住宅添加询价成功
+    ...    ELSE    Fail
+
+已立项编辑数据校验
+    [Arguments]    ${项目分类}    ${新项目分类}    ${新估价目的}    ${估价目的}    ${新物业类型}    ${物业类型}
+    ...    ${新报告类型}    ${报告类型}
+    run keyword if    '${项目分类}'=='${新项目分类}' and '${新估价目的}'=='${估价目的}' and '${新物业类型}'=='${物业类型}' and '${新报告类型}'=='${报告类型}'    Capture Page Screenshot    已立项编辑成功.png
+    ...    ELSE    Capture Page Screenshot    已立项编辑失败.png
+    run keyword if    '${项目分类}'=='${新项目分类}' and '${新估价目的}'=='${估价目的}' and '${新物业类型}'=='${物业类型}' and '${新报告类型}'=='${报告类型}'    log    已立项编辑成功
+    ...    ELSE    Fail
+
+已立项查看数据校验
+    [Arguments]    ${报告号}    ${查报告编号}    ${业务来源}    ${查项目来源}    ${项目分类}    ${查项目分类}
+    log    ${报告号}${查报告编号}${业务来源}${查项目来源}${项目分类}${查项目分类}
+    run keyword if    ${报告号}==${查报告编号} and '${业务来源}'=='${查项目来源}'and '${项目分类}'=='${查项目分类}'    Capture Page Screenshot    已立项查看数据对比成功.png
+    ...    ELSE    Capture Page Screenshot    已立项查看数据对比失败.png
+    run keyword if    ${报告号}==${查报告编号} and '${业务来源}'=='${查项目来源}'and '${项目分类}'=='${查项目分类}'    log    已立项查看数据对比成功
+    ...    ELSE    Fail
+
+外业（未）分配按项目地址查询获取数据校验
+    [Arguments]    ${项目地址}    ${外项目地址}
+    run keyword if    '${项目地址}'=='${外项目地址}'    Capture Page Screenshot    外业未分配按项目地址查询获取数据成功.png
+    ...    ELSE    Capture Page Screenshot    外业未分配按项目地址查询获取数据失败.png
+    run keyword if    '${项目地址}'=='${外项目地址}'    log    pass
+    ...    ELSE    Fail
+
+外业（未）分配按流水号查询获取数据校验
+    [Arguments]    ${外流水号}    ${流水号}
+    run keyword if    ${外流水号}==${流水号}    Capture Page Screenshot    外业未分配按流水号查询获取数据成功.png
+    ...    ELSE    Capture Page Screenshot    外业未分配按流水号查询获取数据失败.png
+    run keyword if    ${外流水号}==${流水号}    log    pass
+    ...    ELSE    Fail
+
+外业（未）分配按报告编号查询获取数据校验
+    [Arguments]    ${报告编号}    ${外报告编号}
+    run keyword if    ${报告编号}==${外报告编号}    Capture Page Screenshot    外业未分配按报告编号查询获取数据成功.png
+    ...    ELSE    Capture Page Screenshot    外业未分配按报告编号查询获取数据失败.png
+    run keyword if    ${报告编号}==${外报告编号}    log    pass
+    ...    ELSE    Fail
+
+外业（未）分配按小区名称查询获取数据校验
+    [Arguments]    ${小区名称}    ${外小区名称}
+    run keyword if    '${小区名称}'=='${外小区名称}'    Capture Page Screenshot    外业未分配按小区名称查询获取数据成功.png
+    ...    ELSE    Capture Page Screenshot    外业未分配按小区名称查询获取数据失败.png
+    run keyword if    '${小区名称}'=='${外小区名称}'    log    pass
+    ...    ELSE    Fail
+
+外业（未）分配按紧急程度查询获取数据校验
+    [Arguments]    ${紧急程度}    ${外紧急程度}
+    run keyword if    '${紧急程度}'=='${外紧急程度}'    Capture Page Screenshot    外业未分配按紧急程度查询获取数据成功.png
+    ...    ELSE    Capture Page Screenshot    外业未分配按紧急程度查询获取数据失败.png
+    run keyword if    '${紧急程度}'=='${外紧急程度}'    log    pass
+    ...    ELSE    Fail
+
+外业（未）分配按物业类型查询获取数据校验
+    [Arguments]    ${物业类型}    ${外物业类型}
+    run keyword if    '${物业类型}'=='${外物业类型}'    Capture Page Screenshot    外业未分配按物业类型查询获取数据成功.png
+    ...    ELSE    Capture Page Screenshot    外业未分配按物业类型查询获取数据失败.png
+    run keyword if    '${物业类型}'=='${外物业类型}'    log    pass
+    ...    ELSE    Fail
+
+外业分配按查勘人员查询获取数据校验
+    [Arguments]    ${查勘人员}    ${外查勘人员}
+    Comment    log    ${查勘人员}
+    Comment    log    ${外查勘人员}
+    run keyword if    '${查勘人员}'=='${外查勘人员}'    Capture Page Screenshot    外业已分配按查勘人员查询获取数据成功.png
+    ...    ELSE    Capture Page Screenshot    外业已分配按查勘人员查询获取数据失败.png
+    run keyword if    '${查勘人员}'=='${外查勘人员}'    log    pass
+    ...    ELSE    Fail
+
+外业分配人员查询获取数据校验
+    [Arguments]    ${分配人员}    ${外分配人员}
+    run keyword if    '${分配人员}'=='${外分配人员}'    Capture Page Screenshot    外业已分配按分配人员查询获取数据成功.png
+    ...    ELSE    Capture Page Screenshot    外业已分配按分配人员查询获取数据失败.png
+    run keyword if    '${分配人员}'=='${外分配人员}'    log    pass
+    ...    ELSE    Fail
+
+内业（未）分配按流水号查询获取数据校验
+    [Arguments]    ${内流水号}    ${流水号}
+    run keyword if    ${内流水号}==${流水号}    Capture Page Screenshot    内业未分配按流水号查询获取数据成功.png
+    ...    ELSE    Capture Page Screenshot    内业未分配按流水号查询获取数据失败.png
+    run keyword if    ${内流水号}==${流水号}    log    pass
+    ...    ELSE    Fail
+
+内业（未）分配按报告编号查询获取数据校验
+    [Arguments]    ${报告编号}    ${内报告编号}
+    run keyword if    ${报告编号}==${内报告编号}    Capture Page Screenshot    内业未分配按报告编号查询获取数据成功.png
+    ...    ELSE    Capture Page Screenshot    内业未分配按报告编号查询获取数据失败.png
+    run keyword if    ${报告编号}==${内报告编号}    log    pass
+    ...    ELSE    Fail
+
+内业（未）分配按项目地址查询获取数据校验
+    [Arguments]    ${项目地址}    ${内项目地址}
+    run keyword if    '${项目地址}'=='${内项目地址}'    Capture Page Screenshot    内业未分配按项目地址查询获取数据成功.png
+    ...    ELSE    Capture Page Screenshot    内业未分配按项目地址查询获取数据失败.png
+    run keyword if    '${项目地址}'=='${内项目地址}'    log    pass
+    ...    ELSE    Fail
+
+内业（未）分配按小区名称查询获取数据校验
+    [Arguments]    ${小区名称}    ${内小区名称}
+    run keyword if    '${小区名称}'=='${内小区名称}'    Capture Page Screenshot    内业未分配按小区名称查询获取数据成功.png
+    ...    ELSE    Capture Page Screenshot    内业未分配按小区名称查询获取数据失败.png
+    run keyword if    '${小区名称}'=='${内小区名称}'    log    pass
+    ...    ELSE    Fail
+
+内业（未）分配按紧急程度查询获取数据校验
+    [Arguments]    ${紧急程度}    ${内紧急程度}
+    run keyword if    '${紧急程度}'=='${内紧急程度}'    Capture Page Screenshot    内业未分配按紧急程度查询获取数据成功.png
+    ...    ELSE    Capture Page Screenshot    内业未分配按紧急程度查询获取数据失败.png
+    run keyword if    '${紧急程度}'=='${内紧急程度}'    log    pass
+    ...    ELSE    Fail
+
+内业（未）分配按物业类型查询获取数据校验
+    [Arguments]    ${物业类型}    ${内物业类型}
+    run keyword if    '${物业类型}'=='${内物业类型}'    Capture Page Screenshot    内业未分配按物业类型查询获取数据成功.png
+    ...    ELSE    Capture Page Screenshot    内业未分配按物业类型查询获取数据失败.png
+    run keyword if    '${物业类型}'=='${内物业类型}'    log    pass
+    ...    ELSE    Fail
+
+内业（未）分配按撰写人员查询获取数据校验
+    [Arguments]    ${撰写人员}    ${内撰写人员}
+    run keyword if    '${撰写人员}'=='${内撰写人员}'    Capture Page Screenshot    内业未分配按物业类型查询获取数据成功.png
+    ...    ELSE    Capture Page Screenshot    内业未分配按物业类型查询获取数据失败.png
+    run keyword if    '${撰写人员}'=='${内撰写人员}'    log    pass
+    ...    ELSE    Fail
+
+外业（已）分配按流水号查询获取数据校验
+    [Arguments]    ${外流水号}    ${流水号}
+    run keyword if    ${外流水号}==${流水号}    Capture Page Screenshot    外业已分配按流水号查询获取数据成功.png
+    ...    ELSE    Capture Page Screenshot    外业已分配按流水号查询获取数据失败.png
+    run keyword if    ${外流水号}==${流水号}    log    pass
+    ...    ELSE    Fail
+
+外业（已）分配按报告编号查询获取数据校验
+    [Arguments]    ${报告编号}    ${外报告编号}
+    run keyword if    ${报告编号}==${外报告编号}    Capture Page Screenshot    外业已分配按报告编号查询获取数据成功.png
+    ...    ELSE    Capture Page Screenshot    外业已分配按报告编号查询获取数据失败.png
+    run keyword if    ${报告编号}==${外报告编号}    log    pass
+    ...    ELSE    Fail
+
+外业（已）分配按项目地址查询获取数据校验
+    [Arguments]    ${项目地址}    ${外项目地址}
+    run keyword if    '${项目地址}'=='${外项目地址}'    Capture Page Screenshot    外业已分配按项目地址查询获取数据成功.png
+    ...    ELSE    Capture Page Screenshot    外业已分配按项目地址查询获取数据失败.png
+    run keyword if    '${项目地址}'=='${外项目地址}'    log    pass
+    ...    ELSE    Fail
+
+外业（已）分配按小区名称查询获取数据校验
+    [Arguments]    ${小区名称}    ${外小区名称}
+    run keyword if    '${小区名称}'=='${外小区名称}'    Capture Page Screenshot    外业已分配按小区名称查询获取数据成功.png
+    ...    ELSE    Capture Page Screenshot    外业已分配按小区名称查询获取数据失败.png
+    run keyword if    '${小区名称}'=='${外小区名称}'    log    pass
+    ...    ELSE    Fail
+
+外业（已）分配按紧急程度查询获取数据校验
+    [Arguments]    ${紧急程度}    ${外紧急程度}
+    run keyword if    '${紧急程度}'=='${外紧急程度}'    Capture Page Screenshot    外业已分配按紧急程度查询获取数据成功.png
+    ...    ELSE    Capture Page Screenshot    外业已分配按紧急程度查询获取数据失败.png
+    run keyword if    '${紧急程度}'=='${外紧急程度}'    log    pass
+    ...    ELSE    Fail
+
+外业（已）分配按物业类型查询获取数据校验
+    [Arguments]    ${物业类型}    ${外物业类型}
+    run keyword if    '${物业类型}'=='${外物业类型}'    Capture Page Screenshot    外业已分配按物业类型查询获取数据成功.png
+    ...    ELSE    Capture Page Screenshot    外业已分配按物业类型查询获取数据失败.png
+    run keyword if    '${物业类型}'=='${外物业类型}'    log    pass
+    ...    ELSE    Fail
+
+内业（已）分配按流水号查询获取数据校验
+    [Arguments]    ${内流水号}    ${流水号}
+    run keyword if    ${内流水号}==${流水号}    Capture Page Screenshot    内业已分配按流水号查询获取数据成功.png
+    ...    ELSE    Capture Page Screenshot    内业已分配按流水号查询获取数据失败.png
+    run keyword if    ${内流水号}==${流水号}    log    pass
+    ...    ELSE    Fail
+
+内业（已）分配按报告编号查询获取数据校验
+    [Arguments]    ${报告编号}    ${内报告编号}
+    run keyword if    ${报告编号}==${内报告编号}    Capture Page Screenshot    内业已分配按报告编号查询获取数据成功.png
+    ...    ELSE    Capture Page Screenshot    内业已分配按报告编号查询获取数据失败.png
+    run keyword if    ${报告编号}==${内报告编号}    log    pass
+    ...    ELSE    Fail
+
+内业（已）分配按项目地址查询获取数据校验
+    [Arguments]    ${项目地址}    ${内项目地址}
+    run keyword if    '${项目地址}'=='${内项目地址}'    Capture Page Screenshot    内业已分配按项目地址查询获取数据成功.png
+    ...    ELSE    Capture Page Screenshot    内业已分配按项目地址查询获取数据失败.png
+    run keyword if    '${项目地址}'=='${内项目地址}'    log    pass
+    ...    ELSE    Fail
+
+内业（已）分配按小区名称查询获取数据校验
+    [Arguments]    ${小区名称}    ${内小区名称}
+    run keyword if    '${小区名称}'=='${内小区名称}'    Capture Page Screenshot    内业已分配按小区名称查询获取数据成功.png
+    ...    ELSE    Capture Page Screenshot    内业已分配按小区名称查询获取数据失败.png
+    run keyword if    '${小区名称}'=='${内小区名称}'    log    pass
+    ...    ELSE    Fail
+
+内业（已）分配按紧急程度查询获取数据校验
+    [Arguments]    ${紧急程度}    ${内紧急程度}
+    run keyword if    '${紧急程度}'=='${内紧急程度}'    Capture Page Screenshot    内业已分配按紧急程度查询获取数据成功.png
+    ...    ELSE    Capture Page Screenshot    内业已分配按紧急程度查询获取数据失败.png
+    run keyword if    '${紧急程度}'=='${内紧急程度}'    log    pass
+    ...    ELSE    Fail
+
+内业（已）分配按物业类型查询获取数据校验
+    [Arguments]    ${物业类型}    ${内物业类型}
+    run keyword if    '${物业类型}'=='${内物业类型}'    Capture Page Screenshot    内业已分配按物业类型查询获取数据成功.png
+    ...    ELSE    Capture Page Screenshot    内业已分配按物业类型查询获取数据失败.png
+    run keyword if    '${物业类型}'=='${内物业类型}'    log    pass
+    ...    ELSE    Fail

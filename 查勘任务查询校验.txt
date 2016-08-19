@@ -1,0 +1,140 @@
+*** Keywords ***
+查勘任务（未）领取按流水号查询校验
+    [Arguments]    ${勘流水号}    ${流水号}
+    run keyword if    ${勘流水号}==${流水号}    Capture Page Screenshot    查勘任务未领取按流水号查询获取数据成功.png
+    ...    ELSE    Capture Page Screenshot    查勘任务未领取按流水号查询获取数据失败.png
+    run keyword if    ${勘流水号}==${流水号}    log    pass
+    ...    ELSE    Fail
+
+查勘任务（未）领取按报告编号查询获取数据校验
+    [Arguments]    ${报告编号}    ${勘报告编号}
+    run keyword if    ${报告编号}==${勘报告编号}    Capture Page Screenshot    查勘任务未领取按报告编号查询获取数据成功.png
+    ...    ELSE    Capture Page Screenshot    查勘任务未领取按报告编号查询获取数据失败.png
+    run keyword if    ${报告编号}==${勘报告编号}    log    pass
+    ...    ELSE    Fail
+
+查勘任务（未）领取按小区名称查询获取数据校验
+    [Arguments]    ${小区名称}    ${勘小区名称}
+    run keyword if    '${小区名称}'=='${勘小区名称}'    Capture Page Screenshot    查勘任务未领取按小区名称查询获取数据成功.png
+    ...    ELSE    Capture Page Screenshot    查勘任务未领取按小区名称查询获取数据失败.png
+    run keyword if    '${小区名称}'=='${勘小区名称}'    log    pass
+    ...    ELSE    Fail
+
+查勘任务（未）领取按项目地址查询获取数据校验
+    [Arguments]    ${项目地址}    ${勘项目地址}
+    run keyword if    '${项目地址}'=='${勘项目地址}'    Capture Page Screenshot    查勘任务未领取按项目地址查询获取数据成功.png
+    ...    ELSE    Capture Page Screenshot    查勘任务未领取按项目地址查询获取数据失败.png
+    run keyword if    '${项目地址}'=='${勘项目地址}'    log    pass
+    ...    ELSE    Fail
+
+查勘任务（未）领取按紧急程度查询获取数据校验
+    [Arguments]    ${紧急程度}    ${勘紧急程度}
+    run keyword if    '${紧急程度}'=='${勘紧急程度}'    Capture Page Screenshot    查勘任务未领取按紧急程度查询获取数据成功.png
+    ...    ELSE    Capture Page Screenshot    查勘任务未领取按紧急程度查询获取数据失败.png
+    run keyword if    '${紧急程度}'=='${勘紧急程度}'    log    pass
+    ...    ELSE    Fail
+
+查勘任务（未）领取按物业类型查询获取数据校验
+    [Arguments]    ${物业类型}    ${勘物业类型}
+    run keyword if    '${物业类型}'=='${勘物业类型}'    Capture Page Screenshot    查勘任务未领取按物业类型查询获取数据成功.png
+    ...    ELSE    Capture Page Screenshot    查勘任务未领取按物业类型查询获取数据失败.png
+    run keyword if    '${物业类型}'=='${勘物业类型}'    log    pass
+    ...    ELSE    Fail
+
+查勘任务（进）领取按流水号查询校验
+    [Arguments]    ${勘流水号}    ${流水号}
+    run keyword if    ${勘流水号}==${流水号}    Capture Page Screenshot    查勘任务进行中按流水号查询获取数据成功.png
+    ...    ELSE    Capture Page Screenshot    查勘任务进行中按流水号查询获取数据失败.png
+    run keyword if    ${勘流水号}==${流水号}    log    pass
+    ...    ELSE    Fail
+
+查勘任务（进）领取按报告编号查询获取数据校验
+    [Arguments]    ${报告编号}    ${勘报告编号}
+    run keyword if    ${报告编号}==${勘报告编号}    Capture Page Screenshot    查勘任务进行中按报告编号查询获取数据成功.png
+    ...    ELSE    Capture Page Screenshot    查勘任务进行中按报告编号查询获取数据失败.png
+    run keyword if    ${报告编号}==${勘报告编号}    log    pass
+    ...    ELSE    Fail
+
+查勘任务（进）领取按小区名称查询获取数据校验
+    [Arguments]    ${小区名称}    ${勘小区名称}
+    run keyword if    '${小区名称}'=='${勘小区名称}'    Capture Page Screenshot    查勘任务进行中按小区名称查询获取数据成功.png
+    ...    ELSE    Capture Page Screenshot    查勘任务进行中按小区名称查询获取数据失败.png
+    run keyword if    '${小区名称}'=='${勘小区名称}'    log    pass
+    ...    ELSE    Fail
+
+查勘任务（进）领取按项目地址查询获取数据校验
+    [Arguments]    ${项目地址}    ${勘项目地址}
+    run keyword if    '${项目地址}'=='${勘项目地址}'    Capture Page Screenshot    查勘任务进行中按项目地址查询获取数据成功.png
+    ...    ELSE    Capture Page Screenshot    查勘任务进行中按项目地址查询获取数据失败.png
+    run keyword if    '${项目地址}'=='${勘项目地址}'    log    pass
+    ...    ELSE    Fail
+
+查勘任务（进）领取按紧急程度查询获取数据校验
+    [Arguments]    ${紧急程度}    ${勘紧急程度}
+    run keyword if    '${紧急程度}'=='${勘紧急程度}'    Capture Page Screenshot    查勘任务进行中按紧急程度查询获取数据成功.png
+    ...    ELSE    Capture Page Screenshot    查勘任务进行中按紧急程度查询获取数据失败.png
+    run keyword if    '${紧急程度}'=='${勘紧急程度}'    log    pass
+    ...    ELSE    Fail
+
+查勘任务（进）领取按物业类型查询获取数据校验
+    [Arguments]    ${物业类型}    ${勘物业类型}
+    run keyword if    '${物业类型}'=='${勘物业类型}'    Capture Page Screenshot    查勘任务进行中按物业类型查询获取数据成功.png
+    ...    ELSE    Capture Page Screenshot    查勘任务进行中按物业类型查询获取数据失败.png
+    run keyword if    '${物业类型}'=='${勘物业类型}'    log    pass
+    ...    ELSE    Fail
+
+查勘任务（完）领取按流水号查询校验
+    [Arguments]    ${勘流水号}    ${流水号}
+    run keyword if    ${勘流水号}==${流水号}    Capture Page Screenshot    查勘任务完成按流水号查询获取数据成功.png
+    ...    ELSE    Capture Page Screenshot    查勘任务完成按流水号查询获取数据失败.png
+    run keyword if    ${勘流水号}==${流水号}    log    pass
+    ...    ELSE    Fail
+
+查勘任务（完）领取按小区名称查询获取数据校验
+    [Arguments]    ${小区名称}    ${勘小区名称}
+    run keyword if    '${小区名称}'=='${勘小区名称}'    Capture Page Screenshot    查勘任务完成按小区名称查询获取数据成功.png
+    ...    ELSE    Capture Page Screenshot    查勘任务完成按小区名称查询获取数据失败.png
+    run keyword if    '${小区名称}'=='${勘小区名称}'    log    pass
+    ...    ELSE    Fail
+
+查勘任务（完）领取按报告编号查询获取数据校验
+    [Arguments]    ${报告编号}    ${勘报告编号}
+    run keyword if    ${报告编号}==${勘报告编号}    Capture Page Screenshot    查勘任务完成按报告编号查询获取数据成功.png
+    ...    ELSE    Capture Page Screenshot    查勘任务完成按报告编号查询获取数据失败.png
+    run keyword if    ${报告编号}==${勘报告编号}    log    pass
+    ...    ELSE    Fail
+
+查勘任务（完）领取按项目地址查询获取数据校验
+    [Arguments]    ${项目地址}    ${勘项目地址}
+    run keyword if    '${项目地址}'=='${勘项目地址}'    Capture Page Screenshot    查勘任务完成按项目地址查询获取数据成功.png
+    ...    ELSE    Capture Page Screenshot    查勘任务完成按项目地址查询获取数据失败.png
+    run keyword if    '${项目地址}'=='${勘项目地址}'    log    pass
+    ...    ELSE    Fail
+
+查勘任务（完）领取按紧急程度查询获取数据校验
+    [Arguments]    ${紧急程度}    ${勘紧急程度}
+    run keyword if    '${紧急程度}'=='${勘紧急程度}'    Capture Page Screenshot    查勘任务完成按紧急程度查询获取数据成功.png
+    ...    ELSE    Capture Page Screenshot    查勘任务完成按紧急程度查询获取数据失败.png
+    run keyword if    '${紧急程度}'=='${勘紧急程度}'    log    pass
+    ...    ELSE    Fail
+
+查勘任务（完）领取按物业类型查询获取数据校验
+    [Arguments]    ${物业类型}    ${勘物业类型}
+    run keyword if    '${物业类型}'=='${勘物业类型}'    Capture Page Screenshot    查勘任务完成按物业类型查询获取数据成功.png
+    ...    ELSE    Capture Page Screenshot    查勘任务完成按物业类型查询获取数据失败.png
+    run keyword if    '${物业类型}'=='${勘物业类型}'    log    pass
+    ...    ELSE    Fail
+
+查勘任务领取校验
+    [Arguments]    ${勘流水号}    ${流水号}
+    run keyword if    ${勘流水号}==${流水号}    Capture Page Screenshot    查勘任务领取成功.png
+    ...    ELSE    Capture Page Screenshot    查勘任务领取失败.png
+    run keyword if    ${勘流水号}==${流水号}    log    pass
+    ...    ELSE    Fail
+
+查勘任务完成校验
+    [Arguments]    ${勘流水号}    ${流水号}
+    run keyword if    ${勘流水号}==${流水号}    Capture Page Screenshot    查勘任务完成成功.png
+    ...    ELSE    Capture Page Screenshot    查勘任务完成失败.png
+    run keyword if    ${勘流水号}==${流水号}    log    pass
+    ...    ELSE    Fail

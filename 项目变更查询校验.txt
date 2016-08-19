@@ -1,0 +1,98 @@
+*** Keywords ***
+项目变更按流水号查询校验
+    [Arguments]    ${项目变更流水号}    ${流水号}
+    run keyword if    ${项目变更流水号}==${流水号}    Capture Page Screenshot    项目变更按流水号查询获取数据成功.png
+    ...    ELSE    Capture Page Screenshot    项目变更按流水号查询获取数据失败.png
+    run keyword if    ${项目变更流水号}==${流水号}    log    pass
+    ...    ELSE    Fail
+
+项目变更按报告编号查询校验
+    [Arguments]    ${项目变更报告编号}    ${报告编号}
+    run keyword if    ${项目变更报告编号}==${报告编号}    Capture Page Screenshot    项目变更报告编号查询获取数据成功.png
+    ...    ELSE    Capture Page Screenshot    项目变更报告编号查询获取数据失败.png
+    run keyword if    ${项目变更报告编号}==${报告编号}    log    pass
+    ...    ELSE    Fail
+
+项目变更按项目地址查询校验
+    [Arguments]    ${项目变更项目地址}    ${项目地址}
+    run keyword if    '${项目变更项目地址}'=='${项目地址}'    Capture Page Screenshot    项目变更项目地址询获取数据成功.png
+    ...    ELSE    Capture Page Screenshot    项目变更项目地址询获取数据失败.png
+    run keyword if    '${项目变更项目地址}'=='${项目地址}'    log    pass
+    ...    ELSE    Fail
+
+项目变更按项目小区名查询校验
+    [Arguments]    ${项目变更项目小区名}    ${小区名}
+    run keyword if    '${项目变更项目小区名}'=='${小区名}'    Capture Page Screenshot    项目变更项目小区名询获取数据成功.png
+    ...    ELSE    Capture Page Screenshot    项目变更项目小区名询获取数据失败.png
+    run keyword if    '${项目变更项目小区名}'=='${小区名}'    log    pass
+    ...    ELSE    Fail
+
+添加项目变更按流水号查询校验
+    [Arguments]    ${项目变更流水号}    ${流水号}
+    run keyword if    ${项目变更流水号}==${流水号}    Capture Page Screenshot    添加项目变更按流水号查询获取数据成功.png
+    ...    ELSE    Capture Page Screenshot    添加项目变更按流水号查询获取数据失败.png
+    run keyword if    ${项目变更流水号}==${流水号}    log    pass
+    ...    ELSE    Fail
+
+添加项目变更按报告编号查询校验
+    [Arguments]    ${项目变更报告编号}    ${报告编号}
+    run keyword if    ${项目变更报告编号}==${报告编号}    Capture Page Screenshot    添加项目变更报告编号查询获取数据成功.png
+    ...    ELSE    Capture Page Screenshot    添加项目变更报告编号查询获取数据失败.png
+    run keyword if    ${项目变更报告编号}==${报告编号}    log    pass
+    ...    ELSE    Fail
+
+添加项目变更按项目地址查询校验
+    [Arguments]    ${项目变更项目地址}    ${项目地址}
+    run keyword if    '${项目变更项目地址}'=='${项目地址}'    Capture Page Screenshot    添加项目变更项目地址询获取数据成功.png
+    ...    ELSE    Capture Page Screenshot    添加项目变更项目地址询获取数据失败.png
+    run keyword if    '${项目变更项目地址}'=='${项目地址}'    log    pass
+    ...    ELSE    Fail
+
+添加项目变更按项目小区名查询校验
+    [Arguments]    ${项目变更项目小区名}    ${小区名}
+    run keyword if    '${项目变更项目小区名}'=='${小区名}'    Capture Page Screenshot    添加项目变更项目小区名询获取数据成功.png
+    ...    ELSE    Capture Page Screenshot    添加项目变更项目小区名询获取数据失败.png
+    run keyword if    '${项目变更项目小区名}'=='${小区名}'    log    pass
+    ...    ELSE    Fail
+
+项目变更审批校验
+    [Arguments]    ${项目变更查状态}
+    run keyword if    '${项目变更查状态}'=='已通过'    Capture Page Screenshot    变更审批成功.png
+    ...    ELSE    Capture Page Screenshot    变更审批失败.png
+    run keyword if    '${项目变更查状态}'=='已通过'    log    pass
+    ...    ELSE    Fail
+
+项目变更按项目状态查询校验
+    [Arguments]    ${项目变更项目状态}    ${状态}
+    run keyword if    '${项目变更项目状态}'=='${状态}'    Capture Page Screenshot    添加项目变更项目状态查询获取数据成功.png
+    ...    ELSE    Capture Page Screenshot    添加项目变更项目状态询获取数据失败.png
+    run keyword if    '${项目变更项目状态}'=='${状态}'    log    pass
+    ...    ELSE    Fail
+
+项目变更审批按流水号查询校验
+    [Arguments]    ${项目变更流水号}    ${流水号}
+    run keyword if    ${项目变更流水号}==${流水号}    Capture Page Screenshot    项目变更审批按流水号查询获取数据成功.png
+    ...    ELSE    Capture Page Screenshot    项目变更审批按流水号查询获取数据失败.png
+    run keyword if    ${项目变更流水号}==${流水号}    log    pass
+    ...    ELSE    Fail
+
+项目变更审批按报告编号查询校验
+    [Arguments]    ${项目变更报告编号}    ${报告编号}
+    run keyword if    ${项目变更报告编号}==${报告编号}    Capture Page Screenshot    项目变更审批报告编号查询获取数据成功.png
+    ...    ELSE    Capture Page Screenshot    项目变更审批报告编号查询获取数据失败.png
+    run keyword if    ${项目变更报告编号}==${报告编号}    log    pass
+    ...    ELSE    Fail
+
+项目变更审批按项目地址查询校验
+    [Arguments]    ${项目变更项目地址}    ${项目地址}
+    run keyword if    '${项目变更项目地址}'=='${项目地址}'    Capture Page Screenshot    项目变更审批按项目地址询获取数据成功.png
+    ...    ELSE    Capture Page Screenshot    项目变更审批按项目地址询获取数据失败.png
+    run keyword if    '${项目变更项目地址}'=='${项目地址}'    log    pass
+    ...    ELSE    Fail
+
+项目变更审批按项目小区名查询校验
+    [Arguments]    ${项目变更项目小区名}    ${小区名}
+    run keyword if    '${项目变更项目小区名}'=='${小区名}'    Capture Page Screenshot    项目变更审批项目小区名询获取数据成功.png
+    ...    ELSE    Capture Page Screenshot    项目变更审批项目小区名询获取数据失败.png
+    run keyword if    '${项目变更项目小区名}'=='${小区名}'    log    pass
+    ...    ELSE    Fail
